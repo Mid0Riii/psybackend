@@ -1,0 +1,90 @@
+from django.utils.translation import ugettext as _
+from xadmin.layout import Fieldset, Main, Side, Row
+
+BasicLayout = \
+    (
+        Main(
+            Fieldset(_('个人信息'),
+                     'stu_number',
+                     'stu_name',
+                     'stu_gender',
+                     'stu_id_number',
+                     'stu_loc',
+                     'stu_class',
+                     'stu_level'
+                     ),
+            Fieldset(_('学历和专业'),
+                     'stu_deg',
+                     'stu_major',
+                     ),
+            Fieldset(_('工作信息'),
+                     'stu_company',
+                     'stu_duty',
+                     'stu_status',
+                     'stu_origin',
+                     ),
+            Fieldset(_('联系方式'),
+                     'stu_cellphone',
+                     'stu_wechat',
+                     'stu_qq',
+                     ),
+            Fieldset(_('报名信息'),
+                     'stu_signup_date',
+                     'stu_signup_people',
+                     )
+        ),
+        Side(
+            Fieldset('其他信息',
+                     'stu_other')
+        ),
+    )
+
+TuitionLayout = \
+    (
+        Main(
+            Fieldset(_('学生信息'),
+                     'relate_student',
+                     ),
+            Fieldset(_('费用'),
+                     'fee_train',
+                     'fee_material',
+                     'fee_exam',
+                     'fee_total',
+                     'fee_exam_extra',
+                     ),
+            Fieldset(_('交费信息'),
+                     'fee_date',
+                     'fee_method',
+                     'fee_id'
+                     )
+        ),
+    )
+
+ExamLayout = \
+    (
+        Main(
+            Fieldset(_('学生信息'),
+                     'relate_student',
+                     ),
+            Fieldset(_('报考信息'),
+                     'exam_date'
+                     ),
+            Fieldset(_('理论'),
+                     'exam_theory',
+                     'exam_theory_result'
+                     ),
+            Fieldset(_('实操'),
+                     'exam_practise',
+                     'exam_practise_result'
+                     ),
+            Fieldset(_('综合'),
+                     'exam_total',
+                     'exam_total_result'
+                     ),
+        ),
+        Side(
+            Fieldset(_('考试结果'),
+                     'exam_status'
+                     ),
+        ),
+    )

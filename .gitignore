@@ -100,7 +100,7 @@ Temporary Items
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
-/__collected_static
+/__collected_static/
 *.py[cod]
 *$py.class
 

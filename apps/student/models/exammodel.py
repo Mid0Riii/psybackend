@@ -2,7 +2,7 @@ from django.db import models
 from .studentmodel import StudentBasic
 class StudentExam(models.Model):
     class Meta:
-        verbose_name = '学员考试信息'
+        verbose_name = '心理学员考试信息'
         verbose_name_plural = verbose_name
 
     relate_student = models.OneToOneField(StudentBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)

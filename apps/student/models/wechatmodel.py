@@ -2,7 +2,7 @@ from django.db import models
 from .studentmodel import StudentBasic
 class StudentWechat(models.Model):
     class Meta:
-        verbose_name = '学员365开通情况'
+        verbose_name = '心理学员365开通情况'
         verbose_name_plural = verbose_name
 
     relate_student = models.OneToOneField(StudentBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)

@@ -2,7 +2,7 @@ from django.db import models
 from .classmodel import StudentClass
 class StudentBasic(models.Model):
     class Meta:
-        verbose_name = '学员招生信息'
+        verbose_name = '心理学员招生信息'
         verbose_name_plural = verbose_name
 
     def __str__(self):

@@ -1,7 +1,7 @@
 from hr.models import CurrentStaff, DismissStaff, AllStaff
 from student.models import StudentClass,StudentCertification, StudentBasic, StudentExamExtra, StudentExam, StudentWechat, \
     StudentTextbook, Tuition,Onduty
-from teacher.models import Teacher
+from teacher.models import Teacher,FamilyTeacher
 from filer.models import FakeModel
 from family.models import FamilyClass,FamilyOnduty,FamilyTuition,FamilyBasic,FamilyCertification,FamilyTextbook,FamilyWechat,ResultExtra,Result
 # from fileshare.models import FileShare
@@ -9,7 +9,7 @@ from family.models import FamilyClass,FamilyOnduty,FamilyTuition,FamilyBasic,Fam
 def set_menu(self):
     return (
         {
-            'title': '学员信息管理',
+            'title': '心理学员信息管理',
             'icon':'fa fa-address-book',
             'menus':
                 (
@@ -136,11 +136,17 @@ def set_menu(self):
             'menus':
                 (
                     {
-                        'title': '教师授课信息管理',
+                        'title': '心理教师授课信息管理',
                         'perm': self.get_model_perm(Teacher, 'view'),
                         'url': self.get_model_url(Teacher, 'changelist'),
                         'icon': 'fa fa-calendar'
                     },
+                    {
+                        'title': '家庭教师授课信息管理',
+                        'perm': self.get_model_perm(FamilyTeacher, 'view'),
+                        'url': self.get_model_url(FamilyTeacher, 'changelist'),
+                        'icon': 'fa fa-home'
+                    }
                 )
         },
         {

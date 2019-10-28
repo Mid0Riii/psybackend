@@ -91,7 +91,7 @@ class FamilyBasic(models.Model):
     fam_name = models.CharField(max_length=128, verbose_name='姓名',blank=True,null=True)
     fam_gender = models.CharField(max_length=16, choices=(('男', '男'), ('女', '女')), verbose_name='性别',blank=True,null=True)
     fam_level = models.CharField(max_length=16,choices=(('二级','二级'),('三级','三级')),verbose_name='级别',null=True,blank=True)
-    fam_id_number = models.CharField(max_length=128, verbose_name='身份证号', unique=True)
+    fam_id_number = models.CharField(max_length=128, verbose_name='身份证号')
     fam_loc = models.CharField(max_length=128, verbose_name='所在地', blank=True, null=True)
     fam_deg = models.CharField(max_length=128, verbose_name='学历', blank=True, null=True)
     fam_major = models.CharField(max_length=128, verbose_name='专业', blank=True, null=True)

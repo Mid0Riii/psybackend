@@ -4,7 +4,7 @@ from xadmin.views import DetailAdminView, ListAdminView,ModelFormAdminView,Updat
 from import_export import resources, fields
 from import_export.widgets import ForeignKeyWidget, BooleanWidget
 from xadmin.plugins import add_html
-
+from .views import FakeView
 
 from django.contrib import admin
 
@@ -24,6 +24,7 @@ class FakeAdmin(object):
     # pass
     Add_file_iframe_allow=True
 
+xadmin.site.register_view(r'^test_view/(\d+)/$', FakeView, name='for_test')
 xadmin.site.register_plugin(add_html.Add_file_iframe,ListAdminView)
 # xadmin.site.register(Clipboard,ClipboardAdmin)
 # xadmin.site.register(File,FileAdmin)

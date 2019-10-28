@@ -3,11 +3,12 @@ from student.models import StudentClass,StudentCertification, StudentBasic, Stud
     StudentTextbook, Tuition,Onduty
 from teacher.models import Teacher,FamilyTeacher
 from filer.models import FakeModel
+from filer.models import Folder
 from family.models import FamilyClass,FamilyOnduty,FamilyTuition,FamilyBasic,FamilyCertification,FamilyTextbook,FamilyWechat,ResultExtra,Result
 # from fileshare.models import FileShare
 
 def set_menu(self):
-    return (
+    defaultLayoutList = [
         {
             'title': '心理学员信息管理',
             'icon':'fa fa-address-book',
@@ -176,17 +177,43 @@ def set_menu(self):
                     }
                 )
         },
+        # {
+        #     'title':'文件系统',
+        #     'icon': 'fa fa-file',
+        #     'menus':
+        #         (
+        #             {
+        #                 'title':'文件管理',
+        #                 'perm':self.get_model_perm(FakeModel,'view'),
+        #                 'url':self.get_model_url(FakeModel,'changelist'),
+        #                 'icon':'fa fa-file'
+        #             },
+        #         )
+        # },
+    ]
+    folderSet = Folder.objects.all()
+    folderMenusList = [
         {
-            'title':'文件系统',
-            'icon': 'fa fa-file',
-            'menus':
-                (
-                    {
-                        'title':'文件管理',
-                        'perm':self.get_model_perm(FakeModel,'view'),
-                        'url':self.get_model_url(FakeModel,'changelist'),
-                        'icon':'fa fa-file'
-                    },
-                )
+            'title': '文件管理',
+            'perm': self.get_model_perm(FakeModel, 'view'),
+            'url': self.get_model_url(FakeModel, 'changelist'),
+            'icon': 'fa fa-file'
         },
+    ]
+    for querySet in folderSet:
+        folderMenusList.append(
+            {
+                'title': str(querySet.name),
+                # 'perm':self.get_model_perm(FakeModel,'view'),
+                'url':'/test_view/'+str(querySet.id)+'/',
+                'icon':'fa fa-file'
+            }
+        )
+    defaultLayoutList.append(
+        {
+            'title': '文件系统',
+            'icon': 'fa fa-file',
+            'menus':tuple(folderMenusList)
+        }
     )
+    return tuple(defaultLayoutList)

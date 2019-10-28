@@ -1,0 +1,14 @@
+
+{% extends 'xadmin/base_site.html' %}
+
+
+{% block content %}
+    <iframe style="width:82%;height: 800px;"scrolling="auto" frameborder="0" id="iframe" src="/file/filer/folder/{{ relate_id }}/list/"></iframe>
+    {{ relate_id }}
+
+<script>
+    $(document).ready(function () {
+        $(".content-navbar").remove();
+    });
+</script>
+{% endblock %}

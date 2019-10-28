@@ -8,7 +8,7 @@ from django.db import models
 from django.db.models import Q
 from django.utils.http import urlquote
 from django.utils.translation import ugettext_lazy as _
-
+from .fakemodel import FakeModel
 import mptt
 
 from .. import settings as filer_settings
@@ -28,6 +28,7 @@ class FolderPermissionManager(models.Manager):
     Theses methods are called by introspection from "has_generic_permisison" on
     the folder model.
     """
+
     def get_read_id_list(self, user):
         """
         Give a list of a Folders where the user has read rights or the string
@@ -242,6 +243,18 @@ class Folder(models.Model, mixins.IconsMixin):
             return True
         except Folder.DoesNotExist:
             return False
+
+    def save(self, *args, **kwargs):
+        super().save()
+        try:
+            FakeModel.objects.get(relate_id=self.id)
+        except Exception as e:
+            FakeModel.objects.create(name=self.name,relate_id=self.id)
+    def delete(self, using=None, keep_parents=False):
+        try:
+            FakeModel.objects.get(relate_id=self.id).delete()
+        except Exception as e:
+            FakeModel.objects.create(name=self.name,relate_id=self.id)
 
     class Meta(object):
         # see: https://github.com/django-mptt/django-mptt/pull/577

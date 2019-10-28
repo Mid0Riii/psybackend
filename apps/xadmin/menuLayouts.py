@@ -191,7 +191,7 @@ def set_menu(self):
         #         )
         # },
     ]
-    folderSet = Folder.objects.all()
+    folderSet = Folder.objects.filter(level=0)
     folderMenusList = [
         {
             'title': '文件管理',

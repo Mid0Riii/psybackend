@@ -1,9 +1,8 @@
 import xadmin
 from .models import StudentBasic, StudentCertification, StudentExam, StudentExamExtra, StudentTextbook, \
-    Tuition, StudentWechat, StudentClass, Onduty
+    Tuition, StudentWechat, StudentClass, Onduty, Total
 from import_export import resources, fields
 from import_export.widgets import ForeignKeyWidget, BooleanWidget
-
 from .layouts.detailLayouts import BasicLayout, TuitionLayout, ExamLayout
 
 
@@ -93,7 +92,7 @@ class ClassAdmin(object):
     class ClassResources(resources.ModelResource):
         class Meta:
             model = StudentClass
-            fields = ('class_name', 'class_teacher','class_recruit_teacher','class_date')
+            fields = ('class_name', 'class_teacher', 'class_recruit_teacher', 'class_date')
             # 导入数据时，如果该条数据未修改过，则会忽略
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
@@ -227,7 +226,7 @@ class WechatAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_student', 'wechat_number', 'wechat_nickname', 'wechat_date', )
+            fields = ('relate_student', 'wechat_number', 'wechat_nickname', 'wechat_date',)
 
     import_export_args = {'import_resource_class': WechatResources, }
     list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'wechat_number', 'wechat_nickname',
@@ -391,6 +390,7 @@ class OndutyAdmin(object):
             column_name='relate_student',
             widget=OndutyForeignWidget(StudentBasic, 'stu_number')
         )
+
         class Meta:
             model = Onduty
             import_id_fields = ('relate_student',)
@@ -398,7 +398,7 @@ class OndutyAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_student','onduty', 'homework', 'other')
+            fields = ('relate_student', 'onduty', 'homework', 'other')
 
     import_export_args = {'import_resource_class': OndutyResources}
     list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'onduty', 'homework', 'other']
@@ -407,3 +407,11 @@ class OndutyAdmin(object):
     show_bookmarks = False
     search_fields = list_filter
     reanonly_fields = ['relate_student']
+
+
+# @xadmin.sites.register(Total)
+# class TotalAdmin(object):
+#     """
+#     总览信息
+#     """
+#     list_display=['stu_name', 'stu_gender', 'stu_class', 'stu_class_num']

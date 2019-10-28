@@ -250,11 +250,11 @@ class Folder(models.Model, mixins.IconsMixin):
             FakeModel.objects.get(relate_id=self.id)
         except Exception as e:
             FakeModel.objects.create(name=self.name,relate_id=self.id)
-    def delete(self, using=None, keep_parents=False):
-        try:
-            FakeModel.objects.get(relate_id=self.id).delete()
-        except Exception as e:
-            FakeModel.objects.create(name=self.name,relate_id=self.id)
+    # def delete(self, using=None, keep_parents=False):
+    #     try:
+    #         FakeModel.objects.get(relate_id=self.id).delete()
+    #     except Exception as e:
+    #         # FakeModel.objects.create(name=self.name,relate_id=self.id)
 
     class Meta(object):
         # see: https://github.com/django-mptt/django-mptt/pull/577

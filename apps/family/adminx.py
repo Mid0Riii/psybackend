@@ -1,6 +1,6 @@
 import xadmin
 from .models import FamilyBasic, FamilyCertification, Result, ResultExtra, FamilyTextbook, \
-    FamilyTuition, FamilyWechat, FamilyClass, FamilyOnduty
+    FamilyTuition, FamilyWechat, FamilyClass, FamilyOnduty,Total
 from import_export import resources, fields
 from import_export.widgets import ForeignKeyWidget, BooleanWidget
 from django.apps import apps
@@ -400,3 +400,19 @@ class FamilyOndutyAdmin(object):
     show_bookmarks = False
     search_fields = list_filter
     reanonly_fields = ['relate_family']
+
+@xadmin.sites.register(Total)
+class TotalAdmin(object):
+    list_display = [
+        'fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
+        'fam_loc', 'fam_deg', 'fam_major',
+        'fam_company', 'fam_duty',
+        'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
+        'fam_signup_date', 'fam_signup_people', 'fam_teacher_level', 'fam_other',
+        'fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax',
+        'text_basic', 'text_other',
+        'exam_date', 'exam_homework2_result', 'exam_homework3_result', 'exam_result',
+        'exam_date_extra', 'exam_homework2_extra', 'exam_homework3_extra', 'exam_result_extra',
+        'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date',
+
+    ]

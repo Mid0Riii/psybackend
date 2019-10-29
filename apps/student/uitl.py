@@ -23,9 +23,45 @@ cert=['cert_id', 'cert_date', 'cert_draw_people',
                     'cert_draw_date']
 duty =['onduty', 'homework', 'other']
 
+lst = basic+tuition+text+wechat+duty+exam+examextra+cert
 
-for i in range(len(basic)):
-    basic[i] = 'student__'+basic[i]
-for i in range(len(tuition)):
-    tuition[i] = 'student__tuition__'+tuition[i]
-print(basic+tuition)
+print(lst)
+# with open("disgusting.py",'w+') as file:
+    # for i in range(len(basic)):
+    #     file.write("def "+str(basic[i])+"(self):\n")
+    #     file.write("    return self.student."+str(basic[i])+"\n")
+    #     file.write(str(basic[i])+".short_description = \"\"\n")
+    # for i in range(len(tuition)):
+    #     file.write("def " + str(tuition[i]) + "(self):\n")
+    #     file.write("    return self.student.tuition." + str(tuition[i]) + "\n")
+    #     file.write(str(tuition[i]) + ".short_description = \"\"\n")
+    # for i in range(len(text)):
+    #     file.write("def " + str(text[i]) + "(self):\n")
+    #     file.write("    return self.student.studenttextbook." + str(text[i]) + "\n")
+    #     file.write(str(text[i]) + ".short_description = \"\"\n")
+    # for i in range(len(wechat)):
+    #     file.write("def " + str(wechat[i]) + "(self):\n")
+    #     file.write("    return self.student.studentwechat." + str(wechat[i]) + "\n")
+    #     file.write(str(wechat[i]) + ".short_description = \"\"\n")
+    # for i in range(len(wechat)):
+    #     file.write("def " + str(wechat[i]) + "(self):\n")
+    #     file.write("    return self.student.studentwechat." + str(wechat[i]) + "\n")
+    #     file.write(str(wechat[i]) + ".short_description = \"\"\n")
+    # for i in range(len(exam)):
+    #     file.write("def " + str(exam[i]) + "(self):\n")
+    #     file.write("    return self.student.studentexam." + str(exam[i]) + "\n")
+    #     file.write(str(exam[i]) + ".short_description = \"\"\n")
+    # for i in range(len(examextra)):
+    #     file.write("def " + str(examextra[i])+"_extra"+"(self):\n")
+    #     file.write("    return self.student.studentexamextra." + str(examextra[i]) + "\n")
+    #     file.write(str(examextra[i])+"_extra" + ".short_description = \"\"\n")
+    # for i in range(len(cert)):
+    #     file.write("def " + str(cert[i]) + "(self):\n")
+    #     file.write("    return self.student.studentcertification." + str(cert[i]) + "\n")
+    #     file.write(str(cert[i]) + ".short_description = \"\"\n")
+    # for i in range(len(duty)):
+    #     file.write("def " + str(duty[i]) + "(self):\n")
+    #     file.write("    return self.student.studentonduty." + str(duty[i]) + "\n")
+    #     file.write(str(duty[i]) + ".short_description = \"\"\n")
+
+

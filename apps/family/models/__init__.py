@@ -7,3 +7,4 @@ from .resultmodel import *
 from .resultextramodel import *
 from .certificationmodel import *
 from .ondutymodel import *
+from .totalmodel import *

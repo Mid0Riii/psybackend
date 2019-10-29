@@ -5,7 +5,7 @@ class Onduty(models.Model):
         verbose_name = '心理学员考勤信息'
         verbose_name_plural = verbose_name
 
-    relate_student = models.ForeignKey(StudentBasic,on_delete=models.CASCADE,verbose_name='学号',blank=True,null=True)
+    relate_student = models.OneToOneField(StudentBasic,on_delete=models.CASCADE,verbose_name='学号',blank=True,null=True)
     onduty = models.CharField(max_length=128, verbose_name='出勤', blank=True, null=True)
     homework = models.CharField(max_length=128, verbose_name='作业打卡', blank=True, null=True)
     other = models.TextField(verbose_name="备注", null=True, blank=True)

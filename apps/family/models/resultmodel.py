@@ -6,7 +6,7 @@ class Result(models.Model):
         verbose_name = '家庭考核成绩'
         verbose_name_plural = verbose_name
 
-    relate_family = models.ForeignKey(FamilyBasic, on_delete=models.CASCADE, verbose_name='学号', blank=True, null=True)
+    relate_family = models.OneToOneField(FamilyBasic, on_delete=models.CASCADE, verbose_name='学号', blank=True, null=True)
     date = models.CharField(max_length=128,verbose_name='考核日期',blank=True,null=True)
     homework_two_result = models.CharField(max_length=128,verbose_name='作业二成绩',blank=True,null=True)
     homework_three_result = models.CharField(max_length=128,verbose_name='作业三成绩',blank=True,null=True)

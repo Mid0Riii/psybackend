@@ -6,7 +6,8 @@ from filer.models import FakeModel
 from filer.models import Folder
 from family.models import FamilyClass,FamilyOnduty,FamilyTuition,FamilyBasic,FamilyCertification,FamilyTextbook,FamilyWechat,ResultExtra,Result
 # from fileshare.models import FileShare
-
+from family.models import Total as FamilyTotal
+from student.models import Total as StudentTotal
 def set_menu(self):
     defaultLayoutList = [
         {
@@ -14,6 +15,12 @@ def set_menu(self):
             'icon':'fa fa-address-book',
             'menus':
                 (
+                    {
+                        'title': '学员信息总览',
+                        'perm': self.get_model_perm(StudentTotal, 'view'),
+                        'url': self.get_model_url(StudentTotal, 'changelist'),
+                        'icon': 'fa fa-address-book'
+                    },
                     {
                         'title': '基本信息',
                         'perm': self.get_model_perm(StudentBasic, 'view'),
@@ -75,6 +82,12 @@ def set_menu(self):
             'icon': 'fa fa-home',
             'menus':
                 (
+                    {
+                        'title': '家庭信息总览',
+                        'perm': self.get_model_perm(FamilyTotal, 'view'),
+                        'url': self.get_model_url(FamilyTotal, 'changelist'),
+                        'icon': 'fa fa-address-book'
+                    },
                     {
                         'title': '基本信息',
                         'perm': self.get_model_perm(FamilyBasic, 'view'),

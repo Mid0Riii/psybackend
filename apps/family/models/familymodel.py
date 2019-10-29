@@ -18,6 +18,7 @@ class FamilyBasic(models.Model):
         from .resultextramodel import ResultExtra
         from .certificationmodel import FamilyCertification
         from .ondutymodel import FamilyOnduty
+        from .totalmodel import Total
         try:
             FamilyTuition.objects.get(relate_family=self)
             Result.objects.get(relate_family=self)
@@ -26,6 +27,7 @@ class FamilyBasic(models.Model):
             FamilyTextbook.objects.get(relate_family=self)
             FamilyCertification.objects.get(relate_family=self)
             FamilyOnduty.objects.get(relate_family=self)
+            Total.objects.get(family=self)
         except Exception as e:
             FamilyTuition.objects.create(relate_family=self)
             Result.objects.create(relate_family=self)
@@ -34,6 +36,7 @@ class FamilyBasic(models.Model):
             FamilyTextbook.objects.create(relate_family=self)
             FamilyCertification.objects.create(relate_family=self)
             FamilyOnduty.objects.create(relate_family=self)
+            Total.objects.create(family=self)
         # super(familyBasic, self).save(*args, **kwargs)
     def get_verbose_name(self,field):
         return str(field)

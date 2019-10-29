@@ -17,8 +17,22 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from student.models import StudentBasic,Total as StudentTotal
+from family.models import FamilyBasic,Total as FamilyTotal
 import xadmin
+from django.shortcuts import HttpResponse
+def generate_total(request):
+    q = StudentBasic.objects.all()
+    p = FamilyBasic.objects.all()
+    for i in p:
+        FamilyTotal.objects.create(family=i)
+    for j in q:
+        StudentTotal.objects.create(student=j)
+
+    return HttpResponse("<h1>迁移成功</h1>")
+
 urlpatterns = [
     path('file/', admin.site.urls),
-    path('',xadmin.site.urls)
+    path('',xadmin.site.urls),
+    path('generate/',generate_total)
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

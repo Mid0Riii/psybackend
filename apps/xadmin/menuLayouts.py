@@ -205,14 +205,7 @@ def set_menu(self):
         # },
     ]
     folderSet = Folder.objects.filter(level=0).order_by('rank')
-    folderMenusList = [
-        {
-            'title': '文件管理',
-            'perm': self.get_model_perm(FakeModel, 'view'),
-            'url': self.get_model_url(FakeModel, 'changelist'),
-            'icon': 'fa fa-file'
-        },
-    ]
+    folderMenusList = []
     for querySet in folderSet:
         folderMenusList.append(
             {
@@ -222,6 +215,12 @@ def set_menu(self):
                 'icon':'fa fa-file'
             }
         )
+    folderMenusList.append({
+            'title': '文件管理',
+            'perm': self.get_model_perm(FakeModel, 'view'),
+            'url': self.get_model_url(FakeModel, 'changelist'),
+            'icon': 'fa fa-file'
+        },)
     defaultLayoutList.append(
         {
             'title': '文件系统',

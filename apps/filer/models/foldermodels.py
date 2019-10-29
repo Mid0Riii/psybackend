@@ -117,6 +117,7 @@ class Folder(models.Model, mixins.IconsMixin):
         on_delete=models.CASCADE,
     )
     name = models.CharField(_('name'), max_length=255)
+    rank = models.IntegerField(verbose_name='显示顺序',null=True,blank=True)
 
     owner = models.ForeignKey(
         getattr(settings, 'AUTH_USER_MODEL', 'auth.User'),

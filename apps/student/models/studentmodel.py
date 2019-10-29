@@ -16,6 +16,7 @@ class StudentBasic(models.Model):
         from .wechatmodel import StudentWechat
         from .exammodel import StudentExam
         from .examextramodel import StudentExamExtra
+        from .totalmodel import Total
         from .certificationmodel import StudentCertification
         try:
             Tuition.objects.get(relate_student=self)
@@ -24,6 +25,7 @@ class StudentBasic(models.Model):
             StudentExamExtra.objects.get(relate_student=self)
             StudentTextbook.objects.get(relate_student=self)
             StudentCertification.objects.get(relate_student=self)
+            Total.objects.get(student=self)
         except Exception as e:
             Tuition.objects.create(relate_student=self)
             StudentExam.objects.create(relate_student=self)
@@ -31,6 +33,7 @@ class StudentBasic(models.Model):
             StudentExamExtra.objects.create(relate_student=self)
             StudentTextbook.objects.create(relate_student=self)
             StudentCertification.objects.create(relate_student=self)
+            Total.objects.create(student=self)
         # super(StudentBasic, self).save(*args, **kwargs)
     def get_verbose_name(self,field):
         return str(field)

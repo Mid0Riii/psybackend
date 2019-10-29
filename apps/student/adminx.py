@@ -409,9 +409,11 @@ class OndutyAdmin(object):
     reanonly_fields = ['relate_student']
 
 
-# @xadmin.sites.register(Total)
-# class TotalAdmin(object):
-#     """
-#     总览信息
-#     """
-#     list_display=['stu_name', 'stu_gender', 'stu_class', 'stu_class_num']
+@xadmin.sites.register(Total)
+class TotalAdmin(object):
+    """
+    总览信息
+    """
+    list_display=['stu_name', 'stu_gender', 'stu_class', 'stu_class_num']
+    fk_fields=['student__stu_name']
+    list_filter=['student__stu_name']

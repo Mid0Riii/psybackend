@@ -191,7 +191,7 @@ def set_menu(self):
         #         )
         # },
     ]
-    folderSet = Folder.objects.filter(level=0)
+    folderSet = Folder.objects.filter(level=0).order_by('rank')
     folderMenusList = [
         {
             'title': '文件管理',

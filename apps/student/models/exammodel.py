@@ -1,5 +1,7 @@
 from django.db import models
 from .studentmodel import StudentBasic
+
+
 class StudentExam(models.Model):
     class Meta:
         verbose_name = '心理学员考试信息'
@@ -7,14 +9,15 @@ class StudentExam(models.Model):
 
     relate_student = models.OneToOneField(StudentBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
     # relate_student = models.ForeignKey(StudentBasic, on_delete=models.DO_NOTHING, verbose_name='学号')
-    exam_date = models.CharField(max_length=128,verbose_name='报考日期', null=True, blank=True)
-    exam_theory = models.CharField(max_length=128, verbose_name='理论报考', blank=True, null=True)
-    exam_theory_result = models.CharField(max_length=128, verbose_name='理论成绩', blank=True, null=True)
-    exam_practise = models.CharField(max_length=128, verbose_name='实操报考', blank=True, null=True)
-    exam_practise_result = models.CharField(max_length=128, verbose_name='实操成绩', blank=True, null=True)
-    exam_total = models.CharField(max_length=128, verbose_name='综合报考', blank=True, null=True)
-    exam_total_result = models.CharField(max_length=128, verbose_name='综合成绩', blank=True, null=True)
-    exam_status = models.CharField(max_length=128, verbose_name='合格情况',choices=(('合格','合格'),('不合格','不合格')),blank=True, null=True)
+    exam_date = models.CharField(max_length=128, verbose_name='报考日期', null=True, blank=True, default='空')
+    exam_theory = models.CharField(max_length=128, verbose_name='理论报考', blank=True, null=True, default='空')
+    exam_theory_result = models.CharField(max_length=128, verbose_name='理论成绩', blank=True, null=True, default='空')
+    exam_practise = models.CharField(max_length=128, verbose_name='实操报考', blank=True, null=True, default='空')
+    exam_practise_result = models.CharField(max_length=128, verbose_name='实操成绩', blank=True, null=True, default='空')
+    exam_total = models.CharField(max_length=128, verbose_name='综合报考', blank=True, null=True, default='空')
+    exam_total_result = models.CharField(max_length=128, verbose_name='综合成绩', blank=True, null=True, default='空')
+    exam_status = models.CharField(max_length=128, verbose_name='合格情况', choices=(('合格', '合格'), ('不合格', '不合格')),
+                                   blank=True, null=True, default='空')
 
     def get_stu_name(self):
         return self.relate_student.stu_name

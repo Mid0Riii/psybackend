@@ -414,5 +414,7 @@ class TotalAdmin(object):
         'exam_date', 'exam_homework2_result', 'exam_homework3_result', 'exam_result',
         'exam_date_extra', 'exam_homework2_extra', 'exam_homework3_extra', 'exam_result_extra',
         'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date',
-
     ]
+    show_bookmarks=False
+    list_filter = ['family__fam_name','family__fam_cellphone','family__fam_class__class_name','family__fam_teacher_level','family__familytuition__fee_date',
+                   'family__familywechat__wechat_number','family__result__result','family__familycertification__cert_id']

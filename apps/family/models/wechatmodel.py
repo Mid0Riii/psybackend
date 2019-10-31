@@ -6,10 +6,9 @@ class FamilyWechat(models.Model):
         verbose_name_plural = verbose_name
 
     relate_family = models.OneToOneField(FamilyBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
-    # relate_family = models.ForeignKey(familyBasic, on_delete=models.DO_NOTHING, verbose_name='学号')
-    wechat_number = models.CharField(max_length=128, verbose_name='平台绑定号码', blank=True, null=True)
-    wechat_nickname = models.CharField(max_length=128, verbose_name='微信昵称', blank=True, null=True)
-    wechat_date = models.CharField(max_length=128,verbose_name='开通网课', blank=True, null=True)
+    wechat_number = models.CharField(max_length=128, verbose_name='平台绑定号码', blank=True, null=True,default='空')
+    wechat_nickname = models.CharField(max_length=128, verbose_name='微信昵称', blank=True, null=True,default='空')
+    wechat_date = models.CharField(max_length=128,verbose_name='开通网课', blank=True, null=True,default='空')
 
     def get_fam_name(self):
         return self.relate_family.fam_name

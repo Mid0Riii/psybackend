@@ -6,9 +6,8 @@ class FamilyTextbook(models.Model):
         verbose_name_plural = verbose_name
 
     relate_family = models.OneToOneField(FamilyBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
-    # relate_family = models.ForeignKey(familyBasic, on_delete=models.DO_NOTHING, verbose_name='学号')
-    text_basic = models.CharField(max_length=128, verbose_name='家庭婚姻动力学', blank=True, null=True)
-    text_other = models.TextField(verbose_name='备注',blank=True,null=True)
+    text_basic = models.CharField(max_length=128, verbose_name='家庭婚姻动力学', blank=True, null=True,default='空')
+    text_other = models.TextField(verbose_name='备注',blank=True,null=True,default='空')
 
     def __str__(self):
         return str(self.get_fam_name())

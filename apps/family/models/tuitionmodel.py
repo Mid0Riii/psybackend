@@ -6,11 +6,11 @@ class FamilyTuition(models.Model):
         verbose_name_plural = verbose_name
 
     relate_family = models.OneToOneField(FamilyBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
-    fee_train = models.CharField(max_length=128, verbose_name='培训费', blank=True, null=True)
-    fee_date = models.CharField(max_length=128,verbose_name='缴费日期', blank=True, null=True)
-    fee_method = models.CharField(max_length=128, verbose_name='缴费方式', blank=True, null=True)
-    fee_id = models.CharField(max_length=128, verbose_name='收据号', blank=True, null=True)
-    fee_tax = models.CharField(max_length=128,verbose_name='发票号',blank=True,null=True)
+    fee_train = models.CharField(max_length=128, verbose_name='培训费', blank=True, null=True,default='空')
+    fee_date = models.CharField(max_length=128,verbose_name='缴费日期', blank=True, null=True,default='空')
+    fee_method = models.CharField(max_length=128, verbose_name='缴费方式', blank=True, null=True,default='空')
+    fee_id = models.CharField(max_length=128, verbose_name='收据号', blank=True, null=True,default='空')
+    fee_tax = models.CharField(max_length=128,verbose_name='发票号',blank=True,null=True,default='空')
 
     # TODO CODEREVICEW:模型的三种继承方式和自定义方法
     def get_fam_name(self):

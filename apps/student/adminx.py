@@ -425,6 +425,6 @@ class TotalAdmin(object):
                     'exam_date', 'exam_theory', 'exam_theory_result', 'exam_practise', 'exam_practise_result',
                     'exam_total', 'exam_total_result', 'exam_status', 'cert_id', 'cert_date', 'cert_draw_people',
                     'cert_draw_date']
-
-    fk_fields = ['student__stu_name']
-    list_filter = ['student__stu_name']
+    show_bookmarks = False
+    list_filter = ['student__stu_name','student__stu_cellphone','student__stu_class__class_name','student__stu_level','student__tuition__fee_date',
+                   'student__studentwechat__wechat_number','student__studentexam__exam_status','student__studentcertification__cert_id']

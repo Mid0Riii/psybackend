@@ -6,11 +6,11 @@ class FamilyOnduty(models.Model):
         verbose_name_plural = verbose_name
 
     relate_family = models.OneToOneField(FamilyBasic,on_delete=models.CASCADE,verbose_name='学号',blank=True,null=True)
-    onduty = models.CharField(max_length=128, verbose_name='出勤', blank=True, null=True)
-    homework1 = models.CharField(max_length=128, verbose_name='作业一', blank=True, null=True)
-    homework2 = models.CharField(max_length=128, verbose_name='作业二', blank=True, null=True)
-    homework3 = models.CharField(max_length=128, verbose_name='作业三', blank=True, null=True)
-    other = models.TextField(verbose_name="备注", null=True, blank=True)
+    onduty = models.CharField(max_length=128, verbose_name='出勤', blank=True, null=True,default='空')
+    homework1 = models.CharField(max_length=128, verbose_name='作业一', blank=True, null=True,default='空')
+    homework2 = models.CharField(max_length=128, verbose_name='作业二', blank=True, null=True,default='空')
+    homework3 = models.CharField(max_length=128, verbose_name='作业三', blank=True, null=True,default='空')
+    other = models.TextField(verbose_name="备注", null=True, blank=True,default='空')
     def get_fam_name(self):
         return self.relate_family.fam_name
 

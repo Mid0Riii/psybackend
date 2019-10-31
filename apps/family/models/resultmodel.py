@@ -6,11 +6,11 @@ class Result(models.Model):
         verbose_name = '家庭考核成绩'
         verbose_name_plural = verbose_name
 
-    relate_family = models.OneToOneField(FamilyBasic, on_delete=models.CASCADE, verbose_name='学号', blank=True, null=True)
-    date = models.CharField(max_length=128,verbose_name='考核日期',blank=True,null=True)
-    homework_two_result = models.CharField(max_length=128,verbose_name='作业二成绩',blank=True,null=True)
-    homework_three_result = models.CharField(max_length=128,verbose_name='作业三成绩',blank=True,null=True)
-    result = models.CharField(max_length=64,verbose_name='合格情况',choices=(('合格','合格'),('不合格','不合格')),blank=True,null=True)
+    relate_family = models.OneToOneField(FamilyBasic, on_delete=models.CASCADE, verbose_name='学号', blank=True, null=True,default='空')
+    date = models.CharField(max_length=128,verbose_name='考核日期',blank=True,null=True,default='空')
+    homework_two_result = models.CharField(max_length=128,verbose_name='作业二成绩',blank=True,null=True,default='空')
+    homework_three_result = models.CharField(max_length=128,verbose_name='作业三成绩',blank=True,null=True,default='空')
+    result = models.CharField(max_length=64,verbose_name='合格情况',choices=(('合格','合格'),('不合格','不合格')),blank=True,null=True,default='空')
 
     def get_fam_name(self):
         return self.relate_family.fam_name

@@ -48,7 +48,7 @@ class StudentBasic(models.Model):
     stu_name = models.CharField(max_length=128, verbose_name='姓名', blank=True, null=True, default='空')
     stu_gender = models.CharField(max_length=16, choices=(('男', '男'), ('女', '女')), verbose_name='性别', blank=True,
                                   null=True, default='空')
-    stu_level = models.CharField(max_length=16, choices=(('二级', '二级'), ('三级', '三级')), verbose_name='级别', null=True,
+    stu_level = models.CharField(max_length=16, choices=(('二级', '二级'), ('三级', '三级'),('三升二','三升二')), verbose_name='级别', null=True,
                                  blank=True, default='空')
     stu_id_number = models.CharField(max_length=128, verbose_name='身份证号', unique=True, default='空')
     stu_loc = models.CharField(max_length=128, verbose_name='所在地', blank=True, null=True, default='空')

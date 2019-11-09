@@ -1,10 +1,12 @@
 from django.db import models
 from .familymodel import FamilyBasic
+from .classmodel import FamilyClass
 class FamilyOnduty(models.Model):
     class Meta:
         verbose_name = '家庭考勤信息'
         verbose_name_plural = verbose_name
 
+    relate_class = models.ForeignKey(FamilyClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_family = models.OneToOneField(FamilyBasic,on_delete=models.CASCADE,verbose_name='学号',blank=True,null=True)
     onduty = models.CharField(max_length=128, verbose_name='出勤', blank=True, null=True,default='空')
     homework1 = models.CharField(max_length=128, verbose_name='作业一', blank=True, null=True,default='空')

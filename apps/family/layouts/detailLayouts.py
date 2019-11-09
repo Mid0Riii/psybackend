@@ -45,6 +45,7 @@ TuitionLayout = \
         Main(
             Fieldset(_('学生信息'),
                      'relate_family',
+                     'ralate_class',
                      ),
             Fieldset(_('费用'),
                      'fee_train',
@@ -56,7 +57,8 @@ TuitionLayout = \
             Fieldset(_('交费信息'),
                      'fee_date',
                      'fee_method',
-                     'fee_id'
+                     'fee_id',
+                     'fee_tax',
                      )
         ),
     )

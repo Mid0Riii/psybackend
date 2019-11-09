@@ -1,11 +1,13 @@
 from django.db import models
 from .studentmodel import StudentBasic
+from .classmodel import StudentClass
 
 class StudentExamExtra(models.Model):
     class Meta:
         verbose_name = '心理学员补考情况'
         verbose_name_plural = verbose_name
 
+    relate_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_student = models.OneToOneField(StudentBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
     # relate_student = models.ForeignKey(StudentBasic, on_delete=models.DO_NOTHING, verbose_name='学号')
     exam_date = models.CharField(max_length=128,verbose_name='报考日期', null=True, blank=True,default='空')

@@ -1,10 +1,13 @@
 from django.db import models
 from .studentmodel import StudentBasic
+from .classmodel import StudentClass
+
 class StudentTextbook(models.Model):
     class Meta:
         verbose_name = '心理学员教材'
         verbose_name_plural = verbose_name
 
+    relate_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_student = models.OneToOneField(StudentBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
     text_basic = models.CharField(max_length=128, verbose_name='基础技能', blank=True, null=True,default='空')
     text_sec = models.CharField(max_length=128, verbose_name='二级技能', blank=True, null=True,default='空')

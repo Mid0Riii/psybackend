@@ -1,10 +1,12 @@
 from django.db import models
 from .familymodel import FamilyBasic
+from .classmodel import FamilyClass
 class FamilyTextbook(models.Model):
     class Meta:
         verbose_name = '家庭教材'
         verbose_name_plural = verbose_name
 
+    relate_class = models.ForeignKey(FamilyClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_family = models.OneToOneField(FamilyBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
     text_basic = models.CharField(max_length=128, verbose_name='家庭婚姻动力学', blank=True, null=True,default='空')
     text_other = models.TextField(verbose_name='备注',blank=True,null=True,default='空')

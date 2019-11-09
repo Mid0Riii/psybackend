@@ -1,10 +1,13 @@
 from django.db import models
 from .studentmodel import StudentBasic
+from .classmodel import StudentClass
+
 class Onduty(models.Model):
     class Meta:
         verbose_name = '心理学员考勤信息'
         verbose_name_plural = verbose_name
 
+    relate_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_student = models.OneToOneField(StudentBasic,on_delete=models.CASCADE,verbose_name='学号',blank=True,null=True)
     onduty = models.CharField(max_length=128, verbose_name='出勤', blank=True, null=True,default='空')
     homework = models.CharField(max_length=128, verbose_name='作业打卡', blank=True, null=True,default='空')

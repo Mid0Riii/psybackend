@@ -1,10 +1,13 @@
 from django.db import models
 from .studentmodel import StudentBasic
+from .classmodel import StudentClass
+
 class StudentWechat(models.Model):
     class Meta:
         verbose_name = '心理学员365开通情况'
         verbose_name_plural = verbose_name
 
+    relate_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_student = models.OneToOneField(StudentBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
     wechat_number = models.CharField(max_length=128, verbose_name='平台绑定号码', blank=True, null=True,default='空')
     wechat_nickname = models.CharField(max_length=128, verbose_name='微信昵称', blank=True, null=True,default='空')

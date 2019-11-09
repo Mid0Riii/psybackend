@@ -17,8 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from student.models import StudentBasic,Total as StudentTotal
-from family.models import FamilyBasic,Total as FamilyTotal
+from student.models import StudentBasic,Tuition,StudentWechat,StudentExamExtra,StudentExam,StudentCertification,StudentTextbook,Total as StudentTotal
+from family.models import FamilyBasic,FamilyWechat,FamilyTuition,FamilyOnduty,FamilyTextbook,FamilyCertification,Result,ResultExtra,Total as FamilyTotal
 import xadmin
 from django.shortcuts import HttpResponse
 def generate_total(request):
@@ -31,8 +31,52 @@ def generate_total(request):
 
     return HttpResponse("<h1>迁移成功</h1>")
 
+def generate_class(requests):
+    q = StudentBasic.objects.all()
+    for i in q:
+        t = Tuition.objects.get(relate_student = i)
+        t.relate_class = i.stu_class
+        t.save()
+        w = StudentWechat.objects.get(relate_student=i)
+        w.relate_class=i.stu_class
+        w.save()
+        e = StudentExam.objects.get(relate_student=i)
+        e.relate_class=i.stu_class
+        e.save()
+        ee = StudentExamExtra.objects.get(relate_student=i)
+        ee.relate_class=i.stu_class
+        ee.save()
+        c = StudentCertification.objects.get(relate_student=i)
+        c.relate_class=i.stu_class
+        c.save()
+        tb = StudentTextbook.objects.get(relate_student=i)
+        tb.relate_class=i.stu_class
+        tb.save()
+    p = FamilyBasic.objects.all()
+    for i in p:
+        t = FamilyTuition.objects.get(relate_family=i)
+        t.relate_class = i.fam_class
+        t.save()
+        w = FamilyWechat.objects.get(relate_family=i)
+        w.relate_class = i.fam_class
+        w.save()
+        e = Result.objects.get(relate_family=i)
+        e.relate_class = i.fam_class
+        e.save()
+        ee = ResultExtra.objects.get(relate_family=i)
+        ee.relate_class = i.fam_class
+        ee.save()
+        c = FamilyCertification.objects.get(relate_family=i)
+        c.relate_class = i.fam_class
+        c.save()
+        tb = FamilyTextbook.objects.get(relate_family=i)
+        tb.relate_class = i.fam_class
+        tb.save()
+    return HttpResponse("<h1>迁移完成</h1>")
+
 urlpatterns = [
     path('file/', admin.site.urls),
     path('',xadmin.site.urls),
-    path('generate/',generate_total)
+    path('generate/',generate_total),
+    path('generate_class',generate_class)
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

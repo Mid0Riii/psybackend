@@ -31,14 +31,14 @@ class StudentBasic(models.Model):
             Onduty.objects.get(relate_student=self)
             Total.objects.get(student=self)
         except Exception as e:
-            Tuition.objects.create(relate_student=self)
-            StudentExam.objects.create(relate_student=self)
-            StudentWechat.objects.create(relate_student=self)
-            StudentExamExtra.objects.create(relate_student=self)
-            StudentTextbook.objects.create(relate_student=self)
-            StudentCertification.objects.create(relate_student=self)
+            Tuition.objects.create(relate_student=self,relate_class=self.stu_class)
+            StudentExam.objects.create(relate_student=self,relate_class=self.stu_class)
+            StudentWechat.objects.create(relate_student=self,relate_class=self.stu_class)
+            StudentExamExtra.objects.create(relate_student=self,relate_class=self.stu_class)
+            StudentTextbook.objects.create(relate_student=self,relate_class=self.stu_class)
+            StudentCertification.objects.create(relate_student=self,relate_class=self.stu_class)
             Total.objects.create(student=self)
-            Onduty.objects.create(relate_student=self)
+            Onduty.objects.create(relate_student=self,relate_class=self.stu_class)
         # super(StudentBasic, self).save(*args, **kwargs)
 
     def get_verbose_name(self, field):
@@ -65,7 +65,7 @@ class StudentBasic(models.Model):
     stu_signup_date = models.CharField(max_length=128, verbose_name='报名日期', blank=True, null=True, default='空')
     stu_signup_people = models.CharField(max_length=128, verbose_name='具体招生人', blank=True, null=True, default='空')
     stu_other = models.TextField(verbose_name='备注', blank=True, null=True, default='空')
-    stu_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE, verbose_name='班级', default='空')
+    stu_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE, verbose_name='班级')
     stu_class_num = models.CharField(max_length=128, verbose_name='班内序号', null=True, blank=True, default='空')
 
 # TODO 筛选非空 增加班级内部序号

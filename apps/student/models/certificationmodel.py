@@ -1,12 +1,14 @@
 from django.db import models
 from .studentmodel import StudentBasic
+from .classmodel import StudentClass
 
 class StudentCertification(models.Model):
     class Meta:
         verbose_name = '心理学员证书'
         verbose_name_plural = verbose_name
 
-    relate_student = models.OneToOneField(StudentBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True,default='空')
+    relate_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
+    relate_student = models.OneToOneField(StudentBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
     # relate_student = models.ForeignKey(StudentBasic, on_delete=models.DO_NOTHING, verbose_name='学号')
     cert_id = models.CharField(max_length=128, verbose_name='证书编号', blank=True, null=True,default='空')
     cert_date = models.CharField(max_length=128,verbose_name='发证日期', blank=True, null=True,default='空')

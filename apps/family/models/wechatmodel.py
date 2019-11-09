@@ -1,10 +1,12 @@
 from django.db import models
 from .familymodel import FamilyBasic
+from .classmodel import FamilyClass
 class FamilyWechat(models.Model):
     class Meta:
         verbose_name = '家庭365开通情况'
         verbose_name_plural = verbose_name
 
+    relate_class = models.ForeignKey(FamilyClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_family = models.OneToOneField(FamilyBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
     wechat_number = models.CharField(max_length=128, verbose_name='平台绑定号码', blank=True, null=True,default='空')
     wechat_nickname = models.CharField(max_length=128, verbose_name='微信昵称', blank=True, null=True,default='空')

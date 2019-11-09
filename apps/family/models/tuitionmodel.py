@@ -1,10 +1,12 @@
 from django.db import models
+from .classmodel import FamilyClass
 from .familymodel import FamilyBasic
 class FamilyTuition(models.Model):
     class Meta:
         verbose_name = '家庭交费信息'
         verbose_name_plural = verbose_name
 
+    relate_class = models.ForeignKey(FamilyClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_family = models.OneToOneField(FamilyBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
     fee_train = models.CharField(max_length=128, verbose_name='培训费', blank=True, null=True,default='空')
     fee_date = models.CharField(max_length=128,verbose_name='缴费日期', blank=True, null=True,default='空')

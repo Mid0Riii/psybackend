@@ -56,6 +56,7 @@ TuitionLayout = \
                      'fee_date',
                      'fee_method',
                      'fee_id'
+                     'fee_tax'
                      )
         ),
     )

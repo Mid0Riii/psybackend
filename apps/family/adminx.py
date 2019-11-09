@@ -124,11 +124,11 @@ class ClassAdmin(object):
 
     import_export_args = {'import_resource_class': ClassResources,
                           }
-    list_display = ['class_name','class_index', 'class_teacher', 'class_recruit_teacher', 'class_date']
+    list_display = ['class_name','class_index','class_id_example', 'class_teacher', 'class_recruit_teacher', 'class_date']
     list_filter = list_display
     search_fields = list_display
     show_bookmarks = False
-    ordering=['class_index']
+    ordering=['-class_index']
 
 
 @xadmin.sites.register(FamilyTuition)

@@ -190,14 +190,14 @@ class TextbookAdmin(object):
     list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'text_basic', 'text_sec', 'text_sec_exer',
                     'text_sec_measure',
                     'text_thr',
-                    'text_thr_exer', 'text_manual', 'text_exam', 'text_other']
+                    'text_thr_exer','text_sec_measure_third', 'text_manual', 'text_exam', 'text_other']
     list_filter = ['text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure', 'text_thr',
-                   'text_thr_exer', 'text_manual', 'text_exam', 'text_other', 'relate_student__stu_class__class_name']
+                   'text_thr_exer','text_sec_measure_third', 'text_manual', 'text_exam', 'text_other', 'relate_student__stu_class__class_name']
     search_fields = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name']
     readonly_fields = ['relate_student']
     list_editable = ['text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure',
                      'text_thr',
-                     'text_thr_exer', 'text_manual', 'text_exam', 'text_other']
+                     'text_thr_exer','text_sec_measure_third', 'text_manual', 'text_exam', 'text_other']
     show_bookmarks = False
 
 

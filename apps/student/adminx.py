@@ -183,7 +183,7 @@ class TextbookAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_student', 'text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure', 'text_thr',
+            fields = ('relate_student', 'text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure','text_sec_measure_third', 'text_thr',
                       'text_thr_exer', 'text_manual', 'text_exam', 'text_other')
 
     import_export_args = {'import_resource_class': TextbookResources, }

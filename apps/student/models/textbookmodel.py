@@ -15,7 +15,7 @@ class StudentTextbook(models.Model):
     text_sec_measure = models.CharField(max_length=128, verbose_name='二级量表', blank=True, null=True,default='空')
     text_thr = models.CharField(max_length=128, verbose_name='三级技能', blank=True, null=True,default='空')
     text_thr_exer = models.CharField(max_length=128, verbose_name='三级习题', blank=True, null=True,default='空')
-    text_sec_measure_third = models.CharField(max_length=128, verbose_name='三级量表', blank=True, null=True, default='空')
+    text_thr_measure = models.CharField(max_length=128, verbose_name='三级量表', blank=True, null=True, default='空')
     text_manual = models.CharField(max_length=128, verbose_name='学员手册', blank=True, null=True,default='空')
     text_exam = models.CharField(max_length=128, verbose_name='模拟试卷', blank=True, null=True,default='空')
     text_other = models.TextField(verbose_name='备注',blank=True,null=True,default='空')

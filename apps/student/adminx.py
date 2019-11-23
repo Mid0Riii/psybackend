@@ -183,21 +183,21 @@ class TextbookAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_student', 'text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure','text_sec_measure_third', 'text_thr',
+            fields = ('relate_student', 'text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure','text_thr_measure', 'text_thr',
                       'text_thr_exer', 'text_manual', 'text_exam', 'text_other')
 
     import_export_args = {'import_resource_class': TextbookResources, }
     list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'text_basic', 'text_sec', 'text_sec_exer',
                     'text_sec_measure',
                     'text_thr',
-                    'text_thr_exer','text_sec_measure_third', 'text_manual', 'text_exam', 'text_other']
+                    'text_thr_exer','text_thr_measure', 'text_manual', 'text_exam', 'text_other']
     list_filter = ['text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure', 'text_thr',
-                   'text_thr_exer','text_sec_measure_third', 'text_manual', 'text_exam', 'text_other', 'relate_student__stu_class__class_name']
+                   'text_thr_exer','text_thr_measure', 'text_manual', 'text_exam', 'text_other', 'relate_student__stu_class__class_name']
     search_fields = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name']
     readonly_fields = ['relate_student']
     list_editable = ['text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure',
                      'text_thr',
-                     'text_thr_exer','text_sec_measure_third', 'text_manual', 'text_exam', 'text_other']
+                     'text_thr_exer','text_thr_measure', 'text_manual', 'text_exam', 'text_other']
     show_bookmarks = False
 
 

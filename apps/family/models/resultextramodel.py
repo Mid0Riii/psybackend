@@ -1,6 +1,7 @@
 from django.db import models
 from .familymodel import FamilyBasic
 from .classmodel import FamilyClass
+from django.utils.html import format_html
 class ResultExtra(models.Model):
     class Meta:
         verbose_name = '家庭补考成绩'
@@ -14,7 +15,15 @@ class ResultExtra(models.Model):
     result = models.CharField(max_length=64,verbose_name='合格情况',choices=(('合格','合格'),('不合格','不合格')),blank=True,null=True,default='空')
 
     def get_fam_name(self):
-        return self.relate_family.fam_name
+        info = self.relate_family.fam_name
+        if self.relate_family.familytuition.fee_date == '空':
+            color_code = 'red'
+        else:
+            color_code = 'black'
+        return format_html('<span style="color:{};">{}</span>', color_code, info)
+
+    get_fam_name.short_description = u'姓名'
+    get_fam_name.allow_tags = get_fam_name.is_column = True
 
     get_fam_name.short_description = u'姓名'
     get_fam_name.allow_tags = get_fam_name.is_column = True

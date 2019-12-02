@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import format_html
 class StudentClass(models.Model):
     class Meta:
         verbose_name = '心理学员班级'

@@ -4,7 +4,7 @@ from .models import StudentBasic, StudentCertification, StudentExam, StudentExam
 from import_export import resources, fields
 from import_export.widgets import ForeignKeyWidget, BooleanWidget
 from .layouts.detailLayouts import BasicLayout, TuitionLayout, ExamLayout
-
+from django.utils.html import format_html
 
 # TODO CODEREVIEW 外键后台inline显示的用法
 # class TuitionInline(object):
@@ -48,7 +48,7 @@ class BasicAdmin(object):
                 'stu_status', 'stu_origin', 'stu_cellphone', 'stu_wechat', 'stu_qq',
                 'stu_signup_date', 'stu_signup_people', 'stu_other')
 
-    list_display = ['stu_number', 'stu_name', 'stu_gender', 'stu_class', 'stu_class_num', 'stu_level', 'stu_id_number',
+    list_display = ['stu_number','tuition_state', 'stu_name', 'stu_gender', 'stu_class', 'stu_class_num', 'stu_level', 'stu_id_number',
                     'stu_loc', 'stu_deg',
                     'stu_major',
                     'stu_company', 'stu_duty',
@@ -64,7 +64,15 @@ class BasicAdmin(object):
     list_editable = list_display
     search_fields = ['stu_number', 'stu_level', 'stu_name', 'stu_class__class_name']
     show_bookmarks = False
-
+    def tuition_state(self, obj):
+        if obj.tuition.fee_date == '空':
+            color_code = 'red'
+            info = '未交费'
+        else:
+            color_code = 'green'
+            info = '已交费'
+        return format_html('<span style="color:{};">{}</span>', color_code, info)
+    tuition_state.short_description = '交费状态'
     # inlines = [TuitionInline]
     def get_form_layout(self):
         self.form_layout = BasicLayout

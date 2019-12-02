@@ -6,6 +6,7 @@ from .examextramodel import StudentExamExtra
 from .ondutymodel import Onduty
 from .tuitionmodel import Tuition
 from .wechatmodel import StudentWechat
+from django.utils.html import format_html
 class Total(models.Model):
     class Meta:
         verbose_name="心理学员招生信息总览"
@@ -22,7 +23,12 @@ class Total(models.Model):
     stu_number.short_description = "学号"
 
     def stu_name(self):
-        return self.student.stu_name
+        info = self.student.stu_name
+        if self.student.tuition.fee_date == '空':
+            color_code = 'red'
+        else:
+            color_code = 'black'
+        return format_html('<span style="color:{};">{}</span>', color_code, info)
 
     stu_name.short_description = "姓名"
 

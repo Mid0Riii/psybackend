@@ -1,5 +1,6 @@
 from django.db import models
 from .classmodel import FamilyClass
+from django.utils.html import format_html
 class FamilyBasic(models.Model):
     class Meta:
         verbose_name = '家庭招生信息'
@@ -45,7 +46,6 @@ class FamilyBasic(models.Model):
     fam_number = models.CharField(max_length=128, verbose_name='学号', unique=True)
     fam_name = models.CharField(max_length=128, verbose_name='姓名',blank=True,null=True,default='空')
     fam_gender = models.CharField(max_length=16, choices=(('男', '男'), ('女', '女')), verbose_name='性别',blank=True,null=True,default='空')
-    fam_level = models.CharField(max_length=16,choices=(('二级','二级'),('三级','三级')),verbose_name='级别',null=True,blank=True,default='空')
     fam_id_number = models.CharField(max_length=128, verbose_name='身份证号',default='空')
     fam_loc = models.CharField(max_length=128, verbose_name='所在地', blank=True, null=True,default='空')
     fam_deg = models.CharField(max_length=128, verbose_name='学历', blank=True, null=True,default='空')

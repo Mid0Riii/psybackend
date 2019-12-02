@@ -8,10 +8,9 @@
 .action-checkbox-column {
   max-width: 14px !important;
 }
-.action-checkbox {
-  max-width: 14px !important;
-}
-    td{
+
+
+    td:not(:first-child){   /* 选择除了第一个元素（选择框）外的所有元素 */
     {#width:100%;#}
     min-width: 120px;
     word-break:keep-all;/* 不换行 */
@@ -20,6 +19,9 @@
     {#text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/#}
 }
 
+    .action-checkbox {
+  max-width: 30px !important;
+}
   .btn-toolbar{margin-top: 0;}
   #content-block.full-content{margin-left: 0;}
 

@@ -2,7 +2,7 @@ from django.db import models
 from .studentmodel import StudentBasic
 from .classmodel import StudentClass
 from .classmodel import StudentClass
-
+from django.utils.html import format_html
 class Tuition(models.Model):
     class Meta:
         verbose_name = '心理学员交费信息'
@@ -22,7 +22,12 @@ class Tuition(models.Model):
 
     # TODO CODEREVICEW:模型的三种继承方式和自定义方法
     def get_stu_name(self):
-        return self.relate_student.stu_name
+        info = self.relate_student.stu_name
+        if self.relate_student.tuition.fee_date == '空':
+            color_code = 'red'
+        else:
+            color_code = 'black'
+        return format_html('<span style="color:{};">{}</span>', color_code, info)
 
     get_stu_name.short_description = u'姓名'
     get_stu_name.allow_tags = get_stu_name.is_column = True

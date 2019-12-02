@@ -1,6 +1,7 @@
 from django.db import models
 from .familymodel import FamilyBasic
 from .classmodel import FamilyClass
+from django.utils.html import format_html
 class Result(models.Model):
     class Meta:
         verbose_name = '家庭考核成绩'
@@ -8,13 +9,22 @@ class Result(models.Model):
 
     relate_class = models.ForeignKey(FamilyClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_family = models.OneToOneField(FamilyBasic, on_delete=models.CASCADE, verbose_name='学号', blank=True, null=True,default='空')
+    homework_one_result = models.CharField(max_length=128,verbose_name='作业一成绩',null=True,blank=True,default='空')
     date = models.CharField(max_length=128,verbose_name='考核日期',blank=True,null=True,default='空')
     homework_two_result = models.CharField(max_length=128,verbose_name='作业二成绩',blank=True,null=True,default='空')
     homework_three_result = models.CharField(max_length=128,verbose_name='作业三成绩',blank=True,null=True,default='空')
     result = models.CharField(max_length=64,verbose_name='合格情况',choices=(('合格','合格'),('不合格','不合格')),blank=True,null=True,default='空')
 
     def get_fam_name(self):
-        return self.relate_family.fam_name
+        info = self.relate_family.fam_name
+        if self.relate_family.familytuition.fee_date == '空':
+            color_code = 'red'
+        else:
+            color_code = 'black'
+        return format_html('<span style="color:{};">{}</span>', color_code, info)
+
+    get_fam_name.short_description = u'姓名'
+    get_fam_name.allow_tags = get_fam_name.is_column = True
 
     get_fam_name.short_description = u'姓名'
     get_fam_name.allow_tags = get_fam_name.is_column = True

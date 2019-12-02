@@ -1,5 +1,6 @@
 from django.db import models
 from .familymodel import FamilyBasic
+from django.utils.html import format_html
 from .classmodel import FamilyClass
 from .resultmodel import Result
 from .resultextramodel import ResultExtra
@@ -20,11 +21,15 @@ class Total(models.Model):
         return self.family.fam_number
 
     fam_number.short_description = "学号"
-
     def fam_name(self):
-        return self.family.fam_name
-
-    fam_name.short_description = "姓名"
+        info = self.family.fam_name
+        if self.family.familytuition.fee_date == '空':
+            color_code = 'red'
+        else:
+            color_code = 'black'
+        return format_html('<span style="color:{};">{}</span>', color_code, info)
+    fam_name.short_description = u'姓名'
+    fam_name.allow_tags = fam_name.is_column = True
 
     def fam_gender(self):
         return self.family.fam_gender

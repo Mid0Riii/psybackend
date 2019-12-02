@@ -1,7 +1,7 @@
 from django.db import models
 from .studentmodel import StudentBasic
 from .classmodel import StudentClass
-
+from django.utils.html import format_html
 class StudentTextbook(models.Model):
     class Meta:
         verbose_name = '心理学员教材'
@@ -24,7 +24,12 @@ class StudentTextbook(models.Model):
         return str(self.get_stu_name())
 
     def get_stu_name(self):
-        return self.relate_student.stu_name
+        info = self.relate_student.stu_name
+        if self.relate_student.tuition.fee_date == '空':
+            color_code = 'red'
+        else:
+            color_code = 'black'
+        return format_html('<span style="color:{};">{}</span>', color_code, info)
 
     get_stu_name.short_description = u'姓名'
     get_stu_name.allow_tags = get_stu_name.is_column = True

@@ -1,7 +1,7 @@
 from django.db import models
 from .studentmodel import StudentBasic
 from .classmodel import StudentClass
-
+from django.utils.html import format_html
 class Onduty(models.Model):
     class Meta:
         verbose_name = '心理学员考勤信息'
@@ -12,8 +12,14 @@ class Onduty(models.Model):
     onduty = models.CharField(max_length=128, verbose_name='出勤', blank=True, null=True,default='空')
     homework = models.CharField(max_length=128, verbose_name='作业打卡', blank=True, null=True,default='空')
     other = models.TextField(verbose_name="备注", null=True, blank=True,default='空')
+
     def get_stu_name(self):
-        return self.relate_student.stu_name
+        info = self.relate_student.stu_name
+        if self.relate_student.tuition.fee_date == '空':
+            color_code = 'red'
+        else:
+            color_code = 'black'
+        return format_html('<span style="color:{};">{}</span>', color_code, info)
 
     get_stu_name.short_description = u'姓名'
     get_stu_name.allow_tags = get_stu_name.is_column = True

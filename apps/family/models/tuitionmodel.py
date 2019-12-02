@@ -1,6 +1,7 @@
 from django.db import models
 from .classmodel import FamilyClass
 from .familymodel import FamilyBasic
+from django.utils.html import format_html
 class FamilyTuition(models.Model):
     class Meta:
         verbose_name = '家庭交费信息'
@@ -14,9 +15,16 @@ class FamilyTuition(models.Model):
     fee_id = models.CharField(max_length=128, verbose_name='收据号', blank=True, null=True,default='空')
     fee_tax = models.CharField(max_length=128,verbose_name='发票号',blank=True,null=True,default='空')
 
+
     # TODO CODEREVICEW:模型的三种继承方式和自定义方法
     def get_fam_name(self):
-        return self.relate_family.fam_name
+        info = self.relate_family.fam_name
+        if self.fee_date == '空':
+            color_code = 'red'
+        else:
+            color_code = 'black'
+
+        return format_html('<span style="color:{};">{}</span>', color_code, info)
 
     get_fam_name.short_description = u'姓名'
     get_fam_name.allow_tags = get_fam_name.is_column = True

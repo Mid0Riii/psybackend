@@ -1,6 +1,7 @@
 from django.db import models
 from .familymodel import FamilyBasic
 from .classmodel import FamilyClass
+from django.utils.html import format_html
 class FamilyOnduty(models.Model):
     class Meta:
         verbose_name = '家庭考勤信息'
@@ -9,12 +10,18 @@ class FamilyOnduty(models.Model):
     relate_class = models.ForeignKey(FamilyClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_family = models.OneToOneField(FamilyBasic,on_delete=models.CASCADE,verbose_name='学号',blank=True,null=True)
     onduty = models.CharField(max_length=128, verbose_name='出勤', blank=True, null=True,default='空')
-    homework1 = models.CharField(max_length=128, verbose_name='作业一', blank=True, null=True,default='空')
-    homework2 = models.CharField(max_length=128, verbose_name='作业二', blank=True, null=True,default='空')
-    homework3 = models.CharField(max_length=128, verbose_name='作业三', blank=True, null=True,default='空')
     other = models.TextField(verbose_name="备注", null=True, blank=True,default='空')
+
     def get_fam_name(self):
-        return self.relate_family.fam_name
+        info = self.relate_family.fam_name
+        if self.relate_family.familytuition.fee_date == '空':
+            color_code = 'red'
+        else:
+            color_code = 'black'
+        return format_html('<span style="color:{};">{}</span>', color_code, info)
+
+    get_fam_name.short_description = u'姓名'
+    get_fam_name.allow_tags = get_fam_name.is_column = True
 
     get_fam_name.short_description = u'姓名'
     get_fam_name.allow_tags = get_fam_name.is_column = True

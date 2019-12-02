@@ -1,4 +1,5 @@
 import xadmin
+from django.utils.html import format_html
 from .models import FamilyBasic, FamilyCertification, Result, ResultExtra, FamilyTextbook, \
     FamilyTuition, FamilyWechat, FamilyClass, FamilyOnduty,Total
 from import_export import resources, fields
@@ -49,22 +50,31 @@ class BasicAdmin(object):
                 'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
                 'fam_signup_date', 'fam_signup_people','fam_teacher_level',  'fam_other')
 
-    list_display = ['fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_level', 'fam_id_number',
+    list_display = ['fam_number','tuition_state', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
                     'fam_loc', 'fam_deg',
                     'fam_major',
                     'fam_company', 'fam_duty',
                     'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
                     'fam_signup_date', 'fam_signup_people','fam_teacher_level','fam_other']
     import_export_args = {'import_resource_class': FamilyBasicResources}
-    list_filter = ['fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_level', 'fam_id_number',
+    list_filter = ['fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num','fam_id_number',
                    'fam_loc', 'fam_deg',
                    'fam_major',
                    'fam_company', 'fam_duty',
                    'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
                    'fam_signup_date', 'fam_signup_people','fam_teacher_level','fam_other', 'fam_class__class_name', ]
     list_editable = list_display
-    search_fields = ['fam_number', 'fam_level', 'fam_name', 'fam_class__class_name']
+    search_fields = ['fam_number','fam_name', 'fam_class__class_name']
     show_bookmarks = False
+    def tuition_state(self, obj):
+        if obj.familytuition.fee_date == '空':
+            color_code = 'red'
+            info = '未交费'
+        else:
+            color_code = 'green'
+            info = '已交费'
+        return format_html('<span style="color:{};">{}</span>', color_code, info)
+    tuition_state.short_description = '交费状态'
 
     # inlines = [TuitionInline]
     def get_form_layout(self):
@@ -159,7 +169,7 @@ class TuitionAdmin(object):
             report_skipped = True
             fields = ('relate_family', 'fee_train',  'fee_date', 'fee_method', 'fee_id', 'fee_tax')
 
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax']
+    list_display = ['relate_family','get_fam_name', 'get_fam_class', 'fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax']
     # TODO CODEVIEW filter中外键的处理
     list_filter = ['fee_train', 'fee_date', 'fee_method',
                    'fee_id', 'relate_family__fam_class__class_name', 'fee_tax']
@@ -173,6 +183,8 @@ class TuitionAdmin(object):
     def get_form_layout(self):
         self.form_layout = TuitionLayout
         return super().get_form_layout()
+
+
 
 
 @xadmin.sites.register(FamilyTextbook)
@@ -392,12 +404,12 @@ class FamilyOndutyAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_family', 'onduty', 'homework1','homework2','homework3', 'other')
+            fields = ('relate_family', 'onduty','other')
 
     import_export_args = {'import_resource_class': OndutyResources}
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'onduty', 'homework1','homework2','homework3', 'other']
+    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'onduty', 'other']
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
-    list_editable = ['onduty', 'homework1','homework2','homework3', 'other']
+    list_editable = ['onduty', 'other']
     show_bookmarks = False
     search_fields = list_filter
     reanonly_fields = ['relate_family']

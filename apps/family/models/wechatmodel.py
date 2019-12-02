@@ -11,7 +11,7 @@ class FamilyWechat(models.Model):
     relate_family = models.OneToOneField(FamilyBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
     wechat_number = models.CharField(max_length=128, verbose_name='平台绑定号码', blank=True, null=True,default='空')
     wechat_nickname = models.CharField(max_length=128, verbose_name='微信昵称', blank=True, null=True,default='空')
-    wechat_date = models.CharField(max_length=128,verbose_name='开通网课', blank=True, null=True,default='空')
+    wechat_date = models.CharField(max_length=128,verbose_name='开通日期', blank=True, null=True,default='空')
 
     def get_fam_name(self):
         info = self.relate_family.fam_name

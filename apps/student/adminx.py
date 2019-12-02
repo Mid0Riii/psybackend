@@ -49,7 +49,7 @@ class BasicAdmin(object):
                 'stu_status', 'stu_origin', 'stu_cellphone', 'stu_wechat', 'stu_qq',
                 'stu_signup_date', 'stu_signup_people', 'stu_other')
 
-    list_display = ['stu_number','tuition_state', 'stu_name', 'stu_gender', 'stu_class', 'stu_class_num', 'stu_level', 'stu_id_number',
+    list_display = ['stu_number','tuition_state', 'stu_gender', 'stu_class', 'stu_class_num', 'stu_level', 'stu_id_number',
                     'stu_loc', 'stu_deg',
                     'stu_major',
                     'stu_company', 'stu_duty',
@@ -66,12 +66,13 @@ class BasicAdmin(object):
     search_fields = ['stu_number', 'stu_level', 'stu_name', 'stu_class__class_name']
     show_bookmarks = False
     def tuition_state(self, obj):
+        info = obj.stu_name
         if obj.tuition.fee_date == '空':
             color_code = 'red'
-            info = '无交费信息'
+            # info = '无交费信息'
         else:
-            color_code = 'green'
-            info = '已交费'
+            color_code = 'black'
+            # info = '已交费'
         return format_html('<span style="color:{};">{}</span>', color_code, info)
     tuition_state.short_description = '交费状态'
     # inlines = [TuitionInline]

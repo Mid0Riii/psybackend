@@ -45,4 +45,4 @@ class Tuition(models.Model):
     get_stu_num.allow_tags = get_stu_num.is_colume = True
 
     def __str__(self):
-        return str(self.get_stu_name())
+        return str(self.relate_student.stu_name)

@@ -69,12 +69,13 @@ class BasicAdmin(object):
     def tuition_state(self, obj):
         if obj.familytuition.fee_date == '空':
             color_code = 'red'
-            info = '未交费'
+            info = '无交费信息'
         else:
             color_code = 'green'
             info = '已交费'
         return format_html('<span style="color:{};">{}</span>', color_code, info)
     tuition_state.short_description = '交费状态'
+    tuition_state.admin_order_field = 'fam_name'
 
     # inlines = [TuitionInline]
     def get_form_layout(self):
@@ -213,10 +214,10 @@ class TextbookAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_family', 'text_basic', 'text_other')
+            fields = ('relate_family', 'text_basic','text_manual', 'text_other')
 
     import_export_args = {'import_resource_class': TextbookResources, }
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'text_basic', 'text_other']
+    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'text_basic', 'text_other','text_manual']
     list_filter = ['text_basic','text_other', 'relate_family__fam_class__class_name']
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     readonly_fields = ['relate_family']
@@ -288,10 +289,10 @@ class ExamAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_family', 'date', 'homework_two_result','homework_three_result','result')
+            fields = ('relate_family','homework_one_result', 'date', 'homework_two_result','homework_three_result','result')
 
     import_export_args = {'import_resource_class': ExamResources, }
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'date', 'homework_two_result','homework_three_result','result']
+    list_display = ['relate_family', 'get_fam_name', 'get_fam_class','homework_one_result', 'date', 'homework_two_result','homework_three_result','result']
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name',
                    'date', 'homework_two_result','homework_three_result','result']
     list_editable = ['date', 'homework_two_result','homework_three_result','result']
@@ -326,13 +327,13 @@ class ExamExtraAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_family','date', 'homework_two_result','homework_three_result','result')
+            fields = ('relate_family','homework_one_result','date', 'homework_two_result','homework_three_result','result')
 
     import_export_args = {'import_resource_class': ExamResources, }
     list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'date', 'homework_two_result',
                     'homework_three_result', 'result']
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name',
-                   'date', 'homework_two_result', 'homework_three_result', 'result']
+                   'homework_one_result','date', 'homework_two_result', 'homework_three_result', 'result']
     list_editable = ['date', 'homework_two_result', 'homework_three_result', 'result']
     show_bookmarks = False
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
@@ -416,6 +417,10 @@ class FamilyOndutyAdmin(object):
 
 @xadmin.sites.register(Total)
 class TotalAdmin(object):
+    """
+    总览信息
+    """
+    list_display_links = ('fam_name')
     list_display = [
         'fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
         'fam_loc', 'fam_deg', 'fam_major',

@@ -31,6 +31,19 @@ def generate_total(request):
 
     return HttpResponse("<h1>迁移成功</h1>")
 
+def generate_tuition(requests):
+    q = Tuition.objects.all()
+    p  =FamilyTuition.objects.all()
+    for i in p:
+        if i.fee_date is None:
+            i.fee_date = '空'
+            i.save()
+    for j in q:
+        if j.fee_date is None:
+            j.fee_date='空'
+            j.save()
+    return HttpResponse("<h1>迁移完成</h1>")
+
 def generate_class(requests):
     q = StudentBasic.objects.all()
     for i in q:
@@ -78,5 +91,6 @@ urlpatterns = [
     path('file/', admin.site.urls),
     path('',xadmin.site.urls),
     path('generate/',generate_total),
-    path('generate_class',generate_class)
+    path('generate_class',generate_class),
+    path('generate_tuition', generate_tuition)
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

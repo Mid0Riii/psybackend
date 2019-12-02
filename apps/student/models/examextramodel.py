@@ -43,6 +43,5 @@ class StudentExamExtra(models.Model):
     get_stu_class.allow_tags = get_stu_name.is_column = True
 
     def __str__(self):
-        return str(self.get_stu_name())
-
+        return str(self.relate_student.stu_name)
 

@@ -5,7 +5,8 @@ from import_export import resources, fields
 from import_export.widgets import ForeignKeyWidget, BooleanWidget
 from .layouts.detailLayouts import BasicLayout, TuitionLayout, ExamLayout
 from django.utils.html import format_html
-
+from xadmin.plugins.add_html import Change_total_link
+from xadmin.views import DetailAdminView, ListAdminView,ModelFormAdminView,UpdateAdminView,CreateAdminView
 # TODO CODEREVIEW 外键后台inline显示的用法
 # class TuitionInline(object):
 #     model = StudentTuition
@@ -67,7 +68,7 @@ class BasicAdmin(object):
     def tuition_state(self, obj):
         if obj.tuition.fee_date == '空':
             color_code = 'red'
-            info = '未交费'
+            info = '无交费信息'
         else:
             color_code = 'green'
             info = '已交费'
@@ -418,11 +419,15 @@ class OndutyAdmin(object):
     reanonly_fields = ['relate_student']
 
 
+
+xadmin.site.register_plugin(Change_total_link,ListAdminView) #注册插件，用于将总览界面的第一栏超链接重定向至列表视图，而非编辑视图
 @xadmin.sites.register(Total)
 class TotalAdmin(object):
     """
     总览信息
     """
+    Change_total_link_allow=True
+    list_display_links = None
     list_display = ['stu_number', 'stu_name', 'stu_gender', 'stu_class', 'stu_class_num', 'stu_level', 'stu_id_number',
                     'stu_loc', 'stu_deg', 'stu_major', 'stu_company', 'stu_duty', 'stu_status', 'stu_origin',
                     'stu_cellphone', 'stu_wechat', 'stu_qq', 'stu_signup_date', 'stu_signup_people', 'stu_other',

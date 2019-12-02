@@ -42,4 +42,4 @@ class FamilyTuition(models.Model):
     get_fam_num.allow_tags = get_fam_num.is_colume = True
 
     def __str__(self):
-        return str(self.get_fam_name())
+        return str(self.relate_family.fam_name)

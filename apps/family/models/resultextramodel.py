@@ -9,6 +9,7 @@ class ResultExtra(models.Model):
 
     relate_class = models.ForeignKey(FamilyClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_family = models.OneToOneField(FamilyBasic, on_delete=models.CASCADE, verbose_name='学号', blank=True, null=True)
+    homework_one_result = models.CharField(max_length=128, verbose_name='作业一成绩', null=True, blank=True, default='空')
     date = models.CharField(max_length=128,verbose_name='补考日期',blank=True,null=True,default='空')
     homework_two_result = models.CharField(max_length=128,verbose_name='作业二成绩',blank=True,null=True,default='空')
     homework_three_result = models.CharField(max_length=128,verbose_name='作业三成绩',blank=True,null=True,default='空')
@@ -41,4 +42,4 @@ class ResultExtra(models.Model):
     get_fam_class.allow_tags = get_fam_name.is_column = True
 
     def __str__(self):
-        return str(self.get_fam_name())
+        return str(self.relate_family.fam_name)

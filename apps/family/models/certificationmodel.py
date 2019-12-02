@@ -41,4 +41,4 @@ class FamilyCertification(models.Model):
     get_fam_class.allow_tags = get_fam_name.is_column = True
 
     def __str__(self):
-        return str(self.get_fam_name())
+        return str(self.relate_family.fam_name)

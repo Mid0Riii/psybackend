@@ -21,7 +21,7 @@ class StudentTextbook(models.Model):
     text_other = models.TextField(verbose_name='备注',blank=True,null=True,default='空')
 
     def __str__(self):
-        return str(self.get_stu_name())
+        return str(self.relate_student.stu_name)
 
     def get_stu_name(self):
         info = self.relate_student.stu_name

@@ -13,8 +13,6 @@ class FamilyTextbook(models.Model):
     text_manual = models.CharField(max_length=128, verbose_name='学员手册', blank=True, null=True, default='空')
     text_other = models.TextField(verbose_name='备注',blank=True,null=True,default='空')
 
-    def __str__(self):
-        return str(self.get_fam_name())
 
     def get_fam_name(self):
         info = self.relate_family.fam_name
@@ -41,3 +39,6 @@ class FamilyTextbook(models.Model):
 
     get_fam_class.short_description = u'班级'
     get_fam_class.allow_tags = get_fam_name.is_column = True
+
+    def __str__(self):
+        return str(self.relate_family.fam_name)

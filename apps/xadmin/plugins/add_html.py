@@ -44,3 +44,10 @@ class Add_file_iframe(BaseAdminPlugin):
         nodes.append(loader.render_to_string('xadmin/custom_dep_detail.html'))
         # nodes.append('<h1>test</h1>')
 
+
+class Change_total_link(BaseAdminPlugin):
+    Change_total_link_allow = False
+    def init_request(self, *args, **kwargs):
+        return bool(self.Change_total_link_allow)
+    def block_nav_form(self,context,nodes):
+        nodes.append(loader.render_to_string('xadmin/custom_total.html'))

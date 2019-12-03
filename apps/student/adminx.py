@@ -74,7 +74,7 @@ class BasicAdmin(object):
             color_code = 'black'
             # info = '已交费'
         return format_html('<span style="color:{};">{}</span>', color_code, info)
-    tuition_state.short_description = '交费状态'
+    tuition_state.short_description = '姓名'
     # inlines = [TuitionInline]
     def get_form_layout(self):
         self.form_layout = BasicLayout

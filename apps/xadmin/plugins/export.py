@@ -68,6 +68,9 @@ class ExportPlugin(BaseAdminPlugin):
                 value = o.value
         elif str(o.text).startswith("<span class='text-muted'>"):
             value = escape(str(o.text)[25:-7])
+        #TODO CODEREVIEW 重写方法修正红色字体会导出html的问题 添加这一行/修改formathtml格式
+        # elif str(o.text).startswith('<span style="color:red;">'):
+        #     value = escape(str(o.text)[25:-7])
         else:
             value = escape(str(o.text))
         return value
@@ -145,6 +148,7 @@ class ExportPlugin(BaseAdminPlugin):
             datas = datas[1:]
         for rowx, row in enumerate(datas):
             for colx, value in enumerate(row):
+                # print(value)
                 if export_header and rowx == 0:
                     cell_style = styles['header']
                 else:
@@ -156,7 +160,19 @@ class ExportPlugin(BaseAdminPlugin):
                         cell_style = styles['time']
                     else:
                         cell_style = styles['default']
-                sheet.write(rowx, colx, value, style=cell_style)
+                #新增代码 用于去除format_html标记未交费学生未红色而导致的导出数据错误
+                if str(value).startswith("&lt;span style=&quot;color:red;&quot;&gt;"):
+                    cell_style = styles['header']
+                    v = escape(str(value)[41:-13])
+                    # print(v)
+                    sheet.write(rowx,colx,v,style = styles['header'])
+                elif str(value).startswith("&lt;span style=&quot;color:black;&quot;&gt;"):
+                    cell_style = styles['header']
+                    v = escape(str(value)[43:-13])
+                    # print(v)
+                    sheet.write(rowx, colx, v, style=styles['default'])
+                else:
+                    sheet.write(rowx, colx, value, style=cell_style)
         book.save(output)
 
         output.seek(0)

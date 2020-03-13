@@ -28,7 +28,8 @@ DEBUG=True
 
 ALLOWED_HOSTS = ["*"]
 sys.path.insert(0, str(BASE_DIR / 'apps'))
-sys.path.insert(0,os.path.join(BASE_DIR, 'extra_apps'))
+# sys.path.insert(0,os.path.join(BASE_DIR, 'extra_apps'))
+
 # Application definition
 
 INSTALLED_APPS = [

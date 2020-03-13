@@ -16,8 +16,5 @@ class StudentClass(models.Model):
 
 
     def __str__(self):
-        return str(self.class_name)
-
-
-    # TODO 加总览 学号排序别按文字顺序
-    # TODO 文件管理新建政策文件放在第一位 中心文件第二 中心公示第三 开班通知第四
+        return StudentClass.objects.all()
+        # return str(self.class_name)

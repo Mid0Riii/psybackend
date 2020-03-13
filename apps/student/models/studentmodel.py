@@ -68,5 +68,3 @@ class StudentBasic(models.Model):
     stu_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE, verbose_name='班级')
     stu_class_num = models.CharField(max_length=128, verbose_name='班内序号', null=True, blank=True, default='空')
 
-# TODO 筛选非空 增加班级内部序号
-# TODO 为表格添加jquery-ui中的resizeable方法实现自由改变表格列宽

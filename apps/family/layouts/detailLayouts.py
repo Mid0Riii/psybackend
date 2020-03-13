@@ -11,7 +11,6 @@ BasicLayout = \
                      'fam_id_number',
                      'fam_loc',
                      'fam_class',
-                     'fam_level'
                      ),
             Fieldset(_('学历和专业'),
                      'fam_deg',
@@ -45,7 +44,7 @@ TuitionLayout = \
         Main(
             Fieldset(_('学生信息'),
                      'relate_family',
-                     'ralate_class',
+                     'relate_class',
                      ),
             Fieldset(_('费用'),
                      'fee_train',

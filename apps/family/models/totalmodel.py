@@ -9,7 +9,7 @@ from .tuitionmodel import FamilyTuition
 from .wechatmodel import FamilyWechat
 class Total(models.Model):
     class Meta:
-        verbose_name="心理学员招生信息总览"
+        verbose_name="家庭信息总览"
         verbose_name_plural = verbose_name
     family = models.OneToOneField(FamilyBasic,on_delete=models.CASCADE,verbose_name="学生")
 

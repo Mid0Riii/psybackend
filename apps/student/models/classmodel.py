@@ -16,5 +16,6 @@ class StudentClass(models.Model):
 
 
     def __str__(self):
-        return StudentClass.objects.all()
-        # return str(self.class_name)
+        # 我为什么写这行？
+        # return StudentClass.objects.all()
+        return str(self.class_name)

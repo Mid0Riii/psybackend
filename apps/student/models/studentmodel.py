@@ -7,8 +7,8 @@ class StudentBasic(models.Model):
         verbose_name = '心理学员招生信息'
         verbose_name_plural = verbose_name
 
-    def __str__(self):
-        return str(self.stu_number)
+    # def __str__(self):
+    #     return str(self.stu_number)
 
     def save(self, *args, **kwargs):
         # TODO CODEVIEW 重写保存方法需要创建外键约束时务必先保存当前对象

@@ -146,11 +146,13 @@ class TuitionAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = ('relate_student', 'fee_train', 'fee_material', 'fee_exam', 'fee_total',
-                      'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id', 'fee_tax')
+                      'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id', 'fee_tax','fee_invoice_header',
+                    'fee_invoice_id','fee_invoice_date')
 
     list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'fee_train', 'fee_material', 'fee_exam',
                     'fee_total',
-                    'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id', 'fee_tax']
+                    'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id', 'fee_tax','fee_invoice_header',
+                    'fee_invoice_id','fee_invoice_date']
     # TODO CODEVIEW filter中外键的处理
     list_filter = ['fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_exam_extra', 'fee_date', 'fee_method',
                    'fee_id', 'relate_student__stu_class__class_name', 'fee_tax']
@@ -159,7 +161,8 @@ class TuitionAdmin(object):
                           }
     search_fields = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name']
     list_editable = ['fee_train', 'fee_material', 'fee_exam', 'fee_total',
-                     'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id', 'fee_tax']
+                     'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id', 'fee_tax','fee_invoice_header',
+                    'fee_invoice_id','fee_invoice_date']
     readonly_fields = ['relate_student']
 
     def get_form_layout(self):
@@ -433,7 +436,8 @@ class TotalAdmin(object):
                     'stu_loc', 'stu_deg', 'stu_major', 'stu_company', 'stu_duty', 'stu_status', 'stu_origin',
                     'stu_cellphone', 'stu_wechat', 'stu_qq', 'stu_signup_date', 'stu_signup_people', 'stu_other',
                     'fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_exam_extra', 'fee_date', 'fee_method',
-                    'fee_id', 'fee_tax', 'text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure', 'text_thr',
+                    'fee_id', 'fee_tax','fee_invoice_header',
+                    'fee_invoice_id','fee_invoice_date','text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure', 'text_thr',
                     'text_thr_exer', 'text_manual', 'text_exam', 'text_other', 'wechat_number', 'wechat_nickname',
                     'wechat_date', 'onduty', 'homework', 'other', 'exam_date', 'exam_theory', 'exam_theory_result',
                     'exam_practise', 'exam_practise_result', 'exam_total', 'exam_total_result', 'exam_status',

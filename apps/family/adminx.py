@@ -1,7 +1,7 @@
 import xadmin
 from django.utils.html import format_html
 from .models import FamilyBasic, FamilyCertification, Result, ResultExtra, FamilyTextbook, \
-    FamilyTuition, FamilyWechat, FamilyClass, FamilyOnduty,Total
+    FamilyTuition, FamilyWechat, FamilyClass, FamilyOnduty, Total
 from import_export import resources, fields
 from import_export.widgets import ForeignKeyWidget, BooleanWidget
 from django.apps import apps
@@ -48,24 +48,25 @@ class BasicAdmin(object):
                 'fam_loc', 'fam_deg', 'fam_major',
                 'fam_company', 'fam_duty',
                 'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
-                'fam_signup_date', 'fam_signup_people','fam_teacher_level',  'fam_other')
+                'fam_signup_date', 'fam_signup_people', 'fam_teacher_level', 'fam_other')
 
-    list_display = ['fam_number','tuition_state','fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
+    list_display = ['fam_number', 'tuition_state', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
                     'fam_loc', 'fam_deg',
                     'fam_major',
                     'fam_company', 'fam_duty',
                     'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
-                    'fam_signup_date', 'fam_signup_people','fam_teacher_level','fam_other']
+                    'fam_signup_date', 'fam_signup_people', 'fam_teacher_level', 'fam_other']
     import_export_args = {'import_resource_class': FamilyBasicResources}
-    list_filter = ['fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num','fam_id_number',
+    list_filter = ['fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
                    'fam_loc', 'fam_deg',
                    'fam_major',
                    'fam_company', 'fam_duty',
                    'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
-                   'fam_signup_date', 'fam_signup_people','fam_teacher_level','fam_other', 'fam_class__class_name', ]
+                   'fam_signup_date', 'fam_signup_people', 'fam_teacher_level', 'fam_other', 'fam_class__class_name', ]
     list_editable = list_display
-    search_fields = ['fam_number','fam_name', 'fam_class__class_name']
+    search_fields = ['fam_number', 'fam_name', 'fam_class__class_name']
     show_bookmarks = False
+
     def tuition_state(self, obj):
         info = obj.fam_name
         if obj.familytuition.fee_date == '空':
@@ -75,6 +76,7 @@ class BasicAdmin(object):
             color_code = 'black'
             # info = '已交费'
         return format_html('<span style="color:{};">{}</span>', color_code, info)
+
     tuition_state.short_description = '姓名'
     tuition_state.admin_order_field = 'fam_name'
 
@@ -126,7 +128,7 @@ class ClassAdmin(object):
         #     return fields
         class Meta:
             model = FamilyClass
-            fields = ('class_name', 'class_teacher','class_recruit_teacher', 'class_date')
+            fields = ('class_name', 'class_teacher', 'class_recruit_teacher', 'class_date')
             # 导入数据时，如果该条数据未修改过，则会忽略
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
@@ -136,11 +138,12 @@ class ClassAdmin(object):
 
     import_export_args = {'import_resource_class': ClassResources,
                           }
-    list_display = ['class_name','class_index','class_id_example', 'class_teacher', 'class_recruit_teacher', 'class_date']
+    list_display = ['class_name', 'class_index', 'class_id_example', 'class_teacher', 'class_recruit_teacher',
+                    'class_date']
     list_filter = list_display
     search_fields = list_display
     show_bookmarks = False
-    ordering=['-class_index']
+    ordering = ['-class_index']
 
 
 @xadmin.sites.register(FamilyTuition)
@@ -169,9 +172,14 @@ class TuitionAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_family', 'fee_train',  'fee_date', 'fee_method', 'fee_id', 'fee_tax')
+            fields = ('relate_family', 'fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
+                      'fee_invoice_id', 'fee_invoice_date')
 
-    list_display = ['relate_family','get_fam_name', 'get_fam_class', 'fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax']
+    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'fee_train', 'fee_date', 'fee_method', 'fee_id',
+                    'fee_tax',
+                    'fee_invoice_header',
+                    'fee_invoice_id', 'fee_invoice_date'
+                    ]
     # TODO CODEVIEW filter中外键的处理
     list_filter = ['fee_train', 'fee_date', 'fee_method',
                    'fee_id', 'relate_family__fam_class__class_name', 'fee_tax']
@@ -179,14 +187,13 @@ class TuitionAdmin(object):
     import_export_args = {'import_resource_class': TuitionResources,
                           }
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
-    list_editable = ['fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax']
+    list_editable = ['fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
+                     'fee_invoice_id', 'fee_invoice_date']
     readonly_fields = ['relate_family']
 
     def get_form_layout(self):
         self.form_layout = TuitionLayout
         return super().get_form_layout()
-
-
 
 
 @xadmin.sites.register(FamilyTextbook)
@@ -215,14 +222,14 @@ class TextbookAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_family', 'text_basic','text_manual', 'text_other')
+            fields = ('relate_family', 'text_basic', 'text_manual', 'text_other')
 
     import_export_args = {'import_resource_class': TextbookResources, }
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'text_basic','text_manual', 'text_other']
-    list_filter = ['text_basic','text_other', 'relate_family__fam_class__class_name']
+    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'text_basic', 'text_manual', 'text_other']
+    list_filter = ['text_basic', 'text_other', 'relate_family__fam_class__class_name']
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     readonly_fields = ['relate_family']
-    list_editable = ['text_basic','text_manual','text_other']
+    list_editable = ['text_basic', 'text_manual', 'text_other']
     show_bookmarks = False
 
 
@@ -252,7 +259,7 @@ class WechatAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_family', 'wechat_number', 'wechat_nickname', 'wechat_date', )
+            fields = ('relate_family', 'wechat_number', 'wechat_nickname', 'wechat_date',)
 
     import_export_args = {'import_resource_class': WechatResources, }
     list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'wechat_number', 'wechat_nickname',
@@ -290,13 +297,15 @@ class ExamAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_family','homework_one_result', 'date', 'homework_two_result','homework_three_result','result')
+            fields = (
+            'relate_family', 'homework_one_result', 'date', 'homework_two_result', 'homework_three_result', 'result')
 
     import_export_args = {'import_resource_class': ExamResources, }
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class','homework_one_result', 'date', 'homework_two_result','homework_three_result','result']
+    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'homework_one_result', 'date',
+                    'homework_two_result', 'homework_three_result', 'result']
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name',
-                   'date', 'homework_two_result','homework_three_result','result']
-    list_editable = ['homework_one_result','date', 'homework_two_result','homework_three_result','result']
+                   'date', 'homework_two_result', 'homework_three_result', 'result']
+    list_editable = ['homework_one_result', 'date', 'homework_two_result', 'homework_three_result', 'result']
     show_bookmarks = False
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     readonly_fields = ['relate_family']
@@ -328,14 +337,16 @@ class ExamExtraAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_family','homework_one_result','date', 'homework_two_result','homework_three_result','result')
+            fields = (
+            'relate_family', 'homework_one_result', 'date', 'homework_two_result', 'homework_three_result', 'result')
 
     import_export_args = {'import_resource_class': ExamResources, }
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'homework_one_result','date', 'homework_two_result',
+    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'homework_one_result', 'date',
+                    'homework_two_result',
                     'homework_three_result', 'result']
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name',
-                   'homework_one_result','date', 'homework_two_result', 'homework_three_result', 'result']
-    list_editable = ['homework_one_result','date', 'homework_two_result', 'homework_three_result', 'result']
+                   'homework_one_result', 'date', 'homework_two_result', 'homework_three_result', 'result']
+    list_editable = ['homework_one_result', 'date', 'homework_two_result', 'homework_three_result', 'result']
     show_bookmarks = False
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     readonly_fields = ['relate_family']
@@ -406,7 +417,7 @@ class FamilyOndutyAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_family', 'onduty','other')
+            fields = ('relate_family', 'onduty', 'other')
 
     import_export_args = {'import_resource_class': OndutyResources}
     list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'onduty', 'other']
@@ -415,6 +426,7 @@ class FamilyOndutyAdmin(object):
     show_bookmarks = False
     search_fields = list_filter
     reanonly_fields = ['relate_family']
+
 
 @xadmin.sites.register(Total)
 class TotalAdmin(object):
@@ -428,12 +440,15 @@ class TotalAdmin(object):
         'fam_company', 'fam_duty',
         'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
         'fam_signup_date', 'fam_signup_people', 'fam_teacher_level', 'fam_other',
-        'fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax',
-        'text_basic', 'text_other',
+        'fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
+        'fee_invoice_id', 'fee_invoice_date'
+                          'text_basic', 'text_other',
         'exam_date', 'exam_homework2_result', 'exam_homework3_result', 'exam_result',
         'exam_date_extra', 'exam_homework2_extra', 'exam_homework3_extra', 'exam_result_extra',
         'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date',
     ]
-    show_bookmarks=False
-    list_filter = ['family__fam_name','family__fam_cellphone','family__fam_class__class_name','family__fam_teacher_level','family__familytuition__fee_date',
-                   'family__familywechat__wechat_number','family__result__result','family__familycertification__cert_id']
+    show_bookmarks = False
+    list_filter = ['family__fam_name', 'family__fam_cellphone', 'family__fam_class__class_name',
+                   'family__fam_teacher_level', 'family__familytuition__fee_date',
+                   'family__familywechat__wechat_number', 'family__result__result',
+                   'family__familycertification__cert_id']

@@ -14,7 +14,9 @@ class FamilyTuition(models.Model):
     fee_method = models.CharField(max_length=128, verbose_name='缴费方式', blank=True, null=True,default='空')
     fee_id = models.CharField(max_length=128, verbose_name='收据号', blank=True, null=True,default='空')
     fee_tax = models.CharField(max_length=128,verbose_name='发票号',blank=True,null=True,default='空')
-
+    fee_invoice_header = models.CharField(max_length=128, verbose_name='发票抬头', blank=True, null=True, default='空')
+    fee_invoice_id = models.CharField(max_length=128, verbose_name='发票机构代码', blank=True, null=True, default='空')
+    fee_invoice_date = models.CharField(max_length=128, verbose_name='发票开票日期', blank=True, null=True, default='空')
 
     # TODO CODEREVICEW:模型的三种继承方式和自定义方法
     def get_fam_name(self):

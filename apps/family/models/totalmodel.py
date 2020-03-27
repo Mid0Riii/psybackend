@@ -150,6 +150,22 @@ class Total(models.Model):
 
     fee_tax.short_description = "发票号"
 
+    def fee_invoice_header(self):
+        return self.family.familytuition.fee_invoice_header
+
+    fee_invoice_header.short_description = "发票抬头"
+
+    def fee_invoice_id(self):
+        return self.family.familytuition.fee_invoice_id
+
+    fee_invoice_id.short_description = "发票机构代码"
+
+    def fee_invoice_date(self):
+        return self.family.familytuition.fee_invoice_date
+
+    fee_invoice_date.short_description = "发票开票日期"
+
+
     def text_basic(self):
         return self.family.familytextbook.text_basic
 

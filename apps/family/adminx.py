@@ -441,7 +441,7 @@ class TotalAdmin(object):
         'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
         'fam_signup_date', 'fam_signup_people', 'fam_teacher_level', 'fam_other',
         'fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
-        'fee_invoice_id', 'fee_invoice_date'
+        'fee_invoice_id', 'fee_invoice_date',
                           'text_basic', 'text_other',
         'exam_date', 'exam_homework2_result', 'exam_homework3_result', 'exam_result',
         'exam_date_extra', 'exam_homework2_extra', 'exam_homework3_extra', 'exam_result_extra',

@@ -154,7 +154,7 @@ class TuitionAdmin(object):
                     'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id', 'fee_tax','fee_invoice_header',
                     'fee_invoice_id','fee_invoice_date']
     # TODO CODEVIEW filter中外键的处理
-    list_filter = ['fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_exam_extra', 'fee_date', 'fee_method',
+    list_filter = ['relate_student__stu_name', 'relate_student__stu_number','fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_exam_extra', 'fee_date', 'fee_method',
                    'fee_id', 'relate_student__stu_class__class_name', 'fee_tax']
     show_bookmarks = False
     import_export_args = {'import_resource_class': TuitionResources,
@@ -204,7 +204,7 @@ class TextbookAdmin(object):
                     'text_sec_measure',
                     'text_thr',
                     'text_thr_exer','text_thr_measure', 'text_manual', 'text_exam', 'text_other']
-    list_filter = ['text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure', 'text_thr',
+    list_filter = ['relate_student__stu_name', 'relate_student__stu_number','text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure', 'text_thr',
                    'text_thr_exer','text_thr_measure', 'text_manual', 'text_exam', 'text_other', 'relate_student__stu_class__class_name']
     search_fields = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name']
     readonly_fields = ['relate_student']
@@ -245,7 +245,7 @@ class WechatAdmin(object):
     import_export_args = {'import_resource_class': WechatResources, }
     list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'wechat_number', 'wechat_nickname',
                     'wechat_date', ]
-    list_filter = ['wechat_number', 'wechat_nickname', 'wechat_date', 'relate_student__stu_class__class_name']
+    list_filter = ['relate_student__stu_name', 'relate_student__stu_number','wechat_number', 'wechat_nickname', 'wechat_date', 'relate_student__stu_class__class_name']
     search_fields = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name']
     readonly_fields = ['relate_student']
     list_editable = ['wechat_number', 'wechat_nickname', 'wechat_date']
@@ -333,7 +333,7 @@ class ExamExtraAdmin(object):
     list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'exam_date', 'exam_theory', 'exam_theory_result',
                     'exam_practise',
                     'exam_practise_result', 'exam_total', 'exam_total_result', 'exam_status']
-    list_filter = ['relate_student__stu_class__class_name', 'exam_date', 'exam_theory', 'exam_theory_result',
+    list_filter = ['relate_student__stu_name', 'relate_student__stu_number','relate_student__stu_class__class_name', 'exam_date', 'exam_theory', 'exam_theory_result',
                    'exam_practise', 'exam_practise_result',
                    'exam_total', 'exam_total_result', 'exam_status', 'relate_student__stu_class__class_name']
     list_editable = ['exam_date', 'exam_theory', 'exam_theory_result', 'exam_practise',

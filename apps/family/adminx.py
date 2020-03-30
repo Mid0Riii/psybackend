@@ -181,12 +181,12 @@ class TuitionAdmin(object):
                     'fee_invoice_id', 'fee_invoice_date'
                     ]
     # TODO CODEVIEW filter中外键的处理
-    list_filter = ['fee_train', 'fee_date', 'fee_method',
+    list_filter = ['relate_family__fam_name','fee_train', 'fee_date', 'fee_method',
                    'fee_id', 'relate_family__fam_class__class_name', 'fee_tax']
     show_bookmarks = False
     import_export_args = {'import_resource_class': TuitionResources,
                           }
-    search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
+    search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     list_editable = ['fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                      'fee_invoice_id', 'fee_invoice_date']
     readonly_fields = ['relate_family']
@@ -226,7 +226,7 @@ class TextbookAdmin(object):
 
     import_export_args = {'import_resource_class': TextbookResources, }
     list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'text_basic', 'text_manual', 'text_other']
-    list_filter = ['text_basic', 'text_other', 'relate_family__fam_class__class_name']
+    list_filter = ['relate_family__fam_name', 'relate_family__fam_number','text_basic', 'text_other', 'relate_family__fam_class__class_name']
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     readonly_fields = ['relate_family']
     list_editable = ['text_basic', 'text_manual', 'text_other']
@@ -264,7 +264,7 @@ class WechatAdmin(object):
     import_export_args = {'import_resource_class': WechatResources, }
     list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'wechat_number', 'wechat_nickname',
                     'wechat_date', ]
-    list_filter = ['wechat_number', 'wechat_nickname', 'wechat_date', 'relate_family__fam_class__class_name']
+    list_filter = ['relate_family__fam_name', 'relate_family__fam_number','wechat_number', 'wechat_nickname', 'wechat_date', 'relate_family__fam_class__class_name']
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     readonly_fields = ['relate_family']
     list_editable = ['wechat_number', 'wechat_nickname', 'wechat_date']

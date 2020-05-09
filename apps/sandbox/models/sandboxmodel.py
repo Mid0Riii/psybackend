@@ -44,15 +44,6 @@ class StudentBasic(models.Model):
     def get_verbose_name(self, field):
         return str(field)
 
-    """
-    ——————————————
-    5.9新增
-    """
-    stu_type = models.CharField(max_length=128,verbose_name='学员类型',null=True,blank=True)
-    stu_group = models.CharField(max_length=128,verbose_name='组别与职务',null=True,blank=True)
-    """
-    ——————————————
-    """
     stu_number = models.CharField(max_length=128, verbose_name='学号', unique=True)
     stu_name = models.CharField(max_length=128, verbose_name='姓名', blank=True, null=True, default='空')
     stu_gender = models.CharField(max_length=16, choices=(('男', '男'), ('女', '女')), verbose_name='性别', blank=True,

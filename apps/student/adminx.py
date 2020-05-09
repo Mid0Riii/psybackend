@@ -43,20 +43,21 @@ class BasicAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = (
+                'stu_type','stu_group',
                 'stu_number', 'stu_name', 'stu_gender', 'stu_class', 'stu_class_num', 'stu_level', 'stu_id_number',
                 'stu_loc', 'stu_deg', 'stu_major',
                 'stu_company', 'stu_duty',
                 'stu_status', 'stu_origin', 'stu_cellphone', 'stu_wechat', 'stu_qq',
                 'stu_signup_date', 'stu_signup_people', 'stu_other')
 
-    list_display = ['stu_number','tuition_state', 'stu_gender', 'stu_class', 'stu_class_num', 'stu_level', 'stu_id_number',
+    list_display = ['stu_type','stu_group','stu_number','tuition_state', 'stu_gender', 'stu_class', 'stu_class_num', 'stu_level', 'stu_id_number',
                     'stu_loc', 'stu_deg',
                     'stu_major',
                     'stu_company', 'stu_duty',
                     'stu_status', 'stu_origin', 'stu_cellphone', 'stu_wechat', 'stu_qq',
                     'stu_signup_date', 'stu_signup_people', 'stu_other']
     import_export_args = {'import_resource_class': StudentBasicResources}
-    list_filter = ['stu_number', 'stu_name', 'stu_gender', 'stu_class', 'stu_class_num', 'stu_level', 'stu_id_number',
+    list_filter = ['stu_type','stu_group','stu_number', 'stu_name', 'stu_gender', 'stu_class', 'stu_class_num', 'stu_level', 'stu_id_number',
                    'stu_loc', 'stu_deg',
                    'stu_major',
                    'stu_company', 'stu_duty',
@@ -147,22 +148,21 @@ class TuitionAdmin(object):
             report_skipped = True
             fields = ('relate_student', 'fee_train', 'fee_material', 'fee_exam', 'fee_total',
                       'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id', 'fee_tax','fee_invoice_header',
-                    'fee_invoice_id','fee_invoice_date')
+                    'fee_invoice_id','fee_invoice_date','fee_invoice_inc','fee_info')
 
     list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'fee_train', 'fee_material', 'fee_exam',
                     'fee_total',
                     'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id', 'fee_tax','fee_invoice_header',
-                    'fee_invoice_id','fee_invoice_date']
+                    'fee_invoice_id','fee_invoice_date','fee_invoice_inc','fee_info']
     # TODO CODEVIEW filter中外键的处理
     list_filter = ['relate_student__stu_name', 'relate_student__stu_number','fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_exam_extra', 'fee_date', 'fee_method',
-                   'fee_id', 'relate_student__stu_class__class_name', 'fee_tax']
+                   'fee_id', 'relate_student__stu_class__class_name', 'fee_tax','fee_invoice_inc','fee_info']
     show_bookmarks = False
-    import_export_args = {'import_resource_class': TuitionResources,
-                          }
+    import_export_args = {'import_resource_class': TuitionResources,}
     search_fields = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name']
     list_editable = ['fee_train', 'fee_material', 'fee_exam', 'fee_total',
                      'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id', 'fee_tax','fee_invoice_header',
-                    'fee_invoice_id','fee_invoice_date']
+                    'fee_invoice_id','fee_invoice_date','fee_invoice_inc','fee_info']
     readonly_fields = ['relate_student']
 
     def get_form_layout(self):
@@ -197,19 +197,19 @@ class TextbookAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = ('relate_student', 'text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure','text_thr_measure', 'text_thr',
-                      'text_thr_exer', 'text_manual', 'text_exam', 'text_other')
+                      'text_thr_exer', 'text_manual', 'text_exam','text_CAS','text_guide','text_other')
 
     import_export_args = {'import_resource_class': TextbookResources, }
     list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'text_basic', 'text_sec', 'text_sec_exer',
                     'text_sec_measure',
                     'text_thr',
-                    'text_thr_exer','text_thr_measure', 'text_manual', 'text_exam', 'text_other']
+                    'text_thr_exer','text_thr_measure', 'text_manual', 'text_exam','text_CAS','text_guide','text_other']
     list_filter = ['relate_student__stu_name', 'relate_student__stu_number','text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure', 'text_thr',
-                   'text_thr_exer','text_thr_measure', 'text_manual', 'text_exam', 'text_other', 'relate_student__stu_class__class_name']
+                   'text_thr_exer','text_thr_measure', 'text_manual', 'text_exam', 'text_CAS','text_guide','text_other', 'relate_student__stu_class__class_name']
     search_fields = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name']
     readonly_fields = ['relate_student']
     list_editable = ['text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure',
-                     'text_thr',
+                     'text_thr','text_CAS','text_guide',
                      'text_thr_exer','text_thr_measure', 'text_manual', 'text_exam', 'text_other']
     show_bookmarks = False
 
@@ -384,6 +384,7 @@ class CertificationAdmin(object):
     show_bookmarks = False
     search_fields = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name']
     readonly_fields = ['relate_student']
+
 
 
 @xadmin.sites.register(Onduty)

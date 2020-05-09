@@ -5,6 +5,8 @@ BasicLayout = \
     (
         Main(
             Fieldset(_('个人信息'),
+                     'stu_type',
+                     'stu_group',
                      'stu_number',
                      'stu_name',
                      'stu_gender',
@@ -57,6 +59,10 @@ TuitionLayout = \
                      'fee_method',
                      'fee_id'
                      'fee_tax'
+                     'fee_invoice_id',
+                     'fee_invoice_date',
+                     'fee_invoice_inc',
+                     'fee_info',
                      )
         ),
     )

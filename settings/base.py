@@ -34,6 +34,9 @@ sys.path.insert(0, str(BASE_DIR / 'apps'))
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'marriage',
+    'sandbox',
+    'team',
     'family',
     'xadmin',
     'student',

@@ -224,14 +224,14 @@ class TextbookAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_sandbox', 'text_basic', 'text_skill', 'text_workbook', 'text_train', 'text_manual', 'text_other')
+            fields = ('relate_sandbox', 'text_sandbox', 'text_two', 'text_three', 'text_train', 'text_manual', 'text_other')
 
     import_export_args = {'import_resource_class': TextbookResources, }
-    list_display = ['relate_sandbox', 'get_san_name', 'get_san_class', 'text_basic', 'text_skill', 'text_workbook', 'text_train', 'text_manual', 'text_other']
-    list_filter = ['relate_sandbox__san_name', 'relate_sandbox__san_number','text_basic', 'text_skill', 'text_workbook', 'text_train', 'text_other', 'relate_sandbox__san_class__class_name']
+    list_display = ['relate_sandbox', 'get_san_name', 'get_san_class', 'text_sandbox', 'text_two', 'text_three', 'text_train', 'text_manual', 'text_other']
+    list_filter = ['relate_sandbox__san_name', 'relate_sandbox__san_number','text_sandbox', 'text_two', 'text_three', 'text_train', 'text_other', 'relate_sandbox__san_class__class_name']
     search_fields = ['relate_sandbox__san_name', 'relate_sandbox__san_number', 'relate_sandbox__san_class__class_name']
     readonly_fields = ['relate_sandbox']
-    list_editable = ['text_basic', 'text_skill', 'text_workbook', 'text_train', 'text_manual', 'text_other']
+    list_editable = ['text_sandbox', 'text_two', 'text_three', 'text_train', 'text_manual', 'text_other']
     show_booksanks = False
 
 

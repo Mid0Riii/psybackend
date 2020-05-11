@@ -1,5 +1,5 @@
 from .classmodel import *
-from .sandboxmodel import *
+from .teammodel import *
 from .tuitionmodel import *
 from .textbookmodel import *
 from .wechatmodel import *

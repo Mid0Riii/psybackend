@@ -1,6 +1,7 @@
 from django.db import models
 from .classmodel import FamilyClass
 from django.utils.html import format_html
+
 class FamilyBasic(models.Model):
     class Meta:
         verbose_name = '家庭招生信息'

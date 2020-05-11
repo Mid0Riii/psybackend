@@ -5,9 +5,15 @@ from teacher.models import Teacher,FamilyTeacher
 from filer.models import FakeModel
 from filer.models import Folder
 from family.models import FamilyClass,FamilyOnduty,FamilyTuition,FamilyBasic,FamilyCertification,FamilyTextbook,FamilyWechat,ResultExtra,Result
+from sandbox.models import SandboxClass,SandboxOnduty,SandboxTuition,SandboxBasic,SandboxCertification,SandboxTextbook,SandboxWechat,SandboxExam
+from marriage.models import MarriageClass,MarriageOnduty,MarriageTuition,MarriageBasic,MarriageCertification,MarriageTextbook,MarriageWechat,MarriageExam
+from team.models import TeamClass,TeamOnduty,TeamTuition,TeamBasic,TeamCertification,TeamTextbook,TeamWechat,TeamExam
 # from fileshare.models import FileShare
 from family.models import Total as FamilyTotal
 from student.models import Total as StudentTotal
+from sandbox.models import Total as SandboxTotal
+from marriage.models import Total as MarriageTotal
+from team.models import Total as TeamTotal
 def set_menu(self):
     defaultLayoutList = [
         {
@@ -140,6 +146,189 @@ def set_menu(self):
                         'title': '证书信息',
                         'perm': self.get_model_perm(FamilyCertification, 'view'),
                         'url': self.get_model_url(FamilyCertification, 'changelist'),
+                        'icon': 'fa fa-id-card'
+                    }
+                )
+        },
+        {
+            'title': '沙盘分析指导信息管理',
+            'icon': 'fa fa-home',
+            'menus':
+                (
+                    # {
+                    #     'title': '沙盘分析指导信息总览',
+                    #     'perm': self.get_model_perm(SandboxTotal, 'view'),
+                    #     'url': self.get_model_url(SandboxTotal, 'changelist'),
+                    #     'icon': 'fa fa-address-book'
+                    # },
+                    {
+                        'title': '基本信息',
+                        'perm': self.get_model_perm(SandboxBasic, 'view'),
+                        'url': self.get_model_url(SandboxBasic, 'changelist'),
+                        'icon': 'fa fa-address-book'
+                    },
+                    {
+                        'title': '班级信息',
+                        'perm': self.get_model_perm(SandboxClass, 'view'),
+                        'url': self.get_model_url(SandboxClass, 'changelist'),
+                        'icon': 'fa fa-users'
+                    },
+                    {
+                        'title': '交费信息',
+                        'perm': self.get_model_perm(SandboxTuition, 'view'),
+                        'url': self.get_model_url(SandboxTuition, 'changelist'),
+                        'icon': 'fa fa-money'
+                    },
+                    {
+                        'title': '教材信息',
+                        'perm': self.get_model_perm(SandboxTextbook, 'view'),
+                        'url': self.get_model_url(SandboxTextbook, 'changelist'),
+                        'icon': 'fa fa-book'
+                    },
+                    {
+                        'title': '365开通情况',
+                        'perm': self.get_model_perm(SandboxWechat, 'view'),
+                        'url': self.get_model_url(SandboxWechat, 'changelist'),
+                        'icon': 'fa fa-weixin'
+                    },
+                    {
+                        'title': '考勤信息',
+                        'perm': self.get_model_perm(SandboxOnduty, 'view'),
+                        'url': self.get_model_url(SandboxOnduty, 'changelist'),
+                        'icon': 'fa fa-check-square-o'
+                    },
+                    {
+                        'title': '考试信息',
+                        'perm': self.get_model_perm(Result, 'view'),
+                        'url': self.get_model_url(SandboxExam, 'changelist'),
+                        'icon': 'fa fa-star'
+                    },
+                    {
+                        'title': '证书信息',
+                        'perm': self.get_model_perm(SandboxCertification, 'view'),
+                        'url': self.get_model_url(SandboxCertification, 'changelist'),
+                        'icon': 'fa fa-id-card'
+                    }
+                )
+        },
+        {
+            'title': '团体心理辅导信息管理',
+            'icon': 'fa fa-home',
+            'menus':
+                (
+                    # {
+                    #     'title': '团体心理辅导信息总览',
+                    #     'perm': self.get_model_perm(TeamTotal, 'view'),
+                    #     'url': self.get_model_url(TeamTotal, 'changelist'),
+                    #     'icon': 'fa fa-address-book'
+                    # },
+                    {
+                        'title': '基本信息',
+                        'perm': self.get_model_perm(TeamBasic, 'view'),
+                        'url': self.get_model_url(TeamBasic, 'changelist'),
+                        'icon': 'fa fa-address-book'
+                    },
+                    {
+                        'title': '班级信息',
+                        'perm': self.get_model_perm(TeamClass, 'view'),
+                        'url': self.get_model_url(TeamClass, 'changelist'),
+                        'icon': 'fa fa-users'
+                    },
+                    {
+                        'title': '交费信息',
+                        'perm': self.get_model_perm(TeamTuition, 'view'),
+                        'url': self.get_model_url(TeamTuition, 'changelist'),
+                        'icon': 'fa fa-money'
+                    },
+                    {
+                        'title': '教材信息',
+                        'perm': self.get_model_perm(TeamTextbook, 'view'),
+                        'url': self.get_model_url(TeamTextbook, 'changelist'),
+                        'icon': 'fa fa-book'
+                    },
+                    {
+                        'title': '365开通情况',
+                        'perm': self.get_model_perm(TeamWechat, 'view'),
+                        'url': self.get_model_url(TeamWechat, 'changelist'),
+                        'icon': 'fa fa-weixin'
+                    },
+                    {
+                        'title': '考勤信息',
+                        'perm': self.get_model_perm(TeamOnduty, 'view'),
+                        'url': self.get_model_url(TeamOnduty, 'changelist'),
+                        'icon': 'fa fa-check-square-o'
+                    },
+                    {
+                        'title': '考试信息',
+                        'perm': self.get_model_perm(TeamExam, 'view'),
+                        'url': self.get_model_url(TeamExam, 'changelist'),
+                        'icon': 'fa fa-star'
+                    },
+                    {
+                        'title': '证书信息',
+                        'perm': self.get_model_perm(TeamCertification, 'view'),
+                        'url': self.get_model_url(TeamCertification, 'changelist'),
+                        'icon': 'fa fa-id-card'
+                    }
+                )
+        },
+        {
+            'title': '婚姻指导信息管理',
+            'icon': 'fa fa-home',
+            'menus':
+                (
+                    # {
+                    #     'title': '婚姻指导信息总览',
+                    #     'perm': self.get_model_perm(MarriageTotal, 'view'),
+                    #     'url': self.get_model_url(MarriageTotal, 'changelist'),
+                    #     'icon': 'fa fa-address-book'
+                    # },
+                    {
+                        'title': '基本信息',
+                        'perm': self.get_model_perm(MarriageBasic, 'view'),
+                        'url': self.get_model_url(MarriageBasic, 'changelist'),
+                        'icon': 'fa fa-address-book'
+                    },
+                    {
+                        'title': '班级信息',
+                        'perm': self.get_model_perm(MarriageClass, 'view'),
+                        'url': self.get_model_url(MarriageClass, 'changelist'),
+                        'icon': 'fa fa-users'
+                    },
+                    {
+                        'title': '交费信息',
+                        'perm': self.get_model_perm(MarriageTuition, 'view'),
+                        'url': self.get_model_url(MarriageTuition, 'changelist'),
+                        'icon': 'fa fa-money'
+                    },
+                    {
+                        'title': '教材信息',
+                        'perm': self.get_model_perm(MarriageTextbook, 'view'),
+                        'url': self.get_model_url(MarriageTextbook, 'changelist'),
+                        'icon': 'fa fa-book'
+                    },
+                    {
+                        'title': '365开通情况',
+                        'perm': self.get_model_perm(MarriageWechat, 'view'),
+                        'url': self.get_model_url(MarriageWechat, 'changelist'),
+                        'icon': 'fa fa-weixin'
+                    },
+                    {
+                        'title': '考勤信息',
+                        'perm': self.get_model_perm(MarriageOnduty, 'view'),
+                        'url': self.get_model_url(MarriageOnduty, 'changelist'),
+                        'icon': 'fa fa-check-square-o'
+                    },
+                    {
+                        'title': '考试信息',
+                        'perm': self.get_model_perm(MarriageExam, 'view'),
+                        'url': self.get_model_url(MarriageExam, 'changelist'),
+                        'icon': 'fa fa-star'
+                    },
+                    {
+                        'title': '证书信息',
+                        'perm': self.get_model_perm(MarriageCertification, 'view'),
+                        'url': self.get_model_url(MarriageCertification, 'changelist'),
                         'icon': 'fa fa-id-card'
                     }
                 )

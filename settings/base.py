@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'teacher',
     'import_export',
     'crispy_forms',
-    'easy_thumbnails',
+    'easy_thumbnails',  
     'filer',
     'mptt',
     'django.contrib.auth',

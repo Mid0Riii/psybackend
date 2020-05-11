@@ -33,7 +33,7 @@ class Total(models.Model):
     def san_gender(self):
         return self.sandbox.san_gender
 
-    san_gender.short_description = "年龄"
+    san_gender.short_description = "性别"
 
     def san_class(self):
         return self.sandbox.san_class
@@ -44,6 +44,16 @@ class Total(models.Model):
         return self.sandbox.san_class_num
 
     san_class_num.short_description = "班级序号"
+
+    def san_type(self):
+        return self.sandbox.san_type
+    
+    san_type.short_description = "学员类型"
+
+    def san_group(self):
+        return self.sandbox.san_group
+
+    san_group.short_description = "组别和职务"
 
     def san_level(self):
         return self.sandbox.san_level
@@ -100,10 +110,10 @@ class Total(models.Model):
 
     san_wechat.short_description = "微信"
 
-    def san_qq(self):
-        return self.sandbox.san_qq
+    def san_email(self):
+        return self.sandbox.san_email
 
-    san_qq.short_description = "qq"
+    san_email.short_description = "邮箱"
 
     def san_signup_date(self):
         return self.sandbox.san_signup_date
@@ -113,11 +123,11 @@ class Total(models.Model):
     def san_signup_people(self):
         return self.sandbox.san_signup_people
 
-    san_signup_people.short_description = "具体招生人"
+    san_signup_people.short_description = "招生人"
 
-    def san_teacher_level(self):
-        return self.sandbox.san_teacher_level
-    san_teacher_level.short_description = "心师级别"
+    #def san_teacher_level(self):
+    #    return self.sandbox.san_teacher_level
+    #san_teacher_level.short_description = "心师级别"
 
     def san_other(self):
         return self.sandbox.san_other
@@ -129,6 +139,21 @@ class Total(models.Model):
 
     fee_train.short_description = "培训费"
 
+    def fee_material(self):
+        return self.sandbox.sandboxtuition.fee_material
+    
+    fee_material.short_description = "教材费"
+
+    def fee_exam(self):
+        return self.sandbox.sandboxtuition.fee_exam
+    
+    fee_exam.short_description = "考试费"
+
+    def fee_total(self):
+        return self.sandbox.sandboxtuition.fee_total
+    
+    fee_total.short_description = "总费用"
+
     def fee_date(self):
         return self.sandbox.sandboxtuition.fee_date
 
@@ -138,11 +163,6 @@ class Total(models.Model):
         return self.sandbox.sandboxtuition.fee_method
 
     fee_method.short_description = "缴费方式"
-
-    def fee_id(self):
-        return self.sandbox.sandboxtuition.fee_id
-
-    fee_id.short_description = "收据号"
 
     def fee_tax(self):
         return self.sandbox.sandboxtuition.fee_tax
@@ -164,11 +184,36 @@ class Total(models.Model):
 
     fee_invoice_date.short_description = "发票开票日期"
 
+    def fee_other(self):
+        return self.sandbox.sandboxtuition.fee_other
 
-    def text_basic(self):
-        return self.sandbox.sandboxtextbook.text_basic
+    fee_other.short_description = "备注"
 
-    text_basic.short_description = "基础技能"
+
+    def text_sandbox(self):
+        return self.sandbox.sandboxtextbook.text_sandbox
+
+    text_sandbox.short_description = "沙盘教材"
+
+    def text_two(self):
+        return self.sandbox.sandboxtextbook.text_two
+
+    text_two.short_description = "教材2"
+
+    def text_three(self):
+        return self.sandbox.sandboxtextbook.text_three
+
+    text_three.short_description = "教材3"
+
+    def text_train(self):
+        return self.sandbox.sandboxtextbook.text_reain
+
+    text_train.short_description = "培训指南"
+
+    def text_manual(self):
+        return self.sandbox.sandboxtextbook.text_manual
+
+    text_manual.short_description = "学员手册"
 
     def text_other(self):
         return self.sandbox.sandboxtextbook.text_other
@@ -190,87 +235,97 @@ class Total(models.Model):
 
     wechat_date.short_description = "开通日期"
 
-    def exam_date(self):
-        return self.sandbox.sandboxexam.date
+    def wechat_other(self):
+        return self.sandbox.sandboxwechat.wechat_other
 
-    exam_date.short_description = "考核日期"
+    wechat_other.short_description = "备注"
 
-    def exam_homework2_result(self):
-        return self.sandbox.sandboxexam.homework_two_result
 
-    exam_homework2_result.short_description = "作业二成绩"
+    def exam_batch(self):
+        return self.sandbox.sandboxexam.batch
 
-    def exam_homework3_result(self):
-        return self.sandbox.sandboxexam.homework_three_result
+    exam_batch.short_description = "考核批次"
 
-    exam_homework3_result.short_description = "作业三成绩"
+    def exam_total(self):
+        return self.sandbox.sandboxexam.exam_total
 
-    def exam_result(self):
-        return self.sandbox.sandboxexam.result
+    exam_total.short_description = "总分"
 
-    exam_result.short_description = "合格情况"
+    def exam_nation(self):
+        return self.sandbox.sandboxexam.exam_nation
 
-    def exam_date_extra(self):
-        return self.sandbox.sandboxexamextra.date
+    exam_nation.short_description = "国考笔试成绩"
 
-    exam_date_extra.short_description = "补考日期"
+    def exam_practice(self):
+        return self.sandbox.sandboxexam.exam_practice
 
-    def exam_homework2_extra(self):
-        return self.sandbox.sandboxexamextra.homework_two_result
+    exam_practice.short_description = "实操考核成绩"
 
-    exam_homework2_extra.short_description = "作业二成绩"
+    def exam_other(self):
+        return self.sandbox.sandboxexam.other
 
-    def exam_homework3_extra(self):
-        return self.sandbox.sandboxexamextra.homework_three_result
+    exam_other.short_description = "备注"
 
-    exam_homework3_extra.short_description = "作业三成绩"
+    def ass_cert_id(self):
+        return self.sandbox.sandboxcertification.ass_cert_id
 
-    def exam_result_extra(self):
-        return self.sandbox.sandboxexamextra.result
+    ass_cert_id.short_description = "协会证书编号"
 
-    exam_result_extra.short_description = "合格情况"
+    def ass_cert_date(self):
+        return self.sandbox.sandboxcertification.ass_cert_date
 
-    def cert_id(self):
-        return self.sandbox.sandboxcertification.cert_id
+    ass_cert_date.short_description = "协会证书发证日期"
 
-    cert_id.short_description = "证书编号"
+    def ass_cert_draw_people(self):
+        return self.sandbox.sandboxcertification.ass_cert_draw_people
 
-    def cert_date(self):
-        return self.sandbox.sandboxcertification.cert_date
+    ass_cert_draw_people.short_description = "协会证书领取人"
 
-    cert_date.short_description = "发证日期"
+    def ass_cert_draw_date(self):
+        return self.sandbox.sandboxcertification.ass_cert_draw_date
 
-    def cert_draw_people(self):
-        return self.sandbox.sandboxcertification.cert_draw_people
+    ass_cert_draw_date.short_description = "协会证书领取时间"
 
-    cert_draw_people.short_description = "领取人"
+    def nation_cert_id(self):
+        return self.sandbox.sandboxcertification.nation_cert_id
 
-    def cert_draw_date(self):
-        return self.sandbox.sandboxcertification.cert_draw_date
+    nation_cert_id.short_description = "国证证书编号"
 
-    cert_draw_date.short_description = "领取时间"
+    def nation_cert_date(self):
+        return self.sandbox.sandboxcertification.nation_cert_date
 
-    def onduty(self):
+    nation_cert_date.short_description = "国证证书发证日期"
+
+    def nation_cert_draw_people(self):
+        return self.sandbox.sandboxcertification.nation_cert_draw_people
+
+    nation_cert_draw_people.short_description = "国证证书领取人"
+
+    def nation_cert_draw_date(self):
+        return self.sandbox.sandboxcertification.nation_cert_draw_date
+
+    nation_cert_draw_date.short_description = "国证证书领取时间"
+
+    def cert_other(self):
+        return self.sandbox.sandboxcertification.other
+
+    cert_other.short_description = "备注"
+
+
+    def ond_onduty(self):
         return self.sandbox.sandboxonduty.onduty
 
-    onduty.short_description = "出勤"
+    ond_onduty.short_description = "出勤"
 
-    def homework1(self):
-        return self.sandbox.sandboxonduty.homework1
+    def ond_homework(self):
+        return self.sandbox.sandboxonduty.homework
 
-    homework1.short_description = "作业一"
-    def homework2(self):
-        return self.sandbox.sandboxonduty.homework2
+    ond_homework.short_description = "作业打卡"
 
-    homework2.short_description = "作业二"
-    def homework3(self):
-        return self.sandbox.sandboxonduty.homework3
-
-    homework3.short_description = "作业三"
-    def other(self):
+    def ond_other(self):
         return self.sandbox.sandboxonduty.other
 
-    other.short_description = "备注"
+    ond_other.short_description = "备注"
 
 
 

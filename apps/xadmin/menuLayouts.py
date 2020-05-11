@@ -155,12 +155,12 @@ def set_menu(self):
             'icon': 'fa fa-home',
             'menus':
                 (
-                    # {
-                    #     'title': '沙盘分析指导信息总览',
-                    #     'perm': self.get_model_perm(SandboxTotal, 'view'),
-                    #     'url': self.get_model_url(SandboxTotal, 'changelist'),
-                    #     'icon': 'fa fa-address-book'
-                    # },
+                    {
+                        'title': '沙盘分析指导信息总览',
+                        'perm': self.get_model_perm(SandboxTotal, 'view'),
+                        'url': self.get_model_url(SandboxTotal, 'changelist'),
+                        'icon': 'fa fa-address-book'
+                    },
                     {
                         'title': '基本信息',
                         'perm': self.get_model_perm(SandboxBasic, 'view'),

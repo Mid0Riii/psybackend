@@ -28,6 +28,7 @@ class SandboxBasic(models.Model):
             SandboxCertification.objects.get(relate_sandbox=self)
             SandboxOnduty.objects.get(relate_sandbox=self)
             Total.objects.get(sandbox=self)
+
         except Exception as e:
             SandboxTuition.objects.create(relate_sandbox=self,relate_class=self.san_class)
             SandboxExam.objects.create(relate_sandbox=self,relate_class=self.san_class)

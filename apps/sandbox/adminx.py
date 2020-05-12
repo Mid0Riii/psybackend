@@ -399,24 +399,24 @@ class TotalAdmin(object):
     list_display_links = ('san_name')
     list_display = [
         'san_number', 'san_name', 'san_gender', 'san_class', 'san_class_num', 'san_id_number',
-        'san_type', 'san_group'
+        'san_type', 'san_group',
         'san_loc', 'san_deg', 'san_major',
         'san_company', 'san_duty',
         'san_status', 'san_origin', 'san_cellphone', 'san_wechat', 'san_email',
         'san_signup_date', 'san_signup_people', 'san_other',
         'fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method', 'fee_tax', 'fee_invoice_header',
-        'fee_invoice_id', 'fee_invoice_date', 'fee_other'
+        'fee_invoice_id', 'fee_invoice_date', 'fee_other',
         'text_sandbox', 'text_two', 'text_three', 'text_train', 'text_manual', 'text_other',
         'wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other',
         'exam_batch', 'exam_total', 'exam_nation', 'exam_practice', 'exam_other',
         'ass_cert_id', 'ass_cert_date', 'ass_cert_draw_people', 'ass_cert_draw_date',
         'nation_cert_id', 'nation_cert_date', 'nation_cert_draw_people', 'nation_cert_draw_date', 'cert_other',
-        'ond_onduty', 'ond_homework', 'ond_other'
+        'ond_onduty', 'ond_homework', 'ond_other',
     ]
     show_booksanks = False
     list_filter = ['sandbox__san_name', 'sandbox__san_cellphone', 'sandbox__san_class__class_name',
                    'sandbox__sandboxtuition__fee_date',
-                   'sandbox__sandboxwechat__wechat_number', 'sandbox__exam__total',
+                   'sandbox__sandboxwechat__wechat_number',
                    'sandbox__sandboxcertification__ass_cert_id',
                    'sandbox__sandboxcertification__nation_cert_id']
 

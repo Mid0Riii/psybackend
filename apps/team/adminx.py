@@ -20,7 +20,7 @@ from .layouts.detailLayouts import BasicLayout, TuitionLayout
 @xadmin.sites.register(TeamBasic)
 class BasicAdmin(object):
     """
-    家庭基本信息
+    团体心理辅导基本信息
     """
 
     class TeamBasicResources(resources.ModelResource):
@@ -44,11 +44,11 @@ class BasicAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = (
-                'tea_number', 'tea_name', 'tea_gender', 'tea_class', 'tea_class_num', 'tea_id_number',
+                'tea_number', 'tea_name', 'tea_gender', 'tea_id_number',
                 'tea_loc', 'tea_deg', 'tea_major',
                 'tea_company', 'tea_duty',
-                'tea_status', 'tea_origin', 'tea_cellphone', 'tea_wechat', 'tea_qq',
-                'tea_signup_date', 'tea_signup_people', 'tea_other')
+                'tea_status', 'tea_origin', 'tea_cellphone', 'tea_wechat', 'tea_email',
+                'tea_signup_date', 'tea_signup_people', 'tea_other', 'tea_class')
 
     list_display = ['tea_number', 'tuition_state', 'tea_gender', 'tea_class', 'tea_class_num', 'tea_type', 'tea_group', 'tea_id_number',
                     'tea_loc', 'tea_deg',
@@ -57,7 +57,7 @@ class BasicAdmin(object):
                     'tea_status', 'tea_origin', 'tea_cellphone', 'tea_wechat', 'tea_email',
                     'tea_signup_date', 'tea_signup_people', 'tea_other']
     import_export_args = {'import_resource_class': TeamBasicResources}
-    list_filter = ['tea_number', 'tea_name', 'tea_gender', 'tea_class', 'tea_class_num', 'tea_type', 'tea_group', 'tea_id_number',
+    list_filter = ['tea_number', 'tea_name', 'tea_type', 'tea_group', 'tea_gender', 'tea_class', 'tea_class_num', 'tea_id_number',
                    'tea_loc', 'tea_deg',
                    'tea_major',
                    'tea_company', 'tea_duty',
@@ -128,7 +128,7 @@ class ClassAdmin(object):
         #     return fields
         class Meta:
             model = TeamClass
-            fields = ('class_name', 'class_teacher', 'class_recruit_teacher', 'class_date')
+            fields = ('class_name', 'class_teacher', 'class_date')
             # 导入数据时，如果该条数据未修改过，则会忽略
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
@@ -391,28 +391,32 @@ class TeamOndutyAdmin(object):
     reanonly_fields = ['relate_team']
 
 
-# @xadmin.sites.register(Total)
-# class TotalAdmin(object):
-#     """
-#     总览信息
-#     """
-#     list_display_links = ('tea_name')
-#     list_display = [
-#         'tea_number', 'tea_name', 'tea_gender', 'tea_class', 'tea_class_num', 'tea_id_number',
-#         'tea_loc', 'tea_deg', 'tea_major',
-#         'tea_company', 'tea_duty',
-#         'tea_status', 'tea_origin', 'tea_cellphone', 'tea_wechat', 'tea_qq',
-#         'tea_signup_date', 'tea_signup_people', 'tea_teacher_level', 'tea_other',
-#         'fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
-#         'fee_invoice_id', 'fee_invoice_date',
-#                           'text_basic', 'text_other',
-#         'exam_date', 'exam_homework2_result', 'exam_homework3_result', 'exam_result',
-#         'exam_date_extra', 'exam_homework2_extra', 'exam_homework3_extra', 'exam_result_extra',
-#         'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date',
-#     ]
-#     show_bookteaks = False
-#     list_filter = ['team__tea_name', 'team__tea_cellphone', 'team__tea_class__class_name',
-#                    'team__tea_teacher_level', 'team__teamtuition__fee_date',
-#                    'team__teamwechat__wechat_number', 'team__result__result',
-#                    'team__teamcertification__cert_id']
+@xadmin.sites.register(Total)
+class TotalAdmin(object):
+    """
+    总览信息
+    """
+    list_display_links = ('tea_name')
+    list_display = [
+        'tea_number', 'tea_name', 'tea_gender', 'tea_class', 'tea_class_num', 'tea_id_number',
+        'tea_type', 'tea_group',
+        'tea_loc', 'tea_deg', 'tea_major',
+        'tea_company', 'tea_duty',
+        'tea_status', 'tea_origin', 'tea_cellphone', 'tea_wechat', 'tea_email',
+        'tea_signup_date', 'tea_signup_people', 'tea_other',
+        'fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method', 'fee_tax', 'fee_invoice_header',
+        'fee_invoice_id', 'fee_invoice_date', 'fee_other',
+        'text_team', 'text_two', 'text_train', 'text_manual', 'text_other',
+        'wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other',
+        'exam_batch', 'exam_total', 'exam_nation', 'exam_practice', 'exam_other',
+        'ass_cert_id', 'ass_cert_date', 'ass_cert_draw_people', 'ass_cert_draw_date',
+        'nation_cert_id', 'nation_cert_date', 'nation_cert_draw_people', 'nation_cert_draw_date', 'cert_other',
+        'ond_onduty', 'ond_homework', 'ond_other',
+    ]
+    show_bookteaks = False
+    list_filter = ['team__tea_name', 'team__tea_cellphone', 'team__tea_class__class_name',
+                   'team__teamtuition__fee_date',
+                   'team__teamwechat__wechat_number',
+                   'team__teamcertification__ass_cert_id',
+                   'team__teamcertification__nation_cert_id']
 

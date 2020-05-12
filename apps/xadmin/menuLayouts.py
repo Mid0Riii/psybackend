@@ -216,12 +216,12 @@ def set_menu(self):
             'icon': 'fa fa-home',
             'menus':
                 (
-                    # {
-                    #     'title': '团体心理辅导信息总览',
-                    #     'perm': self.get_model_perm(TeamTotal, 'view'),
-                    #     'url': self.get_model_url(TeamTotal, 'changelist'),
-                    #     'icon': 'fa fa-address-book'
-                    # },
+                    {
+                        'title': '团体心理辅导信息总览',
+                        'perm': self.get_model_perm(TeamTotal, 'view'),
+                        'url': self.get_model_url(TeamTotal, 'changelist'),
+                        'icon': 'fa fa-address-book'
+                    },
                     {
                         'title': '基本信息',
                         'perm': self.get_model_perm(TeamBasic, 'view'),
@@ -277,12 +277,12 @@ def set_menu(self):
             'icon': 'fa fa-home',
             'menus':
                 (
-                    # {
-                    #     'title': '婚姻指导信息总览',
-                    #     'perm': self.get_model_perm(MarriageTotal, 'view'),
-                    #     'url': self.get_model_url(MarriageTotal, 'changelist'),
-                    #     'icon': 'fa fa-address-book'
-                    # },
+                    {
+                        'title': '婚姻指导信息总览',
+                        'perm': self.get_model_perm(MarriageTotal, 'view'),
+                        'url': self.get_model_url(MarriageTotal, 'changelist'),
+                        'icon': 'fa fa-address-book'
+                    },
                     {
                         'title': '基本信息',
                         'perm': self.get_model_perm(MarriageBasic, 'view'),

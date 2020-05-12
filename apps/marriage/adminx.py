@@ -20,7 +20,7 @@ from .layouts.detailLayouts import BasicLayout, TuitionLayout
 @xadmin.sites.register(MarriageBasic)
 class BasicAdmin(object):
     """
-    家庭基本信息
+    婚姻基本信息
     """
 
     class MarriageBasicResources(resources.ModelResource):
@@ -44,11 +44,11 @@ class BasicAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = (
-                'mar_number', 'mar_name', 'mar_gender', 'mar_class', 'mar_class_num', 'mar_id_number',
+                'mar_number', 'mar_name', 'mar_gender', 'mar_id_number',
                 'mar_loc', 'mar_deg', 'mar_major',
                 'mar_company', 'mar_duty',
                 'mar_status', 'mar_origin', 'mar_cellphone', 'mar_wechat', 'mar_email',
-                'mar_signup_date', 'mar_signup_people', 'mar_other')
+                'mar_signup_date', 'mar_signup_people', 'mar_other', 'mar_class')
 
     list_display = ['mar_number', 'tuition_state', 'mar_gender', 'mar_class', 'mar_class_num', 'mar_type', 'mar_group', 'mar_id_number',
                     'mar_loc', 'mar_deg',
@@ -128,7 +128,7 @@ class ClassAdmin(object):
         #     return fields
         class Meta:
             model = MarriageClass
-            fields = ('class_name', 'class_teacher', 'class_recruit_teacher', 'class_date')
+            fields = ('class_name', 'class_teacher', 'class_date')
             # 导入数据时，如果该条数据未修改过，则会忽略
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
@@ -224,14 +224,14 @@ class TextbookAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_marriage', 'text_basic', 'text_skill', 'text_workbook', 'text_train', 'text_manual', 'text_other')
+            fields = ('relate_marriage', 'text_marriage', 'text_two', 'text_three', 'text_train', 'text_manual', 'text_other')
 
     import_export_args = {'import_resource_class': TextbookResources, }
-    list_display = ['relate_marriage', 'get_mar_name', 'get_mar_class', 'text_basic', 'text_skill', 'text_workbook', 'text_train', 'text_manual', 'text_other']
-    list_filter = ['relate_marriage__mar_name', 'relate_marriage__mar_number','text_basic', 'text_skill', 'text_workbook', 'text_train', 'text_other', 'relate_marriage__mar_class__class_name']
+    list_display = ['relate_marriage', 'get_mar_name', 'get_mar_class', 'text_marriage', 'text_two', 'text_three', 'text_train', 'text_manual', 'text_other']
+    list_filter = ['relate_marriage__mar_name', 'relate_marriage__mar_number','text_marriage', 'text_two', 'text_three', 'text_train', 'text_other', 'relate_marriage__mar_class__class_name']
     search_fields = ['relate_marriage__mar_name', 'relate_marriage__mar_number', 'relate_marriage__mar_class__class_name']
     readonly_fields = ['relate_marriage']
-    list_editable = ['text_basic', 'text_skill', 'text_workbook', 'text_train', 'text_manual', 'text_other']
+    list_editable = ['text_marriage', 'text_two', 'text_three', 'text_train', 'text_manual', 'text_other']
     show_bookmarks = False
 
 
@@ -391,28 +391,32 @@ class MarriageOndutyAdmin(object):
     reanonly_fields = ['relate_marriage']
 
 
-# @xadmin.sites.register(Total)
-# class TotalAdmin(object):
-#     """
-#     总览信息
-#     """
-#     list_display_links = ('mar_name')
-#     list_display = [
-#         'mar_number', 'mar_name', 'mar_gender', 'mar_class', 'mar_class_num', 'mar_id_number',
-#         'mar_loc', 'mar_deg', 'mar_major',
-#         'mar_company', 'mar_duty',
-#         'mar_status', 'mar_origin', 'mar_cellphone', 'mar_wechat', 'mar_qq',
-#         'mar_signup_date', 'mar_signup_people', 'mar_teacher_level', 'mar_other',
-#         'fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
-#         'fee_invoice_id', 'fee_invoice_date',
-#                           'text_basic', 'text_other',
-#         'exam_date', 'exam_homework2_result', 'exam_homework3_result', 'exam_result',
-#         'exam_date_extra', 'exam_homework2_extra', 'exam_homework3_extra', 'exam_result_extra',
-#         'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date',
-#     ]
-#     show_bookmarks = False
-#     list_filter = ['marriage__mar_name', 'marriage__mar_cellphone', 'marriage__mar_class__class_name',
-#                    'marriage__mar_teacher_level', 'marriage__marriagetuition__fee_date',
-#                    'marriage__marriagewechat__wechat_number', 'marriage__result__result',
-#                    'marriage__marriagecertification__cert_id']
+@xadmin.sites.register(Total)
+class TotalAdmin(object):
+    """
+    总览信息
+    """
+    list_display_links = ('mar_name')
+    list_display = [
+        'mar_number', 'mar_name', 'mar_gender', 'mar_class', 'mar_class_num', 'mar_id_number',
+        'mar_type', 'mar_group',
+        'mar_loc', 'mar_deg', 'mar_major',
+        'mar_company', 'mar_duty',
+        'mar_status', 'mar_origin', 'mar_cellphone', 'mar_wechat', 'mar_email',
+        'mar_signup_date', 'mar_signup_people', 'mar_other',
+        'fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method', 'fee_tax', 'fee_invoice_header',
+        'fee_invoice_id', 'fee_invoice_date', 'fee_other',
+        'text_basic', 'text_skill', 'text_workbook', 'text_train', 'text_manual', 'text_other',
+        'wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other',
+        'exam_batch', 'exam_total', 'exam_nation', 'exam_practice', 'exam_other',
+        'ass_cert_id', 'ass_cert_date', 'ass_cert_draw_people', 'ass_cert_draw_date',
+        'nation_cert_id', 'nation_cert_date', 'nation_cert_draw_people', 'nation_cert_draw_date', 'cert_other',
+        'ond_onduty', 'ond_homework', 'ond_other',
+    ]
+    show_bookmarks = False
+    list_filter = ['marriage__mar_name', 'marriage__mar_cellphone', 'marriage__mar_class__class_name',
+                   'marriage__marriagetuition__fee_date',
+                   'marriage__marriagewechat__wechat_number',
+                   'marriage__marriagecertification__ass_cert_id',
+                   'marriage__marriagecertification__nation_cert_id']
 

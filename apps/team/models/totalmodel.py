@@ -33,7 +33,7 @@ class Total(models.Model):
     def tea_gender(self):
         return self.team.tea_gender
 
-    tea_gender.short_description = "年龄"
+    tea_gender.short_description = "性别"
 
     def tea_class(self):
         return self.team.tea_class
@@ -44,6 +44,16 @@ class Total(models.Model):
         return self.team.tea_class_num
 
     tea_class_num.short_description = "班级序号"
+
+    def tea_type(self):
+        return self.team.tea_type
+    
+    tea_type.short_description = "学员类型"
+
+    def tea_group(self):
+        return self.team.tea_group
+
+    tea_group.short_description = "组别和职务"
 
     def tea_level(self):
         return self.team.tea_level
@@ -100,10 +110,10 @@ class Total(models.Model):
 
     tea_wechat.short_description = "微信"
 
-    def tea_qq(self):
-        return self.team.tea_qq
+    def tea_email(self):
+        return self.team.tea_email
 
-    tea_qq.short_description = "qq"
+    tea_email.short_description = "邮箱"
 
     def tea_signup_date(self):
         return self.team.tea_signup_date
@@ -113,11 +123,11 @@ class Total(models.Model):
     def tea_signup_people(self):
         return self.team.tea_signup_people
 
-    tea_signup_people.short_description = "具体招生人"
+    tea_signup_people.short_description = "招生人"
 
-    def tea_teacher_level(self):
-        return self.team.tea_teacher_level
-    tea_teacher_level.short_description = "心师级别"
+    #def tea_teacher_level(self):
+    #    return self.team.tea_teacher_level
+    #tea_teacher_level.short_description = "心师级别"
 
     def tea_other(self):
         return self.team.tea_other
@@ -129,6 +139,21 @@ class Total(models.Model):
 
     fee_train.short_description = "培训费"
 
+    def fee_material(self):
+        return self.team.teamtuition.fee_material
+    
+    fee_material.short_description = "教材费"
+
+    def fee_exam(self):
+        return self.team.teamtuition.fee_exam
+    
+    fee_exam.short_description = "考试费"
+
+    def fee_total(self):
+        return self.team.teamtuition.fee_total
+    
+    fee_total.short_description = "总费用"
+
     def fee_date(self):
         return self.team.teamtuition.fee_date
 
@@ -138,11 +163,6 @@ class Total(models.Model):
         return self.team.teamtuition.fee_method
 
     fee_method.short_description = "缴费方式"
-
-    def fee_id(self):
-        return self.team.teamtuition.fee_id
-
-    fee_id.short_description = "收据号"
 
     def fee_tax(self):
         return self.team.teamtuition.fee_tax
@@ -164,11 +184,31 @@ class Total(models.Model):
 
     fee_invoice_date.short_description = "发票开票日期"
 
+    def fee_other(self):
+        return self.team.teamtuition.fee_other
 
-    def text_basic(self):
-        return self.team.teamtextbook.text_basic
+    fee_other.short_description = "备注"
 
-    text_basic.short_description = "基础技能"
+
+    def text_team(self):
+        return self.team.teamtextbook.text_team
+
+    text_team.short_description = "团体心理辅导"
+
+    def text_two(self):
+        return self.team.teamtextbook.text_two
+
+    text_two.short_description = "教材2"
+
+    def text_train(self):
+        return self.team.teamtextbook.text_reain
+
+    text_train.short_description = "培训指南"
+
+    def text_manual(self):
+        return self.team.teamtextbook.text_manual
+
+    text_manual.short_description = "学员手册"
 
     def text_other(self):
         return self.team.teamtextbook.text_other
@@ -190,87 +230,97 @@ class Total(models.Model):
 
     wechat_date.short_description = "开通日期"
 
-    def exam_date(self):
-        return self.team.teamexam.date
+    def wechat_other(self):
+        return self.team.teamwechat.wechat_other
 
-    exam_date.short_description = "考核日期"
+    wechat_other.short_description = "备注"
 
-    def exam_homework2_result(self):
-        return self.team.teamexam.homework_two_result
 
-    exam_homework2_result.short_description = "作业二成绩"
+    def exam_batch(self):
+        return self.team.teamexam.batch
 
-    def exam_homework3_result(self):
-        return self.team.teamexam.homework_three_result
+    exam_batch.short_description = "考核批次"
 
-    exam_homework3_result.short_description = "作业三成绩"
+    def exam_total(self):
+        return self.team.teamexam.exam_total
 
-    def exam_result(self):
-        return self.team.teamexam.result
+    exam_total.short_description = "总分"
 
-    exam_result.short_description = "合格情况"
+    def exam_nation(self):
+        return self.team.teamexam.exam_nation
 
-    def exam_date_extra(self):
-        return self.team.teamexamextra.date
+    exam_nation.short_description = "国考笔试成绩"
 
-    exam_date_extra.short_description = "补考日期"
+    def exam_practice(self):
+        return self.team.teamexam.exam_practice
 
-    def exam_homework2_extra(self):
-        return self.team.teamexamextra.homework_two_result
+    exam_practice.short_description = "实操考核成绩"
 
-    exam_homework2_extra.short_description = "作业二成绩"
+    def exam_other(self):
+        return self.team.teamexam.other
 
-    def exam_homework3_extra(self):
-        return self.team.teamexamextra.homework_three_result
+    exam_other.short_description = "备注"
 
-    exam_homework3_extra.short_description = "作业三成绩"
+    def ass_cert_id(self):
+        return self.team.teamcertification.ass_cert_id
 
-    def exam_result_extra(self):
-        return self.team.teamexamextra.result
+    ass_cert_id.short_description = "协会证书编号"
 
-    exam_result_extra.short_description = "合格情况"
+    def ass_cert_date(self):
+        return self.team.teamcertification.ass_cert_date
 
-    def cert_id(self):
-        return self.team.teamcertification.cert_id
+    ass_cert_date.short_description = "协会证书发证日期"
 
-    cert_id.short_description = "证书编号"
+    def ass_cert_draw_people(self):
+        return self.team.teamcertification.ass_cert_draw_people
 
-    def cert_date(self):
-        return self.team.teamcertification.cert_date
+    ass_cert_draw_people.short_description = "协会证书领取人"
 
-    cert_date.short_description = "发证日期"
+    def ass_cert_draw_date(self):
+        return self.team.teamcertification.ass_cert_draw_date
 
-    def cert_draw_people(self):
-        return self.team.teamcertification.cert_draw_people
+    ass_cert_draw_date.short_description = "协会证书领取时间"
 
-    cert_draw_people.short_description = "领取人"
+    def nation_cert_id(self):
+        return self.team.teamcertification.nation_cert_id
 
-    def cert_draw_date(self):
-        return self.team.teamcertification.cert_draw_date
+    nation_cert_id.short_description = "国证证书编号"
 
-    cert_draw_date.short_description = "领取时间"
+    def nation_cert_date(self):
+        return self.team.teamcertification.nation_cert_date
 
-    def onduty(self):
+    nation_cert_date.short_description = "国证证书发证日期"
+
+    def nation_cert_draw_people(self):
+        return self.team.teamcertification.nation_cert_draw_people
+
+    nation_cert_draw_people.short_description = "国证证书领取人"
+
+    def nation_cert_draw_date(self):
+        return self.team.teamcertification.nation_cert_draw_date
+
+    nation_cert_draw_date.short_description = "国证证书领取时间"
+
+    def cert_other(self):
+        return self.team.teamcertification.other
+
+    cert_other.short_description = "备注"
+
+
+    def ond_onduty(self):
         return self.team.teamonduty.onduty
 
-    onduty.short_description = "出勤"
+    ond_onduty.short_description = "出勤"
 
-    def homework1(self):
-        return self.team.teamonduty.homework1
+    def ond_homework(self):
+        return self.team.teamonduty.homework
 
-    homework1.short_description = "作业一"
-    def homework2(self):
-        return self.team.teamonduty.homework2
+    ond_homework.short_description = "作业打卡"
 
-    homework2.short_description = "作业二"
-    def homework3(self):
-        return self.team.teamonduty.homework3
-
-    homework3.short_description = "作业三"
-    def other(self):
+    def ond_other(self):
         return self.team.teamonduty.other
 
-    other.short_description = "备注"
+    ond_other.short_description = "备注"
 
 
 

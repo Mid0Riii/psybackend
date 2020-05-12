@@ -44,11 +44,11 @@ class BasicAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = (
-                'san_number', 'san_name', 'san_gender', 'san_class', 'san_class_num', 'san_id_number',
+                'san_number', 'san_name', 'san_gender', 'san_id_number',
                 'san_loc', 'san_deg', 'san_major',
                 'san_company', 'san_duty',
                 'san_status', 'san_origin', 'san_cellphone', 'san_wechat', 'san_email',
-                'san_signup_date', 'san_signup_people', 'san_other')
+                'san_signup_date', 'san_signup_people', 'san_other', 'san_class')
 
     list_display = ['san_number', 'tuition_state', 'san_gender', 'san_class', 'san_class_num', 'san_type', 'san_group', 'san_id_number',
                     'san_loc', 'san_deg',
@@ -128,7 +128,7 @@ class ClassAdmin(object):
         #     return fields
         class Meta:
             model = SandboxClass
-            fields = ('class_name', 'class_teacher', 'class_recruit_teacher', 'class_date')
+            fields = ('class_name', 'class_teacher', 'class_date')
             # 导入数据时，如果该条数据未修改过，则会忽略
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录

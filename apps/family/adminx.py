@@ -427,12 +427,12 @@ class FamilyOndutyAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_family', 'onduty', 'other')
+            fields = ('relate_family', 'onduty', 'homework', 'other')
 
     import_export_args = {'import_resource_class': OndutyResources}
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'onduty', 'other']
+    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'onduty','homework', 'other']
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
-    list_editable = ['onduty', 'other']
+    list_editable = ['onduty', 'homwwork', 'homework', 'other']
     show_bookmarks = False
     search_fields = list_filter
     reanonly_fields = ['relate_family']

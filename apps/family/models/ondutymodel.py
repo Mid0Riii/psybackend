@@ -10,6 +10,7 @@ class FamilyOnduty(models.Model):
     relate_class = models.ForeignKey(FamilyClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_family = models.OneToOneField(FamilyBasic,on_delete=models.CASCADE,verbose_name='学号',blank=True,null=True)
     onduty = models.CharField(max_length=128, verbose_name='出勤', blank=True, null=True,default='空')
+    homework = models.CharField(max_length=128, verbose_name='视频提交', blank=True, null=True,default='空')
     other = models.TextField(verbose_name="备注", null=True, blank=True,default='空')
 
     def get_fam_name(self):

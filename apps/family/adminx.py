@@ -44,20 +44,23 @@ class BasicAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = (
+                'fam_type', 'fam_group',
                 'fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
                 'fam_loc', 'fam_deg', 'fam_major',
                 'fam_company', 'fam_duty',
                 'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
                 'fam_signup_date', 'fam_signup_people', 'fam_teacher_level', 'fam_other')
 
-    list_display = ['fam_number', 'tuition_state', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
+    list_display = ['fam_type', 'fam_group', 'fam_number', 'tuition_state', 'fam_gender', 'fam_class', 'fam_class_num',
+                    'fam_id_number',
                     'fam_loc', 'fam_deg',
                     'fam_major',
                     'fam_company', 'fam_duty',
                     'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
                     'fam_signup_date', 'fam_signup_people', 'fam_teacher_level', 'fam_other']
     import_export_args = {'import_resource_class': FamilyBasicResources}
-    list_filter = ['fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
+    list_filter = ['fam_type', 'fam_group', 'fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num',
+                   'fam_id_number',
                    'fam_loc', 'fam_deg',
                    'fam_major',
                    'fam_company', 'fam_duty',
@@ -172,23 +175,25 @@ class TuitionAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_family', 'fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
-                      'fee_invoice_id', 'fee_invoice_date')
+            fields = ('relate_family', 'fee_train', 'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax',
+                      'fee_invoice_header',
+                      'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc')
 
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'fee_train', 'fee_date', 'fee_method', 'fee_id',
-                    'fee_tax',
-                    'fee_invoice_header',
-                    'fee_invoice_id', 'fee_invoice_date'
+    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'fee_train', 'fee_material', 'fee_date',
+                    'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
+                    'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc'
                     ]
     # TODO CODEVIEW filter中外键的处理
-    list_filter = ['relate_family__fam_name','fee_train', 'fee_date', 'fee_method',
-                   'fee_id', 'relate_family__fam_class__class_name', 'fee_tax']
+    list_filter = ['relate_family__fam_name', 'relate_family__fam_class__class_name', 'fee_tax', 'fee_train',
+                   'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
+                   'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc']
     show_bookmarks = False
     import_export_args = {'import_resource_class': TuitionResources,
                           }
-    search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
-    list_editable = ['fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
-                     'fee_invoice_id', 'fee_invoice_date']
+    search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_number',
+                     'relate_family__fam_class__class_name']
+    list_editable = ['fee_train', 'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
+                     'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc']
     readonly_fields = ['relate_family']
 
     def get_form_layout(self):
@@ -222,14 +227,16 @@ class TextbookAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_family', 'text_basic', 'text_manual', 'text_other')
+            fields = ('relate_family', 'text_basic', 'text_basic2', 'text_guide', 'text_manual', 'text_other')
 
     import_export_args = {'import_resource_class': TextbookResources, }
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'text_basic', 'text_manual', 'text_other']
-    list_filter = ['relate_family__fam_name', 'relate_family__fam_number','text_basic', 'text_other', 'relate_family__fam_class__class_name']
+    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'text_basic', 'text_basic2', 'text_guide',
+                    'text_manual', 'text_other']
+    list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'text_basic', 'text_other',
+                   'relate_family__fam_class__class_name''text_basic2', 'text_guide', ]
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     readonly_fields = ['relate_family']
-    list_editable = ['text_basic', 'text_manual', 'text_other']
+    list_editable = ['text_basic', 'text_manual', 'text_other', 'text_basic2', 'text_guide', ]
     show_bookmarks = False
 
 
@@ -259,15 +266,16 @@ class WechatAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_family', 'wechat_number', 'wechat_nickname', 'wechat_date',)
+            fields = ('relate_family', 'wechat_number', 'wechat_nickname', 'wechat_date','wechat_other')
 
     import_export_args = {'import_resource_class': WechatResources, }
     list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'wechat_number', 'wechat_nickname',
-                    'wechat_date', ]
-    list_filter = ['relate_family__fam_name', 'relate_family__fam_number','wechat_number', 'wechat_nickname', 'wechat_date', 'relate_family__fam_class__class_name']
+                    'wechat_date', 'wechat_other',]
+    list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'wechat_number', 'wechat_nickname',
+                   'wechat_date', 'relate_family__fam_class__class_name']
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     readonly_fields = ['relate_family']
-    list_editable = ['wechat_number', 'wechat_nickname', 'wechat_date']
+    list_editable = ['wechat_number', 'wechat_nickname', 'wechat_date','wechat_other']
     show_bookmarks = False
 
 
@@ -298,20 +306,21 @@ class ExamAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = (
-            'relate_family', 'homework_one_result', 'date', 'homework_two_result', 'homework_three_result', 'result')
+                'relate_family', 'homework_one_result', 'date', 'homework_two_result', 'homework_three_result',
+                'result','total','nation_result','pre','speech','other')
 
     import_export_args = {'import_resource_class': ExamResources, }
     list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'homework_one_result', 'date',
-                    'homework_two_result', 'homework_three_result', 'result']
+                    'homework_two_result', 'homework_three_result', 'result','total','nation_result','pre','speech','other']
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name',
-                   'date', 'homework_two_result', 'homework_three_result', 'result']
-    list_editable = ['homework_one_result', 'date', 'homework_two_result', 'homework_three_result', 'result']
+                   'date', 'homework_two_result', 'homework_three_result', 'result','total','nation_result','pre','speech','other']
+    list_editable = ['homework_one_result', 'date', 'homework_two_result', 'homework_three_result', 'result','total','nation_result','pre','speech','other']
     show_bookmarks = False
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     readonly_fields = ['relate_family']
 
 
-@xadmin.sites.register(ResultExtra)
+# @xadmin.sites.register(ResultExtra)
 class ExamExtraAdmin(object):
     """
     补考信息
@@ -338,7 +347,8 @@ class ExamExtraAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = (
-            'relate_family', 'homework_one_result', 'date', 'homework_two_result', 'homework_three_result', 'result')
+                'relate_family', 'homework_one_result', 'date', 'homework_two_result', 'homework_three_result',
+                'result')
 
     import_export_args = {'import_resource_class': ExamResources, }
     list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'homework_one_result', 'date',
@@ -378,14 +388,14 @@ class CertificationAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_family', 'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date')
+            fields = ('relate_family', 'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date','cert_nation_id','cert_nation_people','cert_other',)
 
     import_export_args = {'import_resource_class': CertificationResources, }
     list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'cert_id', 'cert_date', 'cert_draw_people',
-                    'cert_draw_date']
+                    'cert_draw_date','cert_nation_id','cert_nation_people','cert_other',]
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'cert_id', 'cert_date', 'cert_draw_people',
-                   'cert_draw_date', 'relate_family__fam_class__class_name']
-    list_editable = ['cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date']
+                   'cert_draw_date', 'relate_family__fam_class__class_name','cert_nation_id','cert_nation_people','cert_other',]
+    list_editable = ['cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date','cert_nation_id','cert_nation_people','cert_other',]
     show_bookmarks = False
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     readonly_fields = ['relate_family']
@@ -442,7 +452,7 @@ class TotalAdmin(object):
         'fam_signup_date', 'fam_signup_people', 'fam_teacher_level', 'fam_other',
         'fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
         'fee_invoice_id', 'fee_invoice_date',
-                          'text_basic', 'text_other',
+        'text_basic', 'text_other',
         'exam_date', 'exam_homework2_result', 'exam_homework3_result', 'exam_result',
         'exam_date_extra', 'exam_homework2_extra', 'exam_homework3_extra', 'exam_result_extra',
         'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date',

@@ -13,7 +13,9 @@ class FamilyCertification(models.Model):
     cert_date = models.CharField(max_length=128,verbose_name='发证日期', blank=True, null=True,default='空')
     cert_draw_people = models.CharField(max_length=128, verbose_name='领取人', blank=True, null=True,default='空')
     cert_draw_date = models.CharField(max_length=128,verbose_name="领取时间", blank=True, null=True,default='空')
-
+    cert_nation_id =models.CharField(max_length=128,verbose_name='国证证书编号',null=True,blank=True,default='空')
+    cert_nation_people =models.CharField(max_length=128,verbose_name='国证证书领取人与日期',null=True,blank=True,default='空')
+    cert_other =models.CharField(max_length=128,verbose_name='备注',null=True,blank=True,default='空')
     def get_fam_name(self):
         info = self.relate_family.fam_name
         if self.relate_family.familytuition.fee_date == '空':

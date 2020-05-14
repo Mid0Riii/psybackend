@@ -9,7 +9,9 @@ class FamilyTextbook(models.Model):
 
     relate_class = models.ForeignKey(FamilyClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_family = models.OneToOneField(FamilyBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
-    text_basic = models.CharField(max_length=128, verbose_name='教材', blank=True, null=True,default='空')
+    text_basic = models.CharField(max_length=128, verbose_name='教材1', blank=True, null=True,default='空')
+    text_basic2 = models.CharField(max_length=128, verbose_name='教材2', blank=True, null=True,default='空')
+    text_guide = models.CharField(max_length=128, verbose_name='培训指南', blank=True, null=True,default='空')
     text_manual = models.CharField(max_length=128, verbose_name='学员手册', blank=True, null=True, default='空')
     text_other = models.TextField(verbose_name='备注',blank=True,null=True,default='空')
 

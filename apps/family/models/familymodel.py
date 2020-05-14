@@ -44,7 +44,9 @@ class FamilyBasic(models.Model):
     def get_verbose_name(self,field):
         return str(field)
 
+    fam_type = models.CharField(max_length=128, verbose_name='学员类型',blank=True,null=True,default='空')
     fam_number = models.CharField(max_length=128, verbose_name='学号', unique=True)
+    fam_group =models.CharField(max_length=128, verbose_name='组名与职务',blank=True,null=True,default='空')
     fam_name = models.CharField(max_length=128, verbose_name='姓名',blank=True,null=True,default='空')
     fam_gender = models.CharField(max_length=16, choices=(('男', '男'), ('女', '女')), verbose_name='性别',blank=True,null=True,default='空')
     fam_id_number = models.CharField(max_length=128, verbose_name='身份证号',default='空')

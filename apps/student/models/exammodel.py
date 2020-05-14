@@ -11,16 +11,25 @@ class StudentExam(models.Model):
     relate_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_student = models.OneToOneField(StudentBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
     # relate_student = models.ForeignKey(StudentBasic, on_delete=models.DO_NOTHING, verbose_name='学号')
-    exam_date = models.CharField(max_length=128, verbose_name='报考日期', null=True, blank=True, default='空')
-    exam_theory = models.CharField(max_length=128, verbose_name='理论报考', blank=True, null=True, default='空')
-    exam_theory_result = models.CharField(max_length=128, verbose_name='理论成绩', blank=True, null=True, default='空')
-    exam_practise = models.CharField(max_length=128, verbose_name='实操报考', blank=True, null=True, default='空')
-    exam_practise_result = models.CharField(max_length=128, verbose_name='实操成绩', blank=True, null=True, default='空')
+    exam_date = models.CharField(max_length=128, verbose_name='参试时间', null=True, blank=True, default='空')
+    exam_theory = models.CharField(max_length=128, verbose_name='国考理论报考', blank=True, null=True, default='空')
+    exam_theory_result = models.CharField(max_length=128, verbose_name='国考理论成绩', blank=True, null=True, default='空')
+    exam_practise = models.CharField(max_length=128, verbose_name='国考实操报考', blank=True, null=True, default='空')
+    exam_practise_result = models.CharField(max_length=128, verbose_name='国考实操成绩', blank=True, null=True, default='空')
+    exam_practise_result2 = models.CharField(max_length=128,verbose_name='实操笔试分',blank=True,null=True,default='空')
+    exam_pre = models.CharField(max_length=128,verbose_name='说课分',blank=True,null=True,default='空')
+    exam_speech = models.CharField(max_length=128,verbose_name='宣讲分',blank=True,null=True,default='空')
+    exam_thr_theory = models.CharField(max_length=128,verbose_name='协会三级理论',blank=True,null=True,default='空')
+    exam_thr_skill = models.CharField(max_length=128,verbose_name='协会三级技能',blank=True,null=True,default='空')
+    exam_sec_theory = models.CharField(max_length=128,verbose_name='协会二级理论',blank=True,null=True,default='空')
+    exam_sec_skill = models.CharField(max_length=128,verbose_name='协会二级技能',blank=True,null=True,default='空')
+    exam_thesis = models.CharField(max_length=128,verbose_name='协会论文答辩',blank=True,null=True,default='空')
+    exam_CAS = models.CharField(max_length=128,verbose_name='中科院成绩',blank=True,null=True,default='空')
     exam_total = models.CharField(max_length=128, verbose_name='综合报考', blank=True, null=True, default='空')
     exam_total_result = models.CharField(max_length=128, verbose_name='综合成绩', blank=True, null=True, default='空')
     exam_status = models.CharField(max_length=128, verbose_name='合格情况', choices=(('合格', '合格'), ('不合格', '不合格')),
                                    blank=True, null=True, default='空')
-
+    exam_other = models.TextField(verbose_name='备注',blank=True,null=True,default='空')
     def get_stu_name(self):
         info = self.relate_student.stu_name
         if self.relate_student.tuition.fee_date == '空':

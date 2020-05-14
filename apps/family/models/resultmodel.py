@@ -14,6 +14,11 @@ class Result(models.Model):
     homework_two_result = models.CharField(max_length=128,verbose_name='作业二成绩',blank=True,null=True,default='空')
     homework_three_result = models.CharField(max_length=128,verbose_name='作业三成绩',blank=True,null=True,default='空')
     result = models.CharField(max_length=64,verbose_name='合格情况',choices=(('合格','合格'),('不合格','不合格')),blank=True,null=True,default='空')
+    total = models.CharField(max_length=128,verbose_name='总分',null=True,blank=True,default='空')
+    nation_result = models.CharField(max_length=128,verbose_name='国考笔试成绩',null=True,blank=True,default='空')
+    pre = models.CharField(max_length=128,verbose_name='说课分',null=True,blank=True,default='空')
+    speech = models.CharField(max_length=128,verbose_name='宣讲分',null=True,blank=True,default='空')
+    other = models.CharField(max_length=128,verbose_name='备注',null=True,blank=True,default='空')
 
     def get_fam_name(self):
         info = self.relate_family.fam_name

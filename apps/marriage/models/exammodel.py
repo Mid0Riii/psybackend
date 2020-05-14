@@ -12,7 +12,7 @@ class MarriageExam(models.Model):
     batch = models.CharField(max_length=128,verbose_name='考试批次',blank=True,null=True,default='空')
     exam_total = models.CharField(max_length=128,verbose_name='总分',blank=True,null=True,default='空')
     exam_nation = models.CharField(max_length=128,verbose_name='国考笔试成绩',blank=True,null=True,default='空')
-    exam_practice = models.CharField(max_length=128,verbose_name='实操考核成绩',blank=True,null=True,default='空')
+    exam_practice = models.CharField(max_length=128,verbose_name='国考技能分',blank=True,null=True,default='空')
     # result = models.CharField(max_length=64,verbose_name='合格情况',choices=(('合格','合格'),('不合格','不合格')),blank=True,null=True,default='空')
     other = models.TextField(verbose_name='备注',blank=True,null=True,default='空')
 

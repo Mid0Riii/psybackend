@@ -9,7 +9,7 @@ class MarriageTextbook(models.Model):
 
     relate_class = models.ForeignKey(MarriageClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_marriage = models.OneToOneField(MarriageBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
-    text_basic = models.CharField(max_length=128, verbose_name='基础技能知识', blank=True, null=True,default='空')
+    text_basic = models.CharField(max_length=128, verbose_name='基础知识', blank=True, null=True,default='空')
     text_skill = models.CharField(max_length=128, verbose_name='技能教材', blank=True, null=True,default='空')
     text_workbook = models.CharField(max_length=128, verbose_name='习题集', blank=True, null=True,default='空')
     text_train = models.CharField(max_length=128, verbose_name='培训指南', blank=True, null=True,default='空')        

@@ -224,14 +224,14 @@ class TextbookAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_marriage', 'text_marriage', 'text_two', 'text_three', 'text_train', 'text_manual', 'text_other')
+            fields = ('relate_marriage', 'text_basic', 'text_skill', 'text_workbook', 'text_train', 'text_manual', 'text_other')
 
     import_export_args = {'import_resource_class': TextbookResources, }
-    list_display = ['relate_marriage', 'get_mar_name', 'get_mar_class', 'text_marriage', 'text_two', 'text_three', 'text_train', 'text_manual', 'text_other']
-    list_filter = ['relate_marriage__mar_name', 'relate_marriage__mar_number','text_marriage', 'text_two', 'text_three', 'text_train', 'text_other', 'relate_marriage__mar_class__class_name']
+    list_display = ['relate_marriage', 'get_mar_name', 'get_mar_class', 'text_basic', 'text_skill', 'text_workbook', 'text_train', 'text_manual', 'text_other']
+    list_filter = ['relate_marriage__mar_name', 'relate_marriage__mar_number','text_basic', 'text_skill', 'text_workbook', 'text_train', 'text_manual', 'text_other', 'relate_marriage__mar_class__class_name']
     search_fields = ['relate_marriage__mar_name', 'relate_marriage__mar_number', 'relate_marriage__mar_class__class_name']
     readonly_fields = ['relate_marriage']
-    list_editable = ['text_marriage', 'text_two', 'text_three', 'text_train', 'text_manual', 'text_other']
+    list_editable = ['text_basic', 'text_skill', 'text_workbook', 'text_train', 'text_manual', 'text_other']
     show_bookmarks = False
 
 

@@ -9,7 +9,7 @@ class TeamExam(models.Model):
 
     relate_class = models.ForeignKey(TeamClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_team = models.OneToOneField(TeamBasic, on_delete=models.CASCADE, verbose_name='学号', blank=True, null=True)
-    batch = models.CharField(max_length=128,verbose_name='考试批次',blank=True,null=True,default='空')
+    batch = models.CharField(max_length=128,verbose_name='考试时间',blank=True,null=True,default='空')
     exam_total = models.CharField(max_length=128,verbose_name='总分',blank=True,null=True,default='空')
     exam_nation = models.CharField(max_length=128,verbose_name='国考笔试成绩',blank=True,null=True,default='空')
     exam_practice = models.CharField(max_length=128,verbose_name='实操考核成绩',blank=True,null=True,default='空')

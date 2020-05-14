@@ -10,6 +10,7 @@ class FamilyTuition(models.Model):
     relate_class = models.ForeignKey(FamilyClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_family = models.OneToOneField(FamilyBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
     fee_train = models.CharField(max_length=128, verbose_name='培训费', blank=True, null=True,default='空')
+    fee_material = models.CharField(max_length=128, verbose_name='资料费', blank=True, null=True, default='空')
     fee_date = models.CharField(max_length=128,verbose_name='缴费日期', blank=True, null=True,default='空')
     fee_method = models.CharField(max_length=128, verbose_name='缴费方式', blank=True, null=True,default='空')
     fee_id = models.CharField(max_length=128, verbose_name='收据号', blank=True, null=True,default='空')
@@ -17,6 +18,11 @@ class FamilyTuition(models.Model):
     fee_invoice_header = models.CharField(max_length=128, verbose_name='发票抬头', blank=True, null=True, default='空')
     fee_invoice_id = models.CharField(max_length=128, verbose_name='发票机构代码', blank=True, null=True, default='空')
     fee_invoice_date = models.CharField(max_length=128, verbose_name='发票开票日期', blank=True, null=True, default='空')
+    fee_invoice_inc = models.CharField(max_length=128, verbose_name='出票单位', blank=True, null=True, default='空')
+    fee_exam = models.CharField(max_length=128, verbose_name='考试费', blank=True, null=True, default='空')
+    fee_total = models.CharField(max_length=128, verbose_name='总费用', blank=True, null=True, default='空')
+    fee_exam_extra = models.CharField(max_length=128, verbose_name='补考费', blank=True, null=True, default='空')
+    fee_info = models.TextField(max_length=128, verbose_name='备注', blank=True, null=True, default='空')
 
     # TODO CODEREVICEW:模型的三种继承方式和自定义方法
     def get_fam_name(self):

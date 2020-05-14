@@ -69,12 +69,12 @@ def set_menu(self):
                         'url': self.get_model_url(StudentExam, 'changelist'),
                         'icon': 'fa fa-star'
                     },
-                    {
-                        'title': '补考信息',
-                        'perm': self.get_model_perm(StudentExamExtra, 'view'),
-                        'url': self.get_model_url(StudentExamExtra, 'changelist'),
-                        'icon': 'fa fa-star-half-o'
-                    },
+                    # {
+                    #     'title': '补考信息',
+                    #     'perm': self.get_model_perm(StudentExamExtra, 'view'),
+                    #     'url': self.get_model_url(StudentExamExtra, 'changelist'),
+                    #     'icon': 'fa fa-star-half-o'
+                    # },
                     {
                         'title': '证书信息',
                         'perm': self.get_model_perm(StudentCertification, 'view'),
@@ -136,12 +136,12 @@ def set_menu(self):
                         'url': self.get_model_url(Result, 'changelist'),
                         'icon': 'fa fa-star'
                     },
-                    {
-                        'title': '补考信息',
-                        'perm': self.get_model_perm(ResultExtra, 'view'),
-                        'url': self.get_model_url(ResultExtra, 'changelist'),
-                        'icon': 'fa fa-star-half-o'
-                    },
+                    # {
+                    #     'title': '补考信息',
+                    #     'perm': self.get_model_perm(ResultExtra, 'view'),
+                    #     'url': self.get_model_url(ResultExtra, 'changelist'),
+                    #     'icon': 'fa fa-star-half-o'
+                    # },
                     {
                         'title': '证书信息',
                         'perm': self.get_model_perm(FamilyCertification, 'view'),
@@ -152,7 +152,7 @@ def set_menu(self):
         },
         {
             'title': '沙盘分析指导信息管理',
-            'icon': 'fa fa-home',
+            'icon': 'fa fa-inbox',
             'menus':
                 (
                     {
@@ -213,7 +213,7 @@ def set_menu(self):
         },
         {
             'title': '团体心理辅导信息管理',
-            'icon': 'fa fa-home',
+            'icon': 'fa fa-users',
             'menus':
                 (
                     {
@@ -274,7 +274,7 @@ def set_menu(self):
         },
         {
             'title': '婚姻指导信息管理',
-            'icon': 'fa fa-home',
+            'icon': 'fa fa-heart-o',
             'menus':
                 (
                     {

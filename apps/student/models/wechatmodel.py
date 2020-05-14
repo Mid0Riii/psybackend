@@ -12,7 +12,8 @@ class StudentWechat(models.Model):
     wechat_number = models.CharField(max_length=128, verbose_name='平台绑定号码', blank=True, null=True,default='空')
     wechat_nickname = models.CharField(max_length=128, verbose_name='微信昵称', blank=True, null=True,default='空')
     wechat_date = models.CharField(max_length=128,verbose_name='开通日期', blank=True, null=True,default='空')
-
+    wechat_test = models.CharField(max_length=128,verbose_name='开通心理测评',blank=True,null=True,default='空')
+    wechat_date2 = models.CharField(max_length=128, verbose_name='开通日期2', blank=True, null=True, default='空')
     def get_stu_name(self):
         info = self.relate_student.stu_name
         if self.relate_student.tuition.fee_date == '空':

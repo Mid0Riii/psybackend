@@ -233,7 +233,7 @@ class TextbookAdmin(object):
     list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'text_basic', 'text_basic2', 'text_guide',
                     'text_manual', 'text_other']
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'text_basic', 'text_other',
-                   'relate_family__fam_class__class_name''text_basic2', 'text_guide', ]
+                   'relate_family__fam_class__class_name','text_basic2', 'text_guide', ]
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     readonly_fields = ['relate_family']
     list_editable = ['text_basic', 'text_manual', 'text_other', 'text_basic2', 'text_guide', ]

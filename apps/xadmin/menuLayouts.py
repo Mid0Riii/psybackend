@@ -1,7 +1,7 @@
 from hr.models import CurrentStaff, DismissStaff, AllStaff
 from student.models import StudentClass,StudentCertification, StudentBasic, StudentExamExtra, StudentExam, StudentWechat, \
     StudentTextbook, Tuition,Onduty
-from teacher.models import Teacher,FamilyTeacher
+from teacher.models import Teacher,FamilyTeacher,MarriageTeacher,TeamTeacher,SandboxTeacher
 from filer.models import FakeModel
 from filer.models import Folder
 from family.models import FamilyClass,FamilyOnduty,FamilyTuition,FamilyBasic,FamilyCertification,FamilyTextbook,FamilyWechat,ResultExtra,Result
@@ -349,6 +349,24 @@ def set_menu(self):
                         'perm': self.get_model_perm(FamilyTeacher, 'view'),
                         'url': self.get_model_url(FamilyTeacher, 'changelist'),
                         'icon': 'fa fa-home'
+                    },
+                    {
+                        'title': '沙盒教师授课信息管理',
+                        'perm': self.get_model_perm(SandboxTeacher, 'view'),
+                        'url': self.get_model_url(SandboxTeacher, 'changelist'),
+                        'icon': 'fa fa-inbox'
+                    },
+                    {
+                        'title': '婚姻教师授课信息管理',
+                        'perm': self.get_model_perm(MarriageTeacher, 'view'),
+                        'url': self.get_model_url(MarriageTeacher, 'changelist'),
+                        'icon': 'fa fa-heart-o'
+                    },
+                    {
+                        'title': '团体教师授课信息管理',
+                        'perm': self.get_model_perm(TeamTeacher, 'view'),
+                        'url': self.get_model_url(TeamTeacher, 'changelist'),
+                        'icon': 'fa fa-group'
                     }
                 )
         },

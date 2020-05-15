@@ -49,7 +49,7 @@ class BasicAdmin(object):
                 'fam_loc', 'fam_deg', 'fam_major',
                 'fam_company', 'fam_duty',
                 'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
-                'fam_signup_date', 'fam_signup_people', 'fam_teacher_level', 'fam_other')
+                'fam_signup_date', 'fam_signup_people', 'fam_other')
 
     list_display = ['fam_type', 'fam_group', 'fam_number', 'tuition_state', 'fam_gender', 'fam_class', 'fam_class_num',
                     'fam_id_number',
@@ -57,7 +57,7 @@ class BasicAdmin(object):
                     'fam_major',
                     'fam_company', 'fam_duty',
                     'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
-                    'fam_signup_date', 'fam_signup_people', 'fam_teacher_level', 'fam_other']
+                    'fam_signup_date', 'fam_signup_people',  'fam_other']
     import_export_args = {'import_resource_class': FamilyBasicResources}
     list_filter = ['fam_type', 'fam_group', 'fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num',
                    'fam_id_number',
@@ -65,8 +65,9 @@ class BasicAdmin(object):
                    'fam_major',
                    'fam_company', 'fam_duty',
                    'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
-                   'fam_signup_date', 'fam_signup_people', 'fam_teacher_level', 'fam_other', 'fam_class__class_name', ]
+                   'fam_signup_date', 'fam_signup_people', 'fam_other', 'fam_class__class_name', ]
     list_editable = list_display
+    exclude=['fam_teacher_level',]
     search_fields = ['fam_number', 'fam_name', 'fam_class__class_name']
     show_bookmarks = False
 
@@ -306,16 +307,16 @@ class ExamAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = (
-                'relate_family', 'homework_one_result', 'date', 'homework_two_result', 'homework_three_result',
-                'result','total','nation_result','pre','speech','other')
+                'relate_family',  'date','total','nation_result','pre','speech','other')
 
     import_export_args = {'import_resource_class': ExamResources, }
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'homework_one_result', 'date',
-                    'homework_two_result', 'homework_three_result', 'result','total','nation_result','pre','speech','other']
+    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'date',
+                    'total','nation_result','pre','speech','other']
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name',
                    'date', 'homework_two_result', 'homework_three_result', 'result','total','nation_result','pre','speech','other']
-    list_editable = ['homework_one_result', 'date', 'homework_two_result', 'homework_three_result', 'result','total','nation_result','pre','speech','other']
+    list_editable = ['date','total','nation_result','pre','speech','other']
     show_bookmarks = False
+    exclude=['homework_one_result','homework_two_result','result']
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     readonly_fields = ['relate_family']
 

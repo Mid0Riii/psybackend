@@ -155,12 +155,12 @@ class TuitionAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = ('relate_student', 'fee_train', 'fee_material', 'fee_exam', 'fee_total',
-                      'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
+                    'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                       'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc', 'fee_info')
 
     list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'fee_train', 'fee_material', 'fee_exam',
                     'fee_total',
-                    'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
+                     'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                     'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc', 'fee_info']
     # TODO CODEVIEW filter中外键的处理
     list_filter = ['relate_student__stu_name', 'relate_student__stu_number', 'fee_train', 'fee_material', 'fee_exam',
@@ -172,7 +172,7 @@ class TuitionAdmin(object):
     list_editable = ['fee_train', 'fee_material', 'fee_exam', 'fee_total',
                      'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                      'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc', 'fee_info']
-    exclude = ['relate_class']
+    exclude = ['relate_class','fee_exam_extra']
     readonly_fields = ['relate_student']
 
     def get_form_layout(self):
@@ -295,14 +295,14 @@ class ExamAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_student', 'exam_date', 'exam_theory', 'exam_theory_result', 'exam_practise',
+            fields = ('relate_student', 'exam_date',  'exam_theory_result',
                       'exam_practise_result', 'exam_total', 'exam_total_result', 'exam_status',
                       'exam_practise_result2','exam_pre','exam_speech','exam_thr_theory','exam_thr_skill','exam_sec_theory','exam_sec_skill','exam_thesis','exam_CAS',)
 
     import_export_args = {'import_resource_class': ExamResources, }
     list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'exam_date',
-                    'exam_theory', 'exam_theory_result',
-                    'exam_practise','exam_practise_result',
+                     'exam_theory_result',
+                    'exam_practise_result',
                     'exam_practise_result2','exam_pre','exam_speech','exam_thr_theory','exam_thr_skill','exam_sec_theory','exam_sec_skill','exam_thesis','exam_CAS',
                     'exam_total', 'exam_total_result', 'exam_status']
     list_filter = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name',
@@ -313,6 +313,7 @@ class ExamAdmin(object):
     show_bookmarks = False
     search_fields = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name']
     readonly_fields = ['relate_student']
+    exclude=['exam_theory','exam_practise']
 
     def get_form_layout(self):
         self.form_layout = ExamLayout

@@ -444,19 +444,20 @@ class TotalAdmin(object):
     """
     总览信息
     """
-    list_display_links = ('fam_name')
     list_display = [
-        'fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
+        'fam_type','fam_number','fam_group',
+         'fam_name', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
         'fam_loc', 'fam_deg', 'fam_major',
         'fam_company', 'fam_duty',
         'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
-        'fam_signup_date', 'fam_signup_people', 'fam_teacher_level', 'fam_other',
-        'fee_train', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
-        'fee_invoice_id', 'fee_invoice_date',
-        'text_basic', 'text_other',
-        'exam_date', 'exam_homework2_result', 'exam_homework3_result', 'exam_result',
-        'exam_date_extra', 'exam_homework2_extra', 'exam_homework3_extra', 'exam_result_extra',
-        'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date',
+        'fam_signup_date', 'fam_signup_people','fam_other',
+        'fee_train','fee_material','fee_exam','fee_total',
+        'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
+        'fee_invoice_id', 'fee_invoice_date','fee_other',
+        'text_basic', 'text_basic2','text_guide','text_manual','text_other',
+        'wechat_number','wechat_nickname','wechat_date','onduty','homework','other',
+        'exam_date','exam_total','exam_nation','exam_pre','exam_speech','exam_other',
+        'cert_id','cert_draw_people','cert_draw_date','cert_nation_id','cert_nation_people','cert_other'
     ]
     show_bookmarks = False
     list_filter = ['family__fam_name', 'family__fam_cellphone', 'family__fam_class__class_name',

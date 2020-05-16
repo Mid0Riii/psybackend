@@ -48,8 +48,8 @@ class StudentBasic(models.Model):
     ——————————————
     5.9新增
     """
-    stu_type = models.CharField(max_length=128,verbose_name='学员类型',null=True,blank=True)
-    stu_group = models.CharField(max_length=128,verbose_name='组别与职务',null=True,blank=True)
+    stu_type = models.CharField(max_length=128,verbose_name='学员类型',null=True,blank=True,default='空')
+    stu_group = models.CharField(max_length=128,verbose_name='组别与职务',null=True,blank=True,default='空')
     """
     ——————————————
     """

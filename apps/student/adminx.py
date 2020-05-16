@@ -455,19 +455,21 @@ class TotalAdmin(object):
     """
     Change_total_link_allow = True
     list_display_links = None
-    list_display = ['stu_number', 'stu_name', 'stu_gender', 'stu_class', 'stu_class_num', 'stu_level', 'stu_id_number',
+    list_display = ['stu_type','stu_number','stu_group', 'stu_name', 'stu_gender', 'stu_class', 'stu_class_num', 'stu_level', 'stu_id_number',
                     'stu_loc', 'stu_deg', 'stu_major', 'stu_company', 'stu_duty', 'stu_status', 'stu_origin',
                     'stu_cellphone', 'stu_wechat', 'stu_qq', 'stu_signup_date', 'stu_signup_people', 'stu_other',
-                    'fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_exam_extra', 'fee_date', 'fee_method',
-                    'fee_id', 'fee_tax', 'fee_invoice_header',
-                    'fee_invoice_id', 'fee_invoice_date', 'text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure',
-                    'text_thr',
-                    'text_thr_exer', 'text_manual', 'text_exam', 'text_other', 'wechat_number', 'wechat_nickname',
-                    'wechat_date', 'onduty', 'homework', 'other', 'exam_date', 'exam_theory', 'exam_theory_result',
-                    'exam_practise', 'exam_practise_result', 'exam_total', 'exam_total_result', 'exam_status',
-                    'exam_date', 'exam_theory', 'exam_theory_result', 'exam_practise', 'exam_practise_result',
-                    'exam_total', 'exam_total_result', 'exam_status', 'cert_id', 'cert_date', 'cert_draw_people',
-                    'cert_draw_date']
+                    'fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method','fee_id', 'fee_tax', 'fee_invoice_header',
+                    'fee_invoice_id', 'fee_invoice_date','fee_invoice_inc','fee_info',
+                    'text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure','text_thr',
+                    'text_thr_exer','text_thr_measure','text_manual', 'text_exam','text_CAS','text_guide','text_other',
+                    'wechat_number', 'wechat_nickname','wechat_date','wechat_test','wechat_date2',
+                    'onduty', 'homework', 'other',
+                    'exam_date', 'exam_theory_result',
+                    'exam_practise_result','exam_practise_result2','exam_pre','exam_speech','exam_thr_theory','exam_thr_skill',
+                    'exam_sec_theory','exam_sec_skill','exam_thesis','exam_CAS','exam_other',
+                    'cert_id','cert_draw_people','cert_draw_date','cert_nation_id','cert_nation_people',
+                    'cert_CAS_id','cert_CAS_people','cert_other'
+                    ]
     show_bookmarks = False
     list_filter = ['student__stu_name', 'student__stu_cellphone', 'student__stu_class__class_name',
                    'student__stu_level', 'student__tuition__fee_date',

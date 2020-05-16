@@ -22,6 +22,17 @@ class Total(models.Model):
 
     stu_number.short_description = "学号"
 
+    def stu_type(self):
+        return self.student.stu_type
+
+    stu_type.short_description = "学员类型"
+
+    def stu_group(self):
+        return self.student.stu_group
+
+    stu_group.short_description = "组别与职务"
+
+
     def stu_name(self):
         info = self.student.stu_name
         if self.student.tuition.fee_date == '空':
@@ -130,7 +141,7 @@ class Total(models.Model):
     def fee_material(self):
         return self.student.tuition.fee_material
 
-    fee_material.short_description = "资料费"
+    fee_material.short_description = "教材费"
 
     def fee_exam(self):
         return self.student.tuition.fee_exam
@@ -142,10 +153,10 @@ class Total(models.Model):
 
     fee_total.short_description = "总费用"
 
-    def fee_exam_extra(self):
-        return self.student.tuition.fee_exam_extra
-
-    fee_exam_extra.short_description = "补考费"
+    # def fee_exam_extra(self):
+    #     return self.student.tuition.fee_exam_extra
+    #
+    # fee_exam_extra.short_description = "补考费"
 
     def fee_date(self):
         return self.student.tuition.fee_date
@@ -182,6 +193,16 @@ class Total(models.Model):
 
     fee_invoice_date.short_description = "发票开票日期"
 
+    def fee_invoice_inc(self):
+        return self.student.tuition.fee_invoice_inc
+
+    fee_invoice_inc.short_description = "出票单位"
+
+    def fee_info(self):
+        return self.student.tuition.fee_info
+
+    fee_info.short_description = "备注"
+
     def text_basic(self):
         return self.student.studenttextbook.text_basic
 
@@ -212,6 +233,11 @@ class Total(models.Model):
 
     text_thr_exer.short_description = "三级习题"
 
+    def text_thr_measure(self):
+        return self.student.studenttextbook.text_thr_measure
+
+    text_thr_measure.short_description = "三级量表"
+
     def text_manual(self):
         return self.student.studenttextbook.text_manual
 
@@ -221,6 +247,16 @@ class Total(models.Model):
         return self.student.studenttextbook.text_exam
 
     text_exam.short_description = "模拟试卷"
+
+    def text_CAS(self):
+        return self.student.studenttextbook.text_CAS
+
+    text_CAS.short_description = "中科院资料"
+
+    def text_guide(self):
+        return self.student.studenttextbook.text_guide
+
+    text_guide.short_description = "培训指南"
 
     def text_other(self):
         return self.student.studenttextbook.text_other
@@ -242,95 +278,171 @@ class Total(models.Model):
 
     wechat_date.short_description = "开通日期"
 
+    def wechat_test(self):
+        return self.student.studentwechat.wechat_test
+
+    wechat_test.short_description = "开通心理测评"
+
+    def wechat_date2(self):
+        return self.student.studentwechat.wechat_date2
+
+    wechat_date2.short_description = "开通日期"
+
+    def onduty(self):
+        return self.student.onduty.onduty
+    onduty.short_description="出勤率"
+
+    def homework(self):
+        return self.student.onduty.homework
+
+    homework.short_description = "视频提交"
+
+    def other(self):
+        return self.student.onduty.other
+
+    other.short_description = "备注"
+
     def exam_date(self):
         return self.student.studentexam.exam_date
 
-    exam_date.short_description = "报考日期"
+    exam_date.short_description = "参试时间"
 
-    def exam_theory(self):
-        return self.student.studentexam.exam_theory
-
-    exam_theory.short_description = "理论报考"
+    # def exam_theory(self):
+    #     return self.student.studentexam.exam_theory
+    #
+    # exam_theory.short_description = "理论报考"
 
     def exam_theory_result(self):
         return self.student.studentexam.exam_theory_result
 
-    exam_theory_result.short_description = "理论成绩"
+    exam_theory_result.short_description = "国考理论总分"
 
-    def exam_practise(self):
-        return self.student.studentexam.exam_practise
-
-    exam_practise.short_description = "实操报考"
+    # def exam_practise(self):
+    #     return self.student.studentexam.exam_practise
+    #
+    # exam_practise.short_description = "实操报考"
 
     def exam_practise_result(self):
         return self.student.studentexam.exam_practise_result
 
-    exam_practise_result.short_description = "实操成绩"
+    exam_practise_result.short_description = "国考实操总分"
 
-    def exam_total(self):
-        return self.student.studentexam.exam_total
 
-    exam_total.short_description = "综合报考"
+    def exam_practise_result2(self):
+        return self.student.studentexam.exam_practise_result2
 
-    def exam_total_result(self):
-        return self.student.studentexam.exam_total_result
+    exam_practise_result2.short_description = "实操笔试分"
 
-    exam_total_result.short_description = "综合成绩"
+    def exam_pre(self):
+        return self.student.studentexam.exam_pre
 
-    def exam_status(self):
-        return self.student.studentexam.exam_status
+    exam_pre.short_description = "说课分"
 
-    exam_status.short_description = "合格情况"
+    def exam_speech(self):
+        return self.student.studentexam.exam_speech
 
-    def exam_date_extra(self):
-        return self.student.studentexamextra.exam_date
+    exam_speech.short_description = "宣讲分"
 
-    exam_date_extra.short_description = "补考理论日期"
+    def exam_thr_theory(self):
+        return self.student.studentexam.exam_thr_theory
 
-    def exam_theory_extra(self):
-        return self.student.studentexamextra.exam_theory
+    exam_thr_theory.short_description = "协会三级理论"
 
-    exam_theory_extra.short_description = "补考理论报考"
+    def exam_thr_skill(self):
+        return self.student.studentexam.exam_thr_skill
 
-    def exam_theory_result_extra(self):
-        return self.student.studentexamextra.exam_theory_result
+    exam_thr_skill.short_description = "协会三级技能"
 
-    exam_theory_result_extra.short_description = "补考理论成绩"
+    def exam_sec_theory(self):
+        return self.student.studentexam.exam_sec_theory
 
-    def exam_practise_extra(self):
-        return self.student.studentexamextra.exam_practise
+    exam_sec_theory.short_description = "协会二级理论"
 
-    exam_practise_extra.short_description = "补考实操报考"
+    def exam_sec_skill(self):
+        return self.student.studentexam.exam_sec_skill
 
-    def exam_practise_result_extra(self):
-        return self.student.studentexamextra.exam_practise_result
+    exam_sec_skill.short_description = "协会二级技能"
 
-    exam_practise_result_extra.short_description = "补考实操成绩"
+    def exam_thesis(self):
+        return self.student.studentexam.exam_thesis
 
-    def exam_total_extra(self):
-        return self.student.studentexamextra.exam_total
+    exam_thesis.short_description = "协会论文答辩"
 
-    exam_total_extra.short_description = "补考综合报考"
+    def exam_CAS(self):
+        return self.student.studentexam.exam_CAS
 
-    def exam_total_result_extra(self):
-        return self.student.studentexamextra.exam_total_result
+    exam_CAS.short_description = "中科院成绩"
 
-    exam_total_result_extra.short_description = "补考综合成绩"
+    def exam_other(self):
+        return self.student.studentexam.exam_other
 
-    def exam_status_extra(self):
-        return self.student.studentexamextra.exam_status
+    exam_other.short_description = "备注"
 
-    exam_status_extra.short_description = "补考合格情况"
+    # def exam_total(self):
+    #     return self.student.studentexam.exam_total
+    #
+    # exam_total.short_description = "综合报考"
+
+    # def exam_total_result(self):
+    #     return self.student.studentexam.exam_total_result
+    #
+    # exam_total_result.short_description = "综合成绩"
+    #
+    # def exam_status(self):
+    #     return self.student.studentexam.exam_status
+    #
+    # exam_status.short_description = "合格情况"
+    #
+    # def exam_date_extra(self):
+    #     return self.student.studentexamextra.exam_date
+    #
+    # exam_date_extra.short_description = "补考理论日期"
+    #
+    # def exam_theory_extra(self):
+    #     return self.student.studentexamextra.exam_theory
+    #
+    # exam_theory_extra.short_description = "补考理论报考"
+    #
+    # def exam_theory_result_extra(self):
+    #     return self.student.studentexamextra.exam_theory_result
+    #
+    # exam_theory_result_extra.short_description = "补考理论成绩"
+    #
+    # def exam_practise_extra(self):
+    #     return self.student.studentexamextra.exam_practise
+    #
+    # exam_practise_extra.short_description = "补考实操报考"
+    #
+    # def exam_practise_result_extra(self):
+    #     return self.student.studentexamextra.exam_practise_result
+    #
+    # exam_practise_result_extra.short_description = "补考实操成绩"
+    #
+    # def exam_total_extra(self):
+    #     return self.student.studentexamextra.exam_total
+    #
+    # exam_total_extra.short_description = "补考综合报考"
+    #
+    # def exam_total_result_extra(self):
+    #     return self.student.studentexamextra.exam_total_result
+    #
+    # exam_total_result_extra.short_description = "补考综合成绩"
+    #
+    # def exam_status_extra(self):
+    #     return self.student.studentexamextra.exam_status
+    #
+    # exam_status_extra.short_description = "补考合格情况"
 
     def cert_id(self):
         return self.student.studentcertification.cert_id
 
-    cert_id.short_description = "证书编号"
-
-    def cert_date(self):
-        return self.student.studentcertification.cert_date
-
-    cert_date.short_description = "发证日期"
+    cert_id.short_description = "协会证书编号"
+    #
+    # def cert_date(self):
+    #     return self.student.studentcertification.cert_date
+    #
+    #
+    # cert_date.short_description = "发证日期"
 
     def cert_draw_people(self):
         return self.student.studentcertification.cert_draw_people
@@ -342,22 +454,30 @@ class Total(models.Model):
 
     cert_draw_date.short_description = "领取时间"
 
-    def onduty(self):
-        return self.student.onduty.onduty
+    def cert_nation_id(self):
+        return self.student.studentcertification.cert_nation_id
 
-    onduty.short_description = "出勤"
+    cert_nation_id.short_description = "国证编号"
 
-    def homework(self):
-        return self.student.onduty.homework
+    def cert_nation_people(self):
+        return self.student.studentcertification.cert_nation_people
 
-    homework.short_description = "作业打卡"
+    cert_nation_people.short_description = "国证领取人与日期"
 
-    def other(self):
-        return self.student.onduty.other
+    def cert_CAS_id(self):
+        return self.student.studentcertification.cert_CAS_id
 
-    other.short_description = "备注"
+    cert_CAS_id.short_description = "中科院证书编号"
 
+    def cert_CAS_people(self):
+        return self.student.studentcertification.cert_CAS_people
 
+    cert_CAS_people.short_description = "中科院证书领取人与日期"
+
+    def cert_other(self):
+        return self.student.studentcertification.cert_other
+
+    cert_other.short_description = "备注"
 
 
 

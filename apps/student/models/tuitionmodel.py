@@ -11,7 +11,7 @@ class Tuition(models.Model):
     relate_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE, verbose_name='班级',null=True,blank=True)
     relate_student = models.OneToOneField(StudentBasic, on_delete=models.CASCADE, verbose_name='学号', primary_key=True)
     fee_train = models.CharField(max_length=128, verbose_name='培训费', blank=True, null=True,default='空')
-    fee_material = models.CharField(max_length=128, verbose_name='资料费', blank=True, null=True,default='空')
+    fee_material = models.CharField(max_length=128, verbose_name='教材费', blank=True, null=True,default='空')
     fee_exam = models.CharField(max_length=128, verbose_name='考试费', blank=True, null=True,default='空')
     fee_total = models.CharField(max_length=128, verbose_name='总费用', blank=True, null=True,default='空')
     fee_exam_extra = models.CharField(max_length=128, verbose_name='补考费', blank=True, null=True,default='空')

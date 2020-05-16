@@ -60,7 +60,7 @@ class FamilyBasic(models.Model):
     fam_origin = models.CharField(max_length=128, verbose_name='生源来源', blank=True, null=True,default='空')
     fam_cellphone = models.CharField(max_length=128, verbose_name='手机号', blank=True, null=True,default='空')
     fam_wechat = models.CharField(max_length=128, verbose_name='微信', blank=True, null=True,default='空')
-    fam_qq = models.CharField(max_length=128, verbose_name='QQ', blank=True, null=True,default='空')
+    fam_qq = models.CharField(max_length=128, verbose_name='邮箱', blank=True, null=True,default='空')
     fam_signup_date = models.CharField(max_length=128,verbose_name='报名日期', blank=True, null=True,default='空')
     fam_signup_people = models.CharField(max_length=128, verbose_name='具体招生人', blank=True, null=True,default='空')
     fam_teacher_level = models.CharField(max_length=32,verbose_name='心师级别',blank=True,null=True,default='空')

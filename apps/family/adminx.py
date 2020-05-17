@@ -68,6 +68,7 @@ class BasicAdmin(object):
                    'fam_signup_date', 'fam_signup_people', 'fam_other', 'fam_class__class_name', ]
     list_editable = list_display
     exclude=['fam_teacher_level',]
+    list_display_links=['fam_number']
     search_fields = ['fam_number', 'fam_name', 'fam_class__class_name']
     show_bookmarks = False
 

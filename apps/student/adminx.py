@@ -68,6 +68,7 @@ class BasicAdmin(object):
                    'stu_status', 'stu_origin', 'stu_cellphone', 'stu_wechat', 'stu_qq',
                    'stu_signup_date', 'stu_signup_people', 'stu_other', 'stu_class__class_name', ]
     list_editable = list_display
+    list_display_links = ['stu_number']
     search_fields = ['stu_number', 'stu_level', 'stu_name', 'stu_class__class_name']
     show_bookmarks = False
 

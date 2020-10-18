@@ -17,39 +17,56 @@ from .layouts.detailLayouts import BasicLayout, TuitionLayout
 #                     'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id']
 
 
+class FamilyBasicResources(resources.ModelResource):
+    def __init__(self):
+        super(FamilyBasicResources, self).__init__()
+        field_list = apps.get_model('family', 'FamilyBasic')._meta.fields
+        # 应用名与模型名
+        self.verbose_name_dict = {}
+        # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
+        for i in field_list:
+            self.verbose_name_dict[i.name] = i.verbose_name
+        fields = self.get_fields()
+        # 默认导入导出field的column_name为字段的名称
+        # 这里修改为字段的verbose_name
+        for field in fields:
+            field_name = self.get_field_name(field)
+            if field_name in self.verbose_name_dict.keys():
+                field.column_name = self.verbose_name_dict[field_name]
+
+    class ClassForeignWidget(ForeignKeyWidget):
+        def get_queryset(self, value, row, *args, **kwargs):
+            return FamilyClass.objects.filter(
+                class_name__iexact=row["班级"]
+            )
+
+    fam_class = fields.Field(
+        attribute='fam_class',
+        column_name='fam_class',
+        widget=ClassForeignWidget(FamilyClass, 'class_name')
+    )
+
+    class Meta:
+        model = FamilyBasic
+        import_id_fields = ('fam_number',)
+        # 导入数据时，如果该条数据未修改过，则会忽略
+        skip_unchanged = True
+        # 在导入预览页面中显示跳过的记录
+        report_skipped = True
+        fields = (
+            'fam_type', 'fam_group',
+            'fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
+            'fam_loc', 'fam_deg', 'fam_major',
+            'fam_company', 'fam_duty',
+            'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
+            'fam_signup_date', 'fam_signup_people', 'fam_other')
+
+
 @xadmin.sites.register(FamilyBasic)
 class BasicAdmin(object):
     """
     家庭基本信息
     """
-
-    class FamilyBasicResources(resources.ModelResource):
-        class ClassForeignWidget(ForeignKeyWidget):
-            def get_queryset(self, value, row, *args, **kwargs):
-                return FamilyClass.objects.filter(
-                    class_name__iexact=row["fam_class"]
-                )
-
-        fam_class = fields.Field(
-            attribute='fam_class',
-            column_name='fam_class',
-            widget=ClassForeignWidget(FamilyClass, 'class_name')
-        )
-
-        class Meta:
-            model = FamilyBasic
-            import_id_fields = ('fam_number',)
-            # 导入数据时，如果该条数据未修改过，则会忽略
-            skip_unchanged = True
-            # 在导入预览页面中显示跳过的记录
-            report_skipped = True
-            fields = (
-                'fam_type', 'fam_group',
-                'fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
-                'fam_loc', 'fam_deg', 'fam_major',
-                'fam_company', 'fam_duty',
-                'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
-                'fam_signup_date', 'fam_signup_people', 'fam_other')
 
     list_display = ['fam_type', 'fam_group', 'fam_number', 'tuition_state', 'fam_gender', 'fam_class', 'fam_class_num',
                     'fam_id_number',
@@ -57,7 +74,7 @@ class BasicAdmin(object):
                     'fam_major',
                     'fam_company', 'fam_duty',
                     'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
-                    'fam_signup_date', 'fam_signup_people',  'fam_other']
+                    'fam_signup_date', 'fam_signup_people', 'fam_other']
     import_export_args = {'import_resource_class': FamilyBasicResources}
     list_filter = ['fam_type', 'fam_group', 'fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num',
                    'fam_id_number',
@@ -67,8 +84,8 @@ class BasicAdmin(object):
                    'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
                    'fam_signup_date', 'fam_signup_people', 'fam_other', 'fam_class__class_name', ]
     list_editable = list_display
-    exclude=['fam_teacher_level',]
-    list_display_links=['fam_number']
+    exclude = ['fam_teacher_level', ]
+    list_display_links = ['fam_number']
     search_fields = ['fam_number', 'fam_name', 'fam_class__class_name']
     show_bookmarks = False
 
@@ -85,22 +102,37 @@ class BasicAdmin(object):
     tuition_state.short_description = '姓名'
     tuition_state.admin_order_field = 'fam_name'
 
-    # inlines = [TuitionInline]
     def get_form_layout(self):
         self.form_layout = BasicLayout
         return super().get_form_layout()
 
-    # TODO CODEREVIEW Django默认生成的父键查询子键的方法名全部是小写
-    # TODO CODEREVIEW 重写save_models方法
-    # def save_models(self):
-    #     obj = self.new_obj
-    #     obj.save()
-    #     obj.familytuition_set.create()
-    #     obj.familyexam_set.create()
-    #     obj.familywechat_set.create()
-    #     obj.familyexamextra_set.create()
-    #     obj.familytextbook_set.create()
-    #     obj.familycertification_set.create()
+
+class ClassResources(resources.ModelResource):
+    def __init__(self):
+        super(ClassResources, self).__init__()
+        field_list = apps.get_model('family', 'FamilyClass')._meta.fields
+        # 应用名与模型名
+        self.verbose_name_dict = {}
+        # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
+        for i in field_list:
+            self.verbose_name_dict[i.name] = i.verbose_name
+        fields = self.get_fields()
+        # 默认导入导出field的column_name为字段的名称
+        # 这里修改为字段的verbose_name
+        for field in fields:
+            field_name = self.get_field_name(field)
+            if field_name in self.verbose_name_dict.keys():
+                field.column_name = self.verbose_name_dict[field_name]
+
+    class Meta:
+        model = FamilyClass
+        fields = ('class_name', 'class_teacher', 'class_recruit_teacher', 'class_date')
+        # 导入数据时，如果该条数据未修改过，则会忽略
+        skip_unchanged = True
+        # 在导入预览页面中显示跳过的记录
+        report_skipped = True
+        # 模型主键
+        import_id_fields = ('class_name',)
 
 
 @xadmin.sites.register(FamilyClass)
@@ -108,38 +140,6 @@ class ClassAdmin(object):
     '''
     班级信息
     '''
-
-    class ClassResources(resources.ModelResource):
-        # def __init__(self):
-        #     super().__init__()
-        #     field_list = apps.get_model('family', 'FamilyClass')._meta.fields
-        #
-        #     # 应用名与模型名
-        #     self.verbose_name_dict ={}
-        #     # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
-        #     for i in field_list:
-        #         self.verbose_name_dict[i.name] = i.verbose_name
-        #
-        # def get_export_fields(self):
-        #     fields = self.get_fields()
-        #     # 默认导入导出field的column_name为字段的名称
-        #     # 这里修改为字段的verbose_name
-        #     for field in fields:
-        #         field_name = self.get_field_name(field)
-        #         if field_name in self.verbose_name_dict.keys():
-        #             field.column_name = self.verbose_name_dict[field_name]
-        #             # 如果设置过verbose_name，则将column_name替换为verbose_name
-        #             # 否则维持原有的字段名
-        #     return fields
-        class Meta:
-            model = FamilyClass
-            fields = ('class_name', 'class_teacher', 'class_recruit_teacher', 'class_date')
-            # 导入数据时，如果该条数据未修改过，则会忽略
-            skip_unchanged = True
-            # 在导入预览页面中显示跳过的记录
-            report_skipped = True
-            # 模型主键
-            import_id_fields = ('class_name',)
 
     import_export_args = {'import_resource_class': ClassResources,
                           }
@@ -151,35 +151,52 @@ class ClassAdmin(object):
     ordering = ['-class_index']
 
 
+class TuitionResources(resources.ModelResource):
+    def __init__(self):
+        super(TuitionResources, self).__init__()
+        field_list = apps.get_model('family', 'FamilyTuition')._meta.fields
+        # 应用名与模型名
+        self.verbose_name_dict = {}
+        # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
+        for i in field_list:
+            self.verbose_name_dict[i.name] = i.verbose_name
+        fields = self.get_fields()
+        # 默认导入导出field的column_name为字段的名称
+        # 这里修改为字段的verbose_name
+        for field in fields:
+            field_name = self.get_field_name(field)
+            if field_name in self.verbose_name_dict.keys():
+                field.column_name = self.verbose_name_dict[field_name]
+
+    class TuitionForeignWidget(ForeignKeyWidget):
+        def get_queryset(self, value, row, *args, **kwargs):
+            return FamilyBasic.objects.filter(
+                fam_number__iexact=row["relate_family"]
+            )
+
+    relate_family = fields.Field(
+        attribute='relate_family',
+        column_name='relate_family',
+        widget=TuitionForeignWidget(FamilyBasic, 'fam_number')
+    )
+
+    class Meta:
+        model = FamilyTuition
+        import_id_fields = ('relate_family',)
+        # 导入数据时，如果该条数据未修改过，则会忽略
+        skip_unchanged = True
+        # 在导入预览页面中显示跳过的记录
+        report_skipped = True
+        fields = ('relate_family', 'fee_train', 'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax',
+                  'fee_invoice_header',
+                  'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc')
+
+
 @xadmin.sites.register(FamilyTuition)
 class TuitionAdmin(object):
     """
     交费信息
     """
-
-    class TuitionResources(resources.ModelResource):
-        class TuitionForeignWidget(ForeignKeyWidget):
-            def get_queryset(self, value, row, *args, **kwargs):
-                return FamilyBasic.objects.filter(
-                    fam_number__iexact=row["relate_family"]
-                )
-
-        relate_family = fields.Field(
-            attribute='relate_family',
-            column_name='relate_family',
-            widget=TuitionForeignWidget(FamilyBasic, 'fam_number')
-        )
-
-        class Meta:
-            model = FamilyTuition
-            import_id_fields = ('relate_family',)
-            # 导入数据时，如果该条数据未修改过，则会忽略
-            skip_unchanged = True
-            # 在导入预览页面中显示跳过的记录
-            report_skipped = True
-            fields = ('relate_family', 'fee_train', 'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax',
-                      'fee_invoice_header',
-                      'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc')
 
     list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'fee_train', 'fee_material', 'fee_date',
                     'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
@@ -203,165 +220,192 @@ class TuitionAdmin(object):
         return super().get_form_layout()
 
 
+class TextbookResources(resources.ModelResource):
+    def __init__(self):
+        super(TextbookResources, self).__init__()
+        field_list = apps.get_model('family', 'FamilyTuition')._meta.fields
+        # 应用名与模型名
+        self.verbose_name_dict = {}
+        # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
+        for i in field_list:
+            self.verbose_name_dict[i.name] = i.verbose_name
+        fields = self.get_fields()
+        # 默认导入导出field的column_name为字段的名称
+        # 这里修改为字段的verbose_name
+        for field in fields:
+            field_name = self.get_field_name(field)
+            if field_name in self.verbose_name_dict.keys():
+                field.column_name = self.verbose_name_dict[field_name]
+
+    class TextbookForeignWidget(ForeignKeyWidget):
+        def get_queryset(self, value, row, *args, **kwargs):
+            return FamilyBasic.objects.filter(
+                fam_number__iexact=row["relate_family"]
+            )
+
+    relate_family = fields.Field(
+        attribute='relate_family',
+        column_name='relate_family',
+        widget=TextbookForeignWidget(FamilyBasic, 'fam_number')
+    )
+
+    class Meta:
+        model = FamilyTextbook
+        import_id_fields = ('relate_family',)
+        # 导入数据时，如果该条数据未修改过，则会忽略
+        skip_unchanged = True
+        # 在导入预览页面中显示跳过的记录
+        report_skipped = True
+        fields = ('relate_family', 'text_basic', 'text_basic2', 'text_guide', 'text_manual', 'text_other')
+
+
 @xadmin.sites.register(FamilyTextbook)
 class TextbookAdmin(object):
     """
     教材信息
     """
-
-    class TextbookResources(resources.ModelResource):
-        class TextbookForeignWidget(ForeignKeyWidget):
-            def get_queryset(self, value, row, *args, **kwargs):
-                return FamilyBasic.objects.filter(
-                    fam_number__iexact=row["relate_family"]
-                )
-
-        relate_family = fields.Field(
-            attribute='relate_family',
-            column_name='relate_family',
-            widget=TextbookForeignWidget(FamilyBasic, 'fam_number')
-        )
-
-        class Meta:
-            model = FamilyTextbook
-            import_id_fields = ('relate_family',)
-            # 导入数据时，如果该条数据未修改过，则会忽略
-            skip_unchanged = True
-            # 在导入预览页面中显示跳过的记录
-            report_skipped = True
-            fields = ('relate_family', 'text_basic', 'text_basic2', 'text_guide', 'text_manual', 'text_other')
-
     import_export_args = {'import_resource_class': TextbookResources, }
     list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'text_basic', 'text_basic2', 'text_guide',
                     'text_manual', 'text_other']
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'text_basic', 'text_other',
-                   'relate_family__fam_class__class_name','text_basic2', 'text_guide', ]
+                   'relate_family__fam_class__class_name', 'text_basic2', 'text_guide', ]
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     readonly_fields = ['relate_family']
     list_editable = ['text_basic', 'text_manual', 'text_other', 'text_basic2', 'text_guide', ]
     show_bookmarks = False
 
+class WechatResources(resources.ModelResource):
+    def __init__(self):
+        super(WechatResources, self).__init__()
+        field_list = apps.get_model('family', 'FamilyTuition')._meta.fields
+        # 应用名与模型名
+        self.verbose_name_dict = {}
+        # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
+        for i in field_list:
+            self.verbose_name_dict[i.name] = i.verbose_name
+        fields = self.get_fields()
+        # 默认导入导出field的column_name为字段的名称
+        # 这里修改为字段的verbose_name
+        for field in fields:
+            field_name = self.get_field_name(field)
+            if field_name in self.verbose_name_dict.keys():
+                field.column_name = self.verbose_name_dict[field_name]
+
+    class WechatForeignWidget(ForeignKeyWidget):
+        def get_queryset(self, value, row, *args, **kwargs):
+            return FamilyBasic.objects.filter(
+                fam_number__iexact=row["relate_family"]
+            )
+
+    relate_family = fields.Field(
+        attribute='relate_family',
+        column_name='relate_family',
+        widget=WechatForeignWidget(FamilyBasic, 'fam_number')
+    )
+
+    class Meta:
+        model = FamilyWechat
+        import_id_fields = ('relate_family',)
+        # 导入数据时，如果该条数据未修改过，则会忽略
+        skip_unchanged = True
+        # 在导入预览页面中显示跳过的记录
+        report_skipped = True
+        fields = ('relate_family', 'wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other')
 
 @xadmin.sites.register(FamilyWechat)
 class WechatAdmin(object):
     """
     365开通情况
     """
-
-    class WechatResources(resources.ModelResource):
-        class WechatForeignWidget(ForeignKeyWidget):
-            def get_queryset(self, value, row, *args, **kwargs):
-                return FamilyBasic.objects.filter(
-                    fam_number__iexact=row["relate_family"]
-                )
-
-        relate_family = fields.Field(
-            attribute='relate_family',
-            column_name='relate_family',
-            widget=WechatForeignWidget(FamilyBasic, 'fam_number')
-        )
-
-        class Meta:
-            model = FamilyWechat
-            import_id_fields = ('relate_family',)
-            # 导入数据时，如果该条数据未修改过，则会忽略
-            skip_unchanged = True
-            # 在导入预览页面中显示跳过的记录
-            report_skipped = True
-            fields = ('relate_family', 'wechat_number', 'wechat_nickname', 'wechat_date','wechat_other')
-
     import_export_args = {'import_resource_class': WechatResources, }
     list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'wechat_number', 'wechat_nickname',
-                    'wechat_date', 'wechat_other',]
+                    'wechat_date', 'wechat_other', ]
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'wechat_number', 'wechat_nickname',
                    'wechat_date', 'relate_family__fam_class__class_name']
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     readonly_fields = ['relate_family']
-    list_editable = ['wechat_number', 'wechat_nickname', 'wechat_date','wechat_other']
+    list_editable = ['wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other']
     show_bookmarks = False
 
+
+class ExamResources(resources.ModelResource):
+    def __init__(self):
+        super(ExamResources, self).__init__()
+        field_list = apps.get_model('family', 'FamilyTuition')._meta.fields
+        # 应用名与模型名
+        self.verbose_name_dict = {}
+        # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
+        for i in field_list:
+            self.verbose_name_dict[i.name] = i.verbose_name
+        fields = self.get_fields()
+        # 默认导入导出field的column_name为字段的名称
+        # 这里修改为字段的verbose_name
+        for field in fields:
+            field_name = self.get_field_name(field)
+            if field_name in self.verbose_name_dict.keys():
+                field.column_name = self.verbose_name_dict[field_name]
+    class ExamForeignWidget(ForeignKeyWidget):
+        def get_queryset(self, value, row, *args, **kwargs):
+            return FamilyBasic.objects.filter(
+                fam_number__iexact=row["relate_family"]
+            )
+
+    relate_family = fields.Field(
+        attribute='relate_family',
+        column_name='relate_family',
+        widget=ExamForeignWidget(FamilyBasic, 'fam_number')
+    )
+
+    class Meta:
+        model = Result
+        import_id_fields = ('relate_family',)
+        # 导入数据时，如果该条数据未修改过，则会忽略
+        skip_unchanged = True
+        # 在导入预览页面中显示跳过的记录
+        report_skipped = True
+        fields = (
+            'relate_family', 'date', 'total', 'nation_result', 'pre', 'speech', 'other')
 
 @xadmin.sites.register(Result)
 class ExamAdmin(object):
     """
     考试信息
     """
-
-    class ExamResources(resources.ModelResource):
-        class ExamForeignWidget(ForeignKeyWidget):
-            def get_queryset(self, value, row, *args, **kwargs):
-                return FamilyBasic.objects.filter(
-                    fam_number__iexact=row["relate_family"]
-                )
-
-        relate_family = fields.Field(
-            attribute='relate_family',
-            column_name='relate_family',
-            widget=ExamForeignWidget(FamilyBasic, 'fam_number')
-        )
-
-        class Meta:
-            model = Result
-            import_id_fields = ('relate_family',)
-            # 导入数据时，如果该条数据未修改过，则会忽略
-            skip_unchanged = True
-            # 在导入预览页面中显示跳过的记录
-            report_skipped = True
-            fields = (
-                'relate_family',  'date','total','nation_result','pre','speech','other')
-
     import_export_args = {'import_resource_class': ExamResources, }
     list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'date',
-                    'total','nation_result','pre','speech','other']
+                    'total', 'nation_result', 'pre', 'speech', 'other']
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name',
-                   'date', 'homework_two_result', 'homework_three_result', 'result','total','nation_result','pre','speech','other']
-    list_editable = ['date','total','nation_result','pre','speech','other']
+                   'date', 'homework_two_result', 'homework_three_result', 'result', 'total', 'nation_result', 'pre',
+                   'speech', 'other']
+    list_editable = ['date', 'total', 'nation_result', 'pre', 'speech', 'other']
     show_bookmarks = False
-    exclude=['homework_one_result','homework_two_result','result']
+    exclude = ['homework_one_result', 'homework_two_result', 'result']
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     readonly_fields = ['relate_family']
 
+class CertificationResources(resources.ModelResource):
+    class CertificationForeignWidget(ForeignKeyWidget):
+        def get_queryset(self, value, row, *args, **kwargs):
+            return FamilyBasic.objects.filter(
+                fam_number__iexact=row["relate_family"]
+            )
 
-# @xadmin.sites.register(ResultExtra)
-class ExamExtraAdmin(object):
-    """
-    补考信息
-    """
+    relate_family = fields.Field(
+        attribute='relate_family',
+        column_name='relate_family',
+        widget=CertificationForeignWidget(FamilyBasic, 'fam_number')
+    )
 
-    class ExamResources(resources.ModelResource):
-        class ExamForeignWidget(ForeignKeyWidget):
-            def get_queryset(self, value, row, *args, **kwargs):
-                return FamilyBasic.objects.filter(
-                    fam_number__iexact=row["relate_family"]
-                )
+    class Meta:
+        model = FamilyCertification
+        import_id_fields = ('relate_family',)
+        # 导入数据时，如果该条数据未修改过，则会忽略
+        skip_unchanged = True
+        # 在导入预览页面中显示跳过的记录
+        report_skipped = True
+        fields = ('relate_family', 'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date', 'cert_nation_id',
+                  'cert_nation_people', 'cert_other',)
 
-        relate_family = fields.Field(
-            attribute='relate_family',
-            column_name='relate_family',
-            widget=ExamForeignWidget(FamilyBasic, 'fam_number')
-        )
-
-        class Meta:
-            model = ResultExtra
-            import_id_fields = ('relate_family',)
-            # 导入数据时，如果该条数据未修改过，则会忽略
-            skip_unchanged = True
-            # 在导入预览页面中显示跳过的记录
-            report_skipped = True
-            fields = (
-                'relate_family', 'homework_one_result', 'date', 'homework_two_result', 'homework_three_result',
-                'result')
-
-    import_export_args = {'import_resource_class': ExamResources, }
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'homework_one_result', 'date',
-                    'homework_two_result',
-                    'homework_three_result', 'result']
-    list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name',
-                   'homework_one_result', 'date', 'homework_two_result', 'homework_three_result', 'result']
-    list_editable = ['homework_one_result', 'date', 'homework_two_result', 'homework_three_result', 'result']
-    show_bookmarks = False
-    search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
-    readonly_fields = ['relate_family']
 
 
 @xadmin.sites.register(FamilyCertification)
@@ -369,35 +413,14 @@ class CertificationAdmin(object):
     """
     证书信息
     """
-
-    class CertificationResources(resources.ModelResource):
-        class CertificationForeignWidget(ForeignKeyWidget):
-            def get_queryset(self, value, row, *args, **kwargs):
-                return FamilyBasic.objects.filter(
-                    fam_number__iexact=row["relate_family"]
-                )
-
-        relate_family = fields.Field(
-            attribute='relate_family',
-            column_name='relate_family',
-            widget=CertificationForeignWidget(FamilyBasic, 'fam_number')
-        )
-
-        class Meta:
-            model = FamilyCertification
-            import_id_fields = ('relate_family',)
-            # 导入数据时，如果该条数据未修改过，则会忽略
-            skip_unchanged = True
-            # 在导入预览页面中显示跳过的记录
-            report_skipped = True
-            fields = ('relate_family', 'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date','cert_nation_id','cert_nation_people','cert_other',)
-
     import_export_args = {'import_resource_class': CertificationResources, }
     list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'cert_id', 'cert_date', 'cert_draw_people',
-                    'cert_draw_date','cert_nation_id','cert_nation_people','cert_other',]
+                    'cert_draw_date', 'cert_nation_id', 'cert_nation_people', 'cert_other', ]
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'cert_id', 'cert_date', 'cert_draw_people',
-                   'cert_draw_date', 'relate_family__fam_class__class_name','cert_nation_id','cert_nation_people','cert_other',]
-    list_editable = ['cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date','cert_nation_id','cert_nation_people','cert_other',]
+                   'cert_draw_date', 'relate_family__fam_class__class_name', 'cert_nation_id', 'cert_nation_people',
+                   'cert_other', ]
+    list_editable = ['cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date', 'cert_nation_id',
+                     'cert_nation_people', 'cert_other', ]
     show_bookmarks = False
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     readonly_fields = ['relate_family']
@@ -432,7 +455,7 @@ class FamilyOndutyAdmin(object):
             fields = ('relate_family', 'onduty', 'homework', 'other')
 
     import_export_args = {'import_resource_class': OndutyResources}
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'onduty','homework', 'other']
+    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'onduty', 'homework', 'other']
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     list_editable = ['onduty', 'homwwork', 'homework', 'other']
     show_bookmarks = False
@@ -446,19 +469,19 @@ class TotalAdmin(object):
     总览信息
     """
     list_display = [
-        'fam_type','fam_number','fam_group',
-         'fam_name', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
+        'fam_type', 'fam_number', 'fam_group',
+        'fam_name', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
         'fam_loc', 'fam_deg', 'fam_major',
         'fam_company', 'fam_duty',
         'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
-        'fam_signup_date', 'fam_signup_people','fam_other',
-        'fee_train','fee_material','fee_exam','fee_total',
+        'fam_signup_date', 'fam_signup_people', 'fam_other',
+        'fee_train', 'fee_material', 'fee_exam', 'fee_total',
         'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
-        'fee_invoice_id', 'fee_invoice_date','fee_other',
-        'text_basic', 'text_basic2','text_guide','text_manual','text_other',
-        'wechat_number','wechat_nickname','wechat_date','onduty','homework','other',
-        'exam_date','exam_total','exam_nation','exam_pre','exam_speech','exam_other',
-        'cert_id','cert_draw_people','cert_draw_date','cert_nation_id','cert_nation_people','cert_other'
+        'fee_invoice_id', 'fee_invoice_date', 'fee_other',
+        'text_basic', 'text_basic2', 'text_guide', 'text_manual', 'text_other',
+        'wechat_number', 'wechat_nickname', 'wechat_date', 'onduty', 'homework', 'other',
+        'exam_date', 'exam_total', 'exam_nation', 'exam_pre', 'exam_speech', 'exam_other',
+        'cert_id', 'cert_draw_people', 'cert_draw_date', 'cert_nation_id', 'cert_nation_people', 'cert_other'
     ]
     show_bookmarks = False
     list_filter = ['family__fam_name', 'family__fam_cellphone', 'family__fam_class__class_name',

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'easy_thumbnails',  
     'filer',
     'mptt',
+    'gunicorn',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

@@ -21,6 +21,8 @@ from student.models import StudentBasic,Tuition,StudentWechat,StudentExamExtra,S
 from family.models import FamilyBasic,FamilyWechat,FamilyTuition,FamilyOnduty,FamilyTextbook,FamilyCertification,Result,ResultExtra,Total as FamilyTotal
 import xadmin
 from django.shortcuts import HttpResponse
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 def generate_total(request):
     q = StudentBasic.objects.all()
     p = FamilyBasic.objects.all()
@@ -94,3 +96,5 @@ urlpatterns = [
     path('generate_class',generate_class),
     path('generate_tuition', generate_tuition)
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+urlpatterns += staticfiles_urlpatterns()

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'marriage',
     'sandbox',
     'team',
+    'trainingClass',
     'family',
     'xadmin',
     'student',

@@ -1,24 +1,36 @@
 from hr.models import CurrentStaff, DismissStaff, AllStaff
-from student.models import StudentClass,StudentCertification, StudentBasic, StudentExamExtra, StudentExam, StudentWechat, \
-    StudentTextbook, Tuition,Onduty
-from teacher.models import Teacher,FamilyTeacher,MarriageTeacher,TeamTeacher,SandboxTeacher
+from student.models import StudentClass, StudentCertification, StudentBasic, StudentExamExtra, StudentExam, \
+    StudentWechat, \
+    StudentTextbook, Tuition, Onduty
+from teacher.models import Teacher, FamilyTeacher, MarriageTeacher, TeamTeacher, SandboxTeacher
 from filer.models import FakeModel
 from filer.models import Folder
-from family.models import FamilyClass,FamilyOnduty,FamilyTuition,FamilyBasic,FamilyCertification,FamilyTextbook,FamilyWechat,ResultExtra,Result
-from sandbox.models import SandboxClass,SandboxOnduty,SandboxTuition,SandboxBasic,SandboxCertification,SandboxTextbook,SandboxWechat,SandboxExam
-from marriage.models import MarriageClass,MarriageOnduty,MarriageTuition,MarriageBasic,MarriageCertification,MarriageTextbook,MarriageWechat,MarriageExam
-from team.models import TeamClass,TeamOnduty,TeamTuition,TeamBasic,TeamCertification,TeamTextbook,TeamWechat,TeamExam
+from family.models import FamilyClass, FamilyOnduty, FamilyTuition, FamilyBasic, FamilyCertification, FamilyTextbook, \
+    FamilyWechat, ResultExtra
+from sandbox.models import SandboxClass, SandboxOnduty, SandboxTuition, SandboxBasic, SandboxCertification, \
+    SandboxTextbook, SandboxWechat, SandboxExam
+from marriage.models import MarriageClass, MarriageOnduty, MarriageTuition, MarriageBasic, MarriageCertification, \
+    MarriageTextbook, MarriageWechat, MarriageExam
+from team.models import TeamClass, TeamOnduty, TeamTuition, TeamBasic, TeamCertification, TeamTextbook, TeamWechat, \
+    TeamExam
+from trainingClass.models import TrainBasic, TrainOnduty, TrainTuition, TrainClass, TrainCertification, TrainTextbook, \
+    TrainWechat, ResultExtra
 # from fileshare.models import FileShare
+from trainingClass.models import Total as TrainTotal
+from trainingClass.models import Result as TrainResult
 from family.models import Total as FamilyTotal
+from family.models import Result as FamilyResult
 from student.models import Total as StudentTotal
 from sandbox.models import Total as SandboxTotal
 from marriage.models import Total as MarriageTotal
 from team.models import Total as TeamTotal
+
+
 def set_menu(self):
     defaultLayoutList = [
         {
             'title': '心理学员信息管理',
-            'icon':'fa fa-address-book',
+            'icon': 'fa fa-address-book',
             'menus':
                 (
                     {
@@ -34,10 +46,10 @@ def set_menu(self):
                         'icon': 'fa fa-address-book'
                     },
                     {
-                        'title':'班级信息',
-                        'perm':self.get_model_perm(StudentClass,'view'),
-                        'url':self.get_model_url(StudentClass,'changelist'),
-                        'icon':'fa fa-users'
+                        'title': '班级信息',
+                        'perm': self.get_model_perm(StudentClass, 'view'),
+                        'url': self.get_model_url(StudentClass, 'changelist'),
+                        'icon': 'fa fa-users'
                     },
                     {
                         'title': '交费信息',
@@ -58,10 +70,10 @@ def set_menu(self):
                         'icon': 'fa fa-weixin'
                     },
                     {
-                        'title':'考勤信息',
-                        'perm':self.get_model_perm(Onduty,'view'),
-                        'url':self.get_model_url(Onduty,'changelist'),
-                        'icon':'fa fa-check-square-o'
+                        'title': '考勤信息',
+                        'perm': self.get_model_perm(Onduty, 'view'),
+                        'url': self.get_model_url(Onduty, 'changelist'),
+                        'icon': 'fa fa-check-square-o'
                     },
                     {
                         'title': '考试信息',
@@ -79,6 +91,67 @@ def set_menu(self):
                         'title': '证书信息',
                         'perm': self.get_model_perm(StudentCertification, 'view'),
                         'url': self.get_model_url(StudentCertification, 'changelist'),
+                        'icon': 'fa fa-id-card'
+                    }
+                )
+        },
+        {
+            'title': '心理咨询实战技能高阶训练班',
+            'icon': 'fa fa-home',
+            'menus':
+                (
+                    {
+                        'title': '训练班信息总览',
+                        'perm': self.get_model_perm(TrainTotal, 'view'),
+                        'url': self.get_model_url(TrainTotal, 'changelist'),
+                        'icon': 'fa fa-address-book'
+                    },
+                    {
+                        'title': '基本信息',
+                        'perm': self.get_model_perm(TrainBasic, 'view'),
+                        'url': self.get_model_url(TrainBasic, 'changelist'),
+                        'icon': 'fa fa-address-book'
+                    },
+                    {
+                        'title': '班级信息',
+                        'perm': self.get_model_perm(TrainClass, 'view'),
+                        'url': self.get_model_url(TrainClass, 'changelist'),
+                        'icon': 'fa fa-users'
+                    },
+                    {
+                        'title': '交费信息',
+                        'perm': self.get_model_perm(TrainTuition, 'view'),
+                        'url': self.get_model_url(TrainTuition, 'changelist'),
+                        'icon': 'fa fa-money'
+                    },
+                    {
+                        'title': '教材信息',
+                        'perm': self.get_model_perm(TrainTextbook, 'view'),
+                        'url': self.get_model_url(TrainTextbook, 'changelist'),
+                        'icon': 'fa fa-book'
+                    },
+                    {
+                        'title': '365开通情况',
+                        'perm': self.get_model_perm(TrainWechat, 'view'),
+                        'url': self.get_model_url(TrainWechat, 'changelist'),
+                        'icon': 'fa fa-weixin'
+                    },
+                    {
+                        'title': '考勤信息',
+                        'perm': self.get_model_perm(TrainOnduty, 'view'),
+                        'url': self.get_model_url(TrainOnduty, 'changelist'),
+                        'icon': 'fa fa-check-square-o'
+                    },
+                    {
+                        'title': '考试信息',
+                        'perm': self.get_model_perm(TrainResult, 'view'),
+                        'url': self.get_model_url(TrainResult, 'changelist'),
+                        'icon': 'fa fa-star'
+                    },
+                    {
+                        'title': '证书信息',
+                        'perm': self.get_model_perm(TrainCertification, 'view'),
+                        'url': self.get_model_url(TrainCertification, 'changelist'),
                         'icon': 'fa fa-id-card'
                     }
                 )
@@ -132,8 +205,8 @@ def set_menu(self):
                     },
                     {
                         'title': '考试信息',
-                        'perm': self.get_model_perm(Result, 'view'),
-                        'url': self.get_model_url(Result, 'changelist'),
+                        'perm': self.get_model_perm(FamilyResult, 'view'),
+                        'url': self.get_model_url(FamilyResult, 'changelist'),
                         'icon': 'fa fa-star'
                     },
                     # {
@@ -199,7 +272,7 @@ def set_menu(self):
                     },
                     {
                         'title': '考试信息',
-                        'perm': self.get_model_perm(Result, 'view'),
+                        'perm': self.get_model_perm(FamilyResult, 'view'),
                         'url': self.get_model_url(SandboxExam, 'changelist'),
                         'icon': 'fa fa-star'
                     },
@@ -373,7 +446,7 @@ def set_menu(self):
         {
             'title': '员工信息管理',
             # 权限配置参数，有此权限者才显示本菜单
-            'icon':'fa fa-user-circle-o',
+            'icon': 'fa fa-user-circle-o',
             'perm': self.get_model_perm(CurrentStaff, 'view'),
             'menus':
                 (
@@ -418,21 +491,21 @@ def set_menu(self):
             {
                 'title': str(querySet.name),
                 # 'perm':self.get_model_perm(FakeModel,'view'),
-                'url':'/test_view/'+str(querySet.id)+'/',
-                'icon':'fa fa-file'
+                'url': '/test_view/' + str(querySet.id) + '/',
+                'icon': 'fa fa-file'
             }
         )
     folderMenusList.append({
-            'title': '文件管理',
-            'perm': self.get_model_perm(FakeModel, 'view'),
-            'url': self.get_model_url(FakeModel, 'changelist'),
-            'icon': 'fa fa-file'
-        },)
+        'title': '文件管理',
+        'perm': self.get_model_perm(FakeModel, 'view'),
+        'url': self.get_model_url(FakeModel, 'changelist'),
+        'icon': 'fa fa-file'
+    }, )
     defaultLayoutList.append(
         {
             'title': '文件系统',
             'icon': 'fa fa-file',
-            'menus':tuple(folderMenusList)
+            'menus': tuple(folderMenusList)
         }
     )
     return tuple(defaultLayoutList)

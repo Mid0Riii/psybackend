@@ -7,14 +7,17 @@ from .resultextramodel import ResultExtra
 from .ondutymodel import FamilyOnduty
 from .tuitionmodel import FamilyTuition
 from .wechatmodel import FamilyWechat
+
+
 class Total(models.Model):
     class Meta:
-        verbose_name="家庭信息总览"
+        verbose_name = "家庭信息总览"
         verbose_name_plural = verbose_name
-    family = models.OneToOneField(FamilyBasic,on_delete=models.CASCADE,verbose_name="学生")
+
+    family = models.OneToOneField(FamilyBasic, on_delete=models.CASCADE, verbose_name="学生")
 
     def __str__(self):
-        return str(self.family.fam_number)+"-"+str(self.family.fam_name)
+        return str(self.family.fam_number) + "-" + str(self.family.fam_name)
 
     def fam_type(self):
         return self.family.fam_type
@@ -24,13 +27,14 @@ class Total(models.Model):
     def fam_group(self):
         return self.family.fam_group
 
-    fam_group.short_description="组别与职务"
+    fam_group.short_description = "组别与职务"
 
     def fam_number(self):
 
         return self.family.fam_number
 
     fam_number.short_description = "学号"
+
     def fam_name(self):
         info = self.family.fam_name
         if self.family.familytuition.fee_date == '空':
@@ -38,6 +42,7 @@ class Total(models.Model):
         else:
             color_code = 'black'
         return format_html('<span style="color:{};">{}</span>', color_code, info)
+
     fam_name.short_description = u'姓名'
     fam_name.allow_tags = fam_name.is_column = True
 
@@ -155,7 +160,6 @@ class Total(models.Model):
 
     fee_total.short_description = "总费用"
 
-
     def fee_date(self):
         return self.family.familytuition.fee_date
 
@@ -195,7 +199,6 @@ class Total(models.Model):
         return self.family.familytuition.fee_invoice_inc
 
     fee_invoice_inc.short_description = "出票单位"
-
 
     def fee_other(self):
         return self.family.familytuition.fee_info
@@ -264,7 +267,8 @@ class Total(models.Model):
 
     def exam_total(self):
         return self.family.result.total
-    exam_total.short_description="总分"
+
+    exam_total.short_description = "总分"
 
     def exam_nation(self):
         return self.family.result.nation_result
@@ -281,11 +285,11 @@ class Total(models.Model):
 
     exam_speech.short_description = "宣讲分"
 
-
     def exam_other(self):
         return self.family.result.other
 
     exam_other.short_description = "备注"
+
     # def exam_homework2_result(self):
     #     return self.family.result.homework_two_result
     #
@@ -377,10 +381,3 @@ class Total(models.Model):
     #     return self.family.familyonduty.other
     #
     # other.short_description = "备注"
-
-
-
-
-
-
-

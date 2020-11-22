@@ -13,7 +13,7 @@ from .layouts.detailLayouts import BasicLayout, TuitionLayout
 #     model = FamilyTuition
 #     extra = 1
 #     style='one'
-#     readonly_fields=['fee_material', 'fee_exam', 'fee_total',
+#     # readonly_fields=['fee_material', 'fee_exam', 'fee_total',
 #                     'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id']
 
 
@@ -213,7 +213,7 @@ class TuitionAdmin(object):
                      'relate_family__fam_class__class_name']
     list_editable = ['fee_train', 'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                      'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc']
-    readonly_fields = ['relate_family']
+    # readonly_fields = ['relate_family']
 
     def get_form_layout(self):
         self.form_layout = TuitionLayout
@@ -270,7 +270,7 @@ class TextbookAdmin(object):
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'text_basic', 'text_other',
                    'relate_family__fam_class__class_name', 'text_basic2', 'text_guide', ]
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
-    readonly_fields = ['relate_family']
+    # readonly_fields = ['relate_family']
     list_editable = ['text_basic', 'text_manual', 'text_other', 'text_basic2', 'text_guide', ]
     show_bookmarks = False
 
@@ -323,7 +323,7 @@ class WechatAdmin(object):
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'wechat_number', 'wechat_nickname',
                    'wechat_date', 'relate_family__fam_class__class_name']
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
-    readonly_fields = ['relate_family']
+    # readonly_fields = ['relate_family']
     list_editable = ['wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other']
     show_bookmarks = False
 
@@ -381,7 +381,7 @@ class ExamAdmin(object):
     show_bookmarks = False
     exclude = ['homework_one_result', 'homework_two_result', 'result']
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
-    readonly_fields = ['relate_family']
+    # readonly_fields = ['relate_family']
 
 class CertificationResources(resources.ModelResource):
     class CertificationForeignWidget(ForeignKeyWidget):
@@ -423,7 +423,7 @@ class CertificationAdmin(object):
                      'cert_nation_people', 'cert_other', ]
     show_bookmarks = False
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
-    readonly_fields = ['relate_family']
+    # readonly_fields = ['relate_family']
 
 
 @xadmin.sites.register(FamilyOnduty)

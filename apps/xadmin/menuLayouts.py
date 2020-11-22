@@ -97,7 +97,7 @@ def set_menu(self):
         },
         {
             'title': '心理咨询实战技能高阶训练班',
-            'icon': 'fa fa-home',
+            'icon': 'fa fa-user-plus',
             'menus':
                 (
                     {

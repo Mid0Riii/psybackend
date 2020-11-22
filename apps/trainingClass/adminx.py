@@ -204,7 +204,7 @@ class TuitionAdmin(object):
                      'relate_trainingclass__tra_class__class_name']
     list_editable = ['fee_train', 'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                      'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc']
-    readonly_fields = ['relate_trainingclass']
+    # readonly_fields = ['relate_trainingclass']
 
     def get_form_layout(self):
         self.form_layout = TuitionLayout
@@ -261,7 +261,7 @@ class TextbookAdmin(object):
     list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'text_basic', 'text_other',
                    'relate_trainingclass__tra_class__class_name', 'text_basic2', 'text_guide', ]
     search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name']
-    readonly_fields = ['relate_trainingclass']
+    # readonly_fields = ['relate_trainingclass']
     list_editable = ['text_basic', 'text_manual', 'text_other', 'text_basic2', 'text_guide', ]
     show_bookmarks = False
 
@@ -314,7 +314,7 @@ class WechatAdmin(object):
     list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'wechat_number', 'wechat_nickname',
                    'wechat_date', 'relate_trainingclass__tra_class__class_name']
     search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name']
-    readonly_fields = ['relate_trainingclass']
+    # readonly_fields = ['relate_trainingclass']
     list_editable = ['wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other']
     show_bookmarks = False
 
@@ -372,7 +372,7 @@ class ExamAdmin(object):
     show_bookmarks = False
     exclude = ['homework_one_result', 'homework_two_result', 'result']
     search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name']
-    readonly_fields = ['relate_trainingclass']
+    # readonly_fields = ['relate_trainingclass']
 
 class CertificationResources(resources.ModelResource):
     class CertificationForeignWidget(ForeignKeyWidget):
@@ -414,7 +414,7 @@ class CertificationAdmin(object):
                      'cert_nation_people', 'cert_other', ]
     show_bookmarks = False
     search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name']
-    readonly_fields = ['relate_trainingclass']
+    # readonly_fields = ['relate_trainingclass']
 
 
 @xadmin.sites.register(TrainOnduty)

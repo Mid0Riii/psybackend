@@ -14,7 +14,7 @@ from xadmin.views import DetailAdminView, ListAdminView, ModelFormAdminView, Upd
 #     model = StudentTuition
 #     extra = 1
 #     style='one'
-#     readonly_fields=['fee_material', 'fee_exam', 'fee_total',
+#     # readonly_fields=['fee_material', 'fee_exam', 'fee_total',
 #                     'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id']
 
 
@@ -174,7 +174,7 @@ class TuitionAdmin(object):
                      'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                      'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc', 'fee_info']
     exclude = ['relate_class','fee_exam_extra']
-    readonly_fields = ['relate_student']
+    # readonly_fields = ['relate_student']
 
     def get_form_layout(self):
         self.form_layout = TuitionLayout
@@ -223,7 +223,7 @@ class TextbookAdmin(object):
                    'text_thr_exer', 'text_thr_measure', 'text_manual', 'text_exam', 'text_CAS', 'text_guide',
                    'text_other', 'relate_student__stu_class__class_name']
     search_fields = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name']
-    readonly_fields = ['relate_student']
+    # # readonly_fields = ['relate_student']
     list_editable = ['text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure',
                      'text_thr', 'text_CAS', 'text_guide',
                      'text_thr_exer', 'text_thr_measure', 'text_manual', 'text_exam', 'text_other']
@@ -265,7 +265,7 @@ class WechatAdmin(object):
     list_filter = ['relate_student__stu_name', 'relate_student__stu_number', 'wechat_number', 'wechat_nickname',
                    'wechat_date', 'wechat_test', 'relate_student__stu_class__class_name', 'wechat_date2']
     search_fields = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name']
-    readonly_fields = ['relate_student']
+    # readonly_fields = ['relate_student']
     list_editable = ['wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_test', 'wechat_date2']
     show_bookmarks = False
 
@@ -313,7 +313,7 @@ class ExamAdmin(object):
                      'exam_practise_result', 'exam_total', 'exam_total_result', 'exam_status','exam_practise_result2','exam_pre','exam_speech','exam_thr_theory','exam_thr_skill','exam_sec_theory','exam_sec_skill','exam_thesis','exam_CAS',]
     show_bookmarks = False
     search_fields = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name']
-    readonly_fields = ['relate_student']
+    # readonly_fields = ['relate_student']
     exclude=['exam_theory','exam_practise']
 
     def get_form_layout(self):
@@ -363,7 +363,7 @@ class ExamAdmin(object):
 #                      'exam_practise_result', 'exam_total', 'exam_total_result', 'exam_status']
 #     show_bookmarks = False
 #     search_fields = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name']
-#     readonly_fields = ['relate_student']
+#     # readonly_fields = ['relate_student']
 #
 #     def get_form_layout(self):
 #         self.form_layout = ExamLayout
@@ -406,7 +406,7 @@ class CertificationAdmin(object):
     list_editable = ['cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date','cert_nation_id','cert_nation_people','cert_CAS_id','cert_CAS_people','cert_other']
     show_bookmarks = False
     search_fields = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name']
-    readonly_fields = ['relate_student']
+    # readonly_fields = ['relate_student']
 
 
 @xadmin.sites.register(Onduty)

@@ -7,19 +7,22 @@ from .ondutymodel import SandboxOnduty
 from .tuitionmodel import SandboxTuition
 from .wechatmodel import SandboxWechat
 
+
 class Total(models.Model):
     class Meta:
-        verbose_name="沙盘分析指导信息总览"
+        verbose_name = "沙盘分析指导信息总览"
         verbose_name_plural = verbose_name
-    sandbox = models.OneToOneField(SandboxBasic,on_delete=models.CASCADE,verbose_name="学生")
+
+    sandbox = models.OneToOneField(SandboxBasic, on_delete=models.CASCADE, verbose_name="学生")
 
     def __str__(self):
-        return str(self.sandbox.san_number)+"-"+str(self.sandbox.san_name)
+        return str(self.sandbox.san_number) + "-" + str(self.sandbox.san_name)
 
     def san_number(self):
         return self.sandbox.san_number
 
     san_number.short_description = "学号"
+
     def san_name(self):
         info = self.sandbox.san_name
         if self.sandbox.sandboxtuition.fee_date == '空':
@@ -27,6 +30,7 @@ class Total(models.Model):
         else:
             color_code = 'black'
         return format_html('<span style="color:{};">{}</span>', color_code, info)
+
     san_name.short_description = u'姓名'
     san_name.allow_tags = san_name.is_column = True
 
@@ -47,7 +51,7 @@ class Total(models.Model):
 
     def san_type(self):
         return self.sandbox.san_type
-    
+
     san_type.short_description = "学员类型"
 
     def san_group(self):
@@ -125,9 +129,9 @@ class Total(models.Model):
 
     san_signup_people.short_description = "招生人"
 
-    #def san_teacher_level(self):
+    # def san_teacher_level(self):
     #    return self.sandbox.san_teacher_level
-    #san_teacher_level.short_description = "心师级别"
+    # san_teacher_level.short_description = "心师级别"
 
     def san_other(self):
         return self.sandbox.san_other
@@ -141,17 +145,17 @@ class Total(models.Model):
 
     def fee_material(self):
         return self.sandbox.sandboxtuition.fee_material
-    
+
     fee_material.short_description = "教材费"
 
     def fee_exam(self):
         return self.sandbox.sandboxtuition.fee_exam
-    
+
     fee_exam.short_description = "考试费"
 
     def fee_total(self):
         return self.sandbox.sandboxtuition.fee_total
-    
+
     fee_total.short_description = "总费用"
 
     def fee_date(self):
@@ -188,7 +192,6 @@ class Total(models.Model):
         return self.sandbox.sandboxtuition.fee_other
 
     fee_other.short_description = "备注"
-
 
     def text_sandbox(self):
         return self.sandbox.sandboxtextbook.text_sandbox
@@ -239,7 +242,6 @@ class Total(models.Model):
         return self.sandbox.sandboxwechat.wechat_other
 
     wechat_other.short_description = "备注"
-
 
     def exam_batch(self):
         return self.sandbox.sandboxexam.batch
@@ -311,7 +313,6 @@ class Total(models.Model):
 
     cert_other.short_description = "备注"
 
-
     def ond_onduty(self):
         return self.sandbox.sandboxonduty.onduty
 
@@ -326,10 +327,3 @@ class Total(models.Model):
         return self.sandbox.sandboxonduty.other
 
     ond_other.short_description = "备注"
-
-
-
-
-
-
-

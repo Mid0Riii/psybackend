@@ -2,6 +2,7 @@ from django.db import models
 from .classmodel import StudentClass
 from django.utils.html import format_html
 
+
 class StudentBasic(models.Model):
     class Meta:
         verbose_name = '心理学员招生信息'
@@ -31,14 +32,14 @@ class StudentBasic(models.Model):
             Onduty.objects.get(relate_student=self)
             Total.objects.get(student=self)
         except Exception as e:
-            Tuition.objects.create(relate_student=self,relate_class=self.stu_class)
-            StudentExam.objects.create(relate_student=self,relate_class=self.stu_class)
-            StudentWechat.objects.create(relate_student=self,relate_class=self.stu_class)
-            StudentExamExtra.objects.create(relate_student=self,relate_class=self.stu_class)
-            StudentTextbook.objects.create(relate_student=self,relate_class=self.stu_class)
-            StudentCertification.objects.create(relate_student=self,relate_class=self.stu_class)
+            Tuition.objects.create(relate_student=self, relate_class=self.stu_class)
+            StudentExam.objects.create(relate_student=self, relate_class=self.stu_class)
+            StudentWechat.objects.create(relate_student=self, relate_class=self.stu_class)
+            StudentExamExtra.objects.create(relate_student=self, relate_class=self.stu_class)
+            StudentTextbook.objects.create(relate_student=self, relate_class=self.stu_class)
+            StudentCertification.objects.create(relate_student=self, relate_class=self.stu_class)
             Total.objects.create(student=self)
-            Onduty.objects.create(relate_student=self,relate_class=self.stu_class)
+            Onduty.objects.create(relate_student=self, relate_class=self.stu_class)
         # super(StudentBasic, self).save(*args, **kwargs)
 
     def get_verbose_name(self, field):
@@ -48,8 +49,8 @@ class StudentBasic(models.Model):
     ——————————————
     5.9新增
     """
-    stu_type = models.CharField(max_length=128,verbose_name='学员类型',null=True,blank=True,default='空')
-    stu_group = models.CharField(max_length=128,verbose_name='组别与职务',null=True,blank=True,default='空')
+    stu_type = models.CharField(max_length=128, verbose_name='学员类型', null=True, blank=True, default='空')
+    stu_group = models.CharField(max_length=128, verbose_name='组别与职务', null=True, blank=True, default='空')
     """
     ——————————————
     """
@@ -57,9 +58,10 @@ class StudentBasic(models.Model):
     stu_name = models.CharField(max_length=128, verbose_name='姓名', blank=True, null=True, default='空')
     stu_gender = models.CharField(max_length=16, choices=(('男', '男'), ('女', '女')), verbose_name='性别', blank=True,
                                   null=True, default='空')
-    stu_level = models.CharField(max_length=16, choices=(('二级', '二级'), ('三级', '三级'),('三升二', '三升二'),('中科院','中科院'),('心理辅导师','心理辅导师')), verbose_name='级别', null=True,
+    stu_level = models.CharField(max_length=16, choices=(
+    ('二级', '二级'), ('三级', '三级'), ('三升二', '三升二'), ('中科院', '中科院'), ('心理辅导师', '心理辅导师')), verbose_name='级别', null=True,
                                  blank=True, default='空')
-    stu_id_number = models.CharField(max_length=128, verbose_name='身份证号',default='空')
+    stu_id_number = models.CharField(max_length=128, verbose_name='身份证号', default='空')
     stu_loc = models.CharField(max_length=128, verbose_name='所在地', blank=True, null=True, default='空')
     stu_deg = models.CharField(max_length=128, verbose_name='学历', blank=True, null=True, default='空')
     stu_major = models.CharField(max_length=128, verbose_name='专业', blank=True, null=True, default='空')
@@ -76,4 +78,3 @@ class StudentBasic(models.Model):
     stu_other = models.TextField(verbose_name='备注', blank=True, null=True, default='空')
     stu_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE, verbose_name='班级')
     stu_class_num = models.CharField(max_length=128, verbose_name='班内序号', null=True, blank=True, default='空')
-

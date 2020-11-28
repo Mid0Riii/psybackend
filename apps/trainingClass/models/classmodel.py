@@ -1,10 +1,10 @@
 from django.db import models
 
 
-class FamilyClass(models.Model):
+class TrainClass(models.Model):
     class Meta:
-        verbose_name = '家庭班级'
-        verbose_name_plural = '家庭班级'
+        verbose_name = '训练班级'
+        verbose_name_plural = '训练班级'
 
     class_name = models.CharField(max_length=64, verbose_name='班级名')
     class_index = models.IntegerField(verbose_name='班级序号', null=True, blank=True)

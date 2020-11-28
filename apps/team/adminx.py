@@ -13,7 +13,7 @@ from .layouts.detailLayouts import BasicLayout, TuitionLayout
 #     model = TeamTuition
 #     extra = 1
 #     style='one'
-#     readonly_fields=['fee_material', 'fee_exam', 'fee_total',
+#     # readonly_fields=['fee_material', 'fee_exam', 'fee_total',
 #                     'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id']
 
 
@@ -191,7 +191,7 @@ class TuitionAdmin(object):
     search_fields = ['relate_team__tea_name', 'relate_team__tea_number', 'relate_team__tea_number', 'relate_team__tea_class__class_name']
     list_editable = ['fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                      'fee_invoice_id', 'fee_invoice_date', 'fee_other']
-    readonly_fields = ['relate_team']
+    # readonly_fields = ['relate_team']
 
     def get_form_layout(self):
         self.form_layout = TuitionLayout
@@ -230,7 +230,7 @@ class TextbookAdmin(object):
     list_display = ['relate_team', 'get_tea_name', 'get_tea_class', 'text_team', 'text_two', 'text_train', 'text_manual', 'text_other']
     list_filter = ['relate_team__tea_name', 'relate_team__tea_number','text_team', 'text_two', 'text_train', 'text_other', 'relate_team__tea_class__class_name']
     search_fields = ['relate_team__tea_name', 'relate_team__tea_number', 'relate_team__tea_class__class_name']
-    readonly_fields = ['relate_team']
+    # readonly_fields = ['relate_team']
     list_editable = ['text_team', 'text_two', 'text_train', 'text_manual', 'text_other']
     show_bookteaks = False
 
@@ -268,7 +268,7 @@ class WechatAdmin(object):
                     'wechat_date', 'wechat_other']
     list_filter = ['relate_team__tea_name', 'relate_team__tea_number','wechat_number', 'wechat_nickname', 'wechat_date', 'relate_team__tea_class__class_name', 'wechat_other']
     search_fields = ['relate_team__tea_name', 'relate_team__tea_number', 'relate_team__tea_class__class_name']
-    readonly_fields = ['relate_team']
+    # readonly_fields = ['relate_team']
     list_editable = ['wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other']
     show_bookteaks = False
 
@@ -310,7 +310,7 @@ class ExamAdmin(object):
     list_editable = ['batch', 'exam_total', 'exam_nation', 'exam_practice', 'other']
     show_bookteaks = False
     search_fields = ['relate_team__tea_name', 'relate_team__tea_number', 'relate_team__tea_class__class_name']
-    readonly_fields = ['relate_team']
+    # readonly_fields = ['relate_team']
 
 
 @xadmin.sites.register(TeamCertification)
@@ -351,7 +351,7 @@ class CertificationAdmin(object):
                     "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other" ]
     show_bookteaks = False
     search_fields = ['relate_team__tea_name', 'relate_team__tea_number', 'relate_team__tea_class__class_name']
-    readonly_fields = ['relate_team']
+    # readonly_fields = ['relate_team']
 
 
 @xadmin.sites.register(TeamOnduty)

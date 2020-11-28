@@ -1,26 +1,17 @@
 import xadmin
 from django.utils.html import format_html
-from .models import FamilyBasic, FamilyCertification, Result, ResultExtra, FamilyTextbook, \
-    FamilyTuition, FamilyWechat, FamilyClass, FamilyOnduty, Total
+from .models import TrainBasic, TrainCertification, Result, ResultExtra, TrainTextbook, \
+    TrainTuition, TrainWechat, TrainClass, TrainOnduty, Total
 from import_export import resources, fields
 from import_export.widgets import ForeignKeyWidget, BooleanWidget
 from django.apps import apps
 from .layouts.detailLayouts import BasicLayout, TuitionLayout
 
 
-# TODO CODEREVIEW 外键后台inline显示的用法
-# class TuitionInline(object):
-#     model = FamilyTuition
-#     extra = 1
-#     style='one'
-#     # readonly_fields=['fee_material', 'fee_exam', 'fee_total',
-#                     'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id']
-
-
-class FamilyBasicResources(resources.ModelResource):
+class TrainBasicResources(resources.ModelResource):
     def __init__(self):
-        super(FamilyBasicResources, self).__init__()
-        field_list = apps.get_model('family', 'FamilyBasic')._meta.fields
+        super(TrainBasicResources, self).__init__()
+        field_list = apps.get_model('trainClass', 'TrainBasic')._meta.fields
         # 应用名与模型名
         self.verbose_name_dict = {}
         # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
@@ -36,62 +27,62 @@ class FamilyBasicResources(resources.ModelResource):
 
     class ClassForeignWidget(ForeignKeyWidget):
         def get_queryset(self, value, row, *args, **kwargs):
-            return FamilyClass.objects.filter(
+            return TrainClass.objects.filter(
                 class_name__iexact=row["班级"]
             )
 
-    fam_class = fields.Field(
-        attribute='fam_class',
-        column_name='fam_class',
-        widget=ClassForeignWidget(FamilyClass, 'class_name')
+    tra_class = fields.Field(
+        attribute='tra_class',
+        column_name='tra_class',
+        widget=ClassForeignWidget(TrainClass, 'class_name')
     )
 
     class Meta:
-        model = FamilyBasic
-        import_id_fields = ('fam_number',)
+        model = TrainBasic
+        import_id_fields = ('tra_number',)
         # 导入数据时，如果该条数据未修改过，则会忽略
         skip_unchanged = True
         # 在导入预览页面中显示跳过的记录
         report_skipped = True
         fields = (
-            'fam_type', 'fam_group',
-            'fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
-            'fam_loc', 'fam_deg', 'fam_major',
-            'fam_company', 'fam_duty',
-            'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
-            'fam_signup_date', 'fam_signup_people', 'fam_other')
+            'tra_type', 'tra_group',
+            'tra_number', 'tra_name', 'tra_gender', 'tra_class', 'tra_class_num', 'tra_id_number',
+            'tra_loc', 'tra_deg', 'tra_major',
+            'tra_company', 'tra_duty',
+            'tra_status', 'tra_origin', 'tra_cellphone', 'tra_wechat', 'tra_qq',
+            'tra_signup_date', 'tra_signup_people', 'tra_other')
 
 
-@xadmin.sites.register(FamilyBasic)
+@xadmin.sites.register(TrainBasic)
 class BasicAdmin(object):
     """
-    家庭基本信息
+    训练班基本信息
     """
 
-    list_display = ['fam_type', 'fam_group', 'fam_number', 'tuition_state', 'fam_gender', 'fam_class', 'fam_class_num',
-                    'fam_id_number',
-                    'fam_loc', 'fam_deg',
-                    'fam_major',
-                    'fam_company', 'fam_duty',
-                    'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
-                    'fam_signup_date', 'fam_signup_people', 'fam_other']
-    import_export_args = {'import_resource_class': FamilyBasicResources}
-    list_filter = ['fam_type', 'fam_group', 'fam_number', 'fam_name', 'fam_gender', 'fam_class', 'fam_class_num',
-                   'fam_id_number',
-                   'fam_loc', 'fam_deg',
-                   'fam_major',
-                   'fam_company', 'fam_duty',
-                   'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
-                   'fam_signup_date', 'fam_signup_people', 'fam_other', 'fam_class__class_name', ]
+    list_display = ['tra_type', 'tra_group', 'tra_number', 'tuition_state', 'tra_gender', 'tra_class', 'tra_class_num',
+                    'tra_id_number',
+                    'tra_loc', 'tra_deg',
+                    'tra_major',
+                    'tra_company', 'tra_duty',
+                    'tra_status', 'tra_origin', 'tra_cellphone', 'tra_wechat', 'tra_qq',
+                    'tra_signup_date', 'tra_signup_people', 'tra_other']
+    import_export_args = {'import_resource_class': TrainBasicResources}
+    list_filter = ['tra_type', 'tra_group', 'tra_number', 'tra_name', 'tra_gender', 'tra_class', 'tra_class_num',
+                   'tra_id_number',
+                   'tra_loc', 'tra_deg',
+                   'tra_major',
+                   'tra_company', 'tra_duty',
+                   'tra_status', 'tra_origin', 'tra_cellphone', 'tra_wechat', 'tra_qq',
+                   'tra_signup_date', 'tra_signup_people', 'tra_other', 'tra_class__class_name', ]
     list_editable = list_display
-    exclude = ['fam_teacher_level', ]
-    list_display_links = ['fam_number']
-    search_fields = ['fam_number', 'fam_name', 'fam_class__class_name']
+    exclude = ['tra_teacher_level', ]
+    list_display_links = ['tra_number']
+    search_fields = ['tra_number', 'tra_name', 'tra_class__class_name']
     show_bookmarks = False
 
     def tuition_state(self, obj):
-        info = obj.fam_name
-        if obj.familytuition.fee_date == '空':
+        info = obj.tra_name
+        if obj.Traintuition.fee_date == '空':
             color_code = 'red'
             # info = '无交费信息'
         else:
@@ -100,7 +91,7 @@ class BasicAdmin(object):
         return format_html('<span style="color:{};">{}</span>', color_code, info)
 
     tuition_state.short_description = '姓名'
-    tuition_state.admin_order_field = 'fam_name'
+    tuition_state.admin_order_field = 'tra_name'
 
     def get_form_layout(self):
         self.form_layout = BasicLayout
@@ -110,7 +101,7 @@ class BasicAdmin(object):
 class ClassResources(resources.ModelResource):
     def __init__(self):
         super(ClassResources, self).__init__()
-        field_list = apps.get_model('family', 'FamilyClass')._meta.fields
+        field_list = apps.get_model('trainClass', 'TrainClass')._meta.fields
         # 应用名与模型名
         self.verbose_name_dict = {}
         # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
@@ -125,7 +116,7 @@ class ClassResources(resources.ModelResource):
                 field.column_name = self.verbose_name_dict[field_name]
 
     class Meta:
-        model = FamilyClass
+        model = TrainClass
         fields = ('class_name', 'class_teacher', 'class_recruit_teacher', 'class_date')
         # 导入数据时，如果该条数据未修改过，则会忽略
         skip_unchanged = True
@@ -135,10 +126,10 @@ class ClassResources(resources.ModelResource):
         import_id_fields = ('class_name',)
 
 
-@xadmin.sites.register(FamilyClass)
+@xadmin.sites.register(TrainClass)
 class ClassAdmin(object):
     '''
-    班级信息
+    训练班级信息
     '''
 
     import_export_args = {'import_resource_class': ClassResources,
@@ -154,7 +145,7 @@ class ClassAdmin(object):
 class TuitionResources(resources.ModelResource):
     def __init__(self):
         super(TuitionResources, self).__init__()
-        field_list = apps.get_model('family', 'FamilyTuition')._meta.fields
+        field_list = apps.get_model('trainClass', 'TrainTuition')._meta.fields
         # 应用名与模型名
         self.verbose_name_dict = {}
         # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
@@ -170,50 +161,50 @@ class TuitionResources(resources.ModelResource):
 
     class TuitionForeignWidget(ForeignKeyWidget):
         def get_queryset(self, value, row, *args, **kwargs):
-            return FamilyBasic.objects.filter(
-                fam_number__iexact=row["relate_family"]
+            return TrainBasic.objects.filter(
+                tra_number__iexact=row["relate_trainingclass"]
             )
 
-    relate_family = fields.Field(
-        attribute='relate_family',
-        column_name='relate_family',
-        widget=TuitionForeignWidget(FamilyBasic, 'fam_number')
+    relate_trainingclass = fields.Field(
+        attribute='relate_trainingclass',
+        column_name='relate_trainingclass',
+        widget=TuitionForeignWidget(TrainBasic, 'tra_number')
     )
 
     class Meta:
-        model = FamilyTuition
-        import_id_fields = ('relate_family',)
+        model = TrainTuition
+        import_id_fields = ('relate_trainingclass',)
         # 导入数据时，如果该条数据未修改过，则会忽略
         skip_unchanged = True
         # 在导入预览页面中显示跳过的记录
         report_skipped = True
-        fields = ('relate_family', 'fee_train', 'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax',
+        fields = ('relate_trainingclass', 'fee_train', 'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax',
                   'fee_invoice_header',
                   'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc')
 
 
-@xadmin.sites.register(FamilyTuition)
+@xadmin.sites.register(TrainTuition)
 class TuitionAdmin(object):
     """
     交费信息
     """
 
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'fee_train', 'fee_material', 'fee_date',
+    list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_class', 'fee_train', 'fee_material', 'fee_date',
                     'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                     'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc'
                     ]
     # TODO CODEVIEW filter中外键的处理
-    list_filter = ['relate_family__fam_name', 'relate_family__fam_class__class_name', 'fee_tax', 'fee_train',
+    list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_class__class_name', 'fee_tax', 'fee_train',
                    'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                    'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc']
     show_bookmarks = False
     import_export_args = {'import_resource_class': TuitionResources,
                           }
-    search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_number',
-                     'relate_family__fam_class__class_name']
+    search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_number',
+                     'relate_trainingclass__tra_class__class_name']
     list_editable = ['fee_train', 'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                      'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc']
-    # readonly_fields = ['relate_family']
+    # readonly_fields = ['relate_trainingclass']
 
     def get_form_layout(self):
         self.form_layout = TuitionLayout
@@ -223,7 +214,7 @@ class TuitionAdmin(object):
 class TextbookResources(resources.ModelResource):
     def __init__(self):
         super(TextbookResources, self).__init__()
-        field_list = apps.get_model('family', 'FamilyTuition')._meta.fields
+        field_list = apps.get_model('trainClass', 'TrainTuition')._meta.fields
         # 应用名与模型名
         self.verbose_name_dict = {}
         # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
@@ -239,45 +230,45 @@ class TextbookResources(resources.ModelResource):
 
     class TextbookForeignWidget(ForeignKeyWidget):
         def get_queryset(self, value, row, *args, **kwargs):
-            return FamilyBasic.objects.filter(
-                fam_number__iexact=row["relate_family"]
+            return TrainBasic.objects.filter(
+                tra_number__iexact=row["relate_trainingclass"]
             )
 
-    relate_family = fields.Field(
-        attribute='relate_family',
-        column_name='relate_family',
-        widget=TextbookForeignWidget(FamilyBasic, 'fam_number')
+    relate_trainingclass = fields.Field(
+        attribute='relate_trainingclass',
+        column_name='relate_trainingclass',
+        widget=TextbookForeignWidget(TrainBasic, 'tra_number')
     )
 
     class Meta:
-        model = FamilyTextbook
-        import_id_fields = ('relate_family',)
+        model = TrainTextbook
+        import_id_fields = ('relate_trainingclass',)
         # 导入数据时，如果该条数据未修改过，则会忽略
         skip_unchanged = True
         # 在导入预览页面中显示跳过的记录
         report_skipped = True
-        fields = ('relate_family', 'text_basic', 'text_basic2', 'text_guide', 'text_manual', 'text_other')
+        fields = ('relate_trainingclass', 'text_basic', 'text_basic2', 'text_guide', 'text_manual', 'text_other')
 
 
-@xadmin.sites.register(FamilyTextbook)
+@xadmin.sites.register(TrainTextbook)
 class TextbookAdmin(object):
     """
     教材信息
     """
     import_export_args = {'import_resource_class': TextbookResources, }
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'text_basic', 'text_basic2', 'text_guide',
+    list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_class', 'text_basic', 'text_basic2', 'text_guide',
                     'text_manual', 'text_other']
-    list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'text_basic', 'text_other',
-                   'relate_family__fam_class__class_name', 'text_basic2', 'text_guide', ]
-    search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
-    # readonly_fields = ['relate_family']
+    list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'text_basic', 'text_other',
+                   'relate_trainingclass__tra_class__class_name', 'text_basic2', 'text_guide', ]
+    search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name']
+    # readonly_fields = ['relate_trainingclass']
     list_editable = ['text_basic', 'text_manual', 'text_other', 'text_basic2', 'text_guide', ]
     show_bookmarks = False
 
 class WechatResources(resources.ModelResource):
     def __init__(self):
         super(WechatResources, self).__init__()
-        field_list = apps.get_model('family', 'FamilyTuition')._meta.fields
+        field_list = apps.get_model('trainClass', 'TrainTuition')._meta.fields
         # 应用名与模型名
         self.verbose_name_dict = {}
         # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
@@ -293,37 +284,37 @@ class WechatResources(resources.ModelResource):
 
     class WechatForeignWidget(ForeignKeyWidget):
         def get_queryset(self, value, row, *args, **kwargs):
-            return FamilyBasic.objects.filter(
-                fam_number__iexact=row["relate_family"]
+            return TrainBasic.objects.filter(
+                tra_number__iexact=row["relate_trainingclass"]
             )
 
-    relate_family = fields.Field(
-        attribute='relate_family',
-        column_name='relate_family',
-        widget=WechatForeignWidget(FamilyBasic, 'fam_number')
+    relate_trainingclass = fields.Field(
+        attribute='relate_trainingclass',
+        column_name='relate_trainingclass',
+        widget=WechatForeignWidget(TrainBasic, 'tra_number')
     )
 
     class Meta:
-        model = FamilyWechat
-        import_id_fields = ('relate_family',)
+        model = TrainWechat
+        import_id_fields = ('relate_trainingclass',)
         # 导入数据时，如果该条数据未修改过，则会忽略
         skip_unchanged = True
         # 在导入预览页面中显示跳过的记录
         report_skipped = True
-        fields = ('relate_family', 'wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other')
+        fields = ('relate_trainingclass', 'wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other')
 
-@xadmin.sites.register(FamilyWechat)
+@xadmin.sites.register(TrainWechat)
 class WechatAdmin(object):
     """
     365开通情况
     """
     import_export_args = {'import_resource_class': WechatResources, }
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'wechat_number', 'wechat_nickname',
+    list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_class', 'wechat_number', 'wechat_nickname',
                     'wechat_date', 'wechat_other', ]
-    list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'wechat_number', 'wechat_nickname',
-                   'wechat_date', 'relate_family__fam_class__class_name']
-    search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
-    # readonly_fields = ['relate_family']
+    list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'wechat_number', 'wechat_nickname',
+                   'wechat_date', 'relate_trainingclass__tra_class__class_name']
+    search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name']
+    # readonly_fields = ['relate_trainingclass']
     list_editable = ['wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other']
     show_bookmarks = False
 
@@ -331,7 +322,7 @@ class WechatAdmin(object):
 class ExamResources(resources.ModelResource):
     def __init__(self):
         super(ExamResources, self).__init__()
-        field_list = apps.get_model('family', 'FamilyTuition')._meta.fields
+        field_list = apps.get_model('trainClass', 'TrainTuition')._meta.fields
         # 应用名与模型名
         self.verbose_name_dict = {}
         # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
@@ -346,25 +337,25 @@ class ExamResources(resources.ModelResource):
                 field.column_name = self.verbose_name_dict[field_name]
     class ExamForeignWidget(ForeignKeyWidget):
         def get_queryset(self, value, row, *args, **kwargs):
-            return FamilyBasic.objects.filter(
-                fam_number__iexact=row["relate_family"]
+            return TrainBasic.objects.filter(
+                tra_number__iexact=row["relate_trainingclass"]
             )
 
-    relate_family = fields.Field(
-        attribute='relate_family',
-        column_name='relate_family',
-        widget=ExamForeignWidget(FamilyBasic, 'fam_number')
+    relate_trainingclass = fields.Field(
+        attribute='relate_trainingclass',
+        column_name='relate_trainingclass',
+        widget=ExamForeignWidget(TrainBasic, 'tra_number')
     )
 
     class Meta:
         model = Result
-        import_id_fields = ('relate_family',)
+        import_id_fields = ('relate_trainingclass',)
         # 导入数据时，如果该条数据未修改过，则会忽略
         skip_unchanged = True
         # 在导入预览页面中显示跳过的记录
         report_skipped = True
         fields = (
-            'relate_family', 'date', 'total', 'nation_result', 'pre', 'speech', 'other')
+            'relate_trainingclass', 'date', 'total', 'nation_result', 'pre', 'speech', 'other')
 
 @xadmin.sites.register(Result)
 class ExamAdmin(object):
@@ -372,62 +363,62 @@ class ExamAdmin(object):
     考试信息
     """
     import_export_args = {'import_resource_class': ExamResources, }
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'date',
+    list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_class', 'date',
                     'total', 'nation_result', 'pre', 'speech', 'other']
-    list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name',
+    list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name',
                    'date', 'homework_two_result', 'homework_three_result', 'result', 'total', 'nation_result', 'pre',
                    'speech', 'other']
     list_editable = ['date', 'total', 'nation_result', 'pre', 'speech', 'other']
     show_bookmarks = False
     exclude = ['homework_one_result', 'homework_two_result', 'result']
-    search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
-    # readonly_fields = ['relate_family']
+    search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name']
+    # readonly_fields = ['relate_trainingclass']
 
 class CertificationResources(resources.ModelResource):
     class CertificationForeignWidget(ForeignKeyWidget):
         def get_queryset(self, value, row, *args, **kwargs):
-            return FamilyBasic.objects.filter(
-                fam_number__iexact=row["relate_family"]
+            return TrainBasic.objects.filter(
+                tra_number__iexact=row["relate_trainingclass"]
             )
 
-    relate_family = fields.Field(
-        attribute='relate_family',
-        column_name='relate_family',
-        widget=CertificationForeignWidget(FamilyBasic, 'fam_number')
+    relate_trainingclass = fields.Field(
+        attribute='relate_trainingclass',
+        column_name='relate_trainingclass',
+        widget=CertificationForeignWidget(TrainBasic, 'tra_number')
     )
 
     class Meta:
-        model = FamilyCertification
-        import_id_fields = ('relate_family',)
+        model = TrainCertification
+        import_id_fields = ('relate_trainingclass',)
         # 导入数据时，如果该条数据未修改过，则会忽略
         skip_unchanged = True
         # 在导入预览页面中显示跳过的记录
         report_skipped = True
-        fields = ('relate_family', 'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date', 'cert_nation_id',
+        fields = ('relate_trainingclass', 'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date', 'cert_nation_id',
                   'cert_nation_people', 'cert_other',)
 
 
 
-@xadmin.sites.register(FamilyCertification)
+@xadmin.sites.register(TrainCertification)
 class CertificationAdmin(object):
     """
     证书信息
     """
     import_export_args = {'import_resource_class': CertificationResources, }
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'cert_id', 'cert_date', 'cert_draw_people',
+    list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_class', 'cert_id', 'cert_date', 'cert_draw_people',
                     'cert_draw_date', 'cert_nation_id', 'cert_nation_people', 'cert_other', ]
-    list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'cert_id', 'cert_date', 'cert_draw_people',
-                   'cert_draw_date', 'relate_family__fam_class__class_name', 'cert_nation_id', 'cert_nation_people',
+    list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'cert_id', 'cert_date', 'cert_draw_people',
+                   'cert_draw_date', 'relate_trainingclass__tra_class__class_name', 'cert_nation_id', 'cert_nation_people',
                    'cert_other', ]
     list_editable = ['cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date', 'cert_nation_id',
                      'cert_nation_people', 'cert_other', ]
     show_bookmarks = False
-    search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
-    # readonly_fields = ['relate_family']
+    search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name']
+    # readonly_fields = ['relate_trainingclass']
 
 
-@xadmin.sites.register(FamilyOnduty)
-class FamilyOndutyAdmin(object):
+@xadmin.sites.register(TrainOnduty)
+class TrainOndutyAdmin(object):
     """
     出勤信息
     """
@@ -435,32 +426,32 @@ class FamilyOndutyAdmin(object):
     class OndutyResources(resources.ModelResource):
         class OndutyForeignWidget(ForeignKeyWidget):
             def get_queryset(self, value, row, *args, **kwargs):
-                return FamilyBasic.objects.filter(
-                    fam_number__iexact=row["relate_family"]
+                return TrainBasic.objects.filter(
+                    tra_number__iexact=row["relate_trainingclass"]
                 )
 
-        relate_family = fields.Field(
-            attribute='relate_family',
-            column_name='relate_family',
-            widget=OndutyForeignWidget(FamilyBasic, 'fam_number')
+        relate_trainingclass = fields.Field(
+            attribute='relate_trainingclass',
+            column_name='relate_trainingclass',
+            widget=OndutyForeignWidget(TrainBasic, 'tra_number')
         )
 
         class Meta:
-            model = FamilyOnduty
-            import_id_fields = ('relate_family',)
+            model = TrainOnduty
+            import_id_fields = ('relate_trainingclass',)
             # 导入数据时，如果该条数据未修改过，则会忽略
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_family', 'onduty', 'homework', 'other')
+            fields = ('relate_trainingclass', 'onduty', 'homework', 'other')
 
     import_export_args = {'import_resource_class': OndutyResources}
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'onduty', 'homework', 'other']
-    list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
+    list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_class', 'onduty', 'homework', 'other']
+    list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name']
     list_editable = ['onduty', 'homwwork', 'homework', 'other']
     show_bookmarks = False
     search_fields = list_filter
-    reanonly_fields = ['relate_family']
+    reanonly_fields = ['relate_trainingclass']
 
 
 @xadmin.sites.register(Total)
@@ -469,12 +460,12 @@ class TotalAdmin(object):
     总览信息
     """
     list_display = [
-        'fam_type', 'fam_number', 'fam_group',
-        'fam_name', 'fam_gender', 'fam_class', 'fam_class_num', 'fam_id_number',
-        'fam_loc', 'fam_deg', 'fam_major',
-        'fam_company', 'fam_duty',
-        'fam_status', 'fam_origin', 'fam_cellphone', 'fam_wechat', 'fam_qq',
-        'fam_signup_date', 'fam_signup_people', 'fam_other',
+        'tra_type', 'tra_number', 'tra_group',
+        'tra_name', 'tra_gender', 'tra_class', 'tra_class_num', 'tra_id_number',
+        'tra_loc', 'tra_deg', 'tra_major',
+        'tra_company', 'tra_duty',
+        'tra_status', 'tra_origin', 'tra_cellphone', 'tra_wechat', 'tra_qq',
+        'tra_signup_date', 'tra_signup_people', 'tra_other',
         'fee_train', 'fee_material', 'fee_exam', 'fee_total',
         'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
         'fee_invoice_id', 'fee_invoice_date', 'fee_other',
@@ -484,7 +475,7 @@ class TotalAdmin(object):
         'cert_id', 'cert_draw_people', 'cert_draw_date', 'cert_nation_id', 'cert_nation_people', 'cert_other'
     ]
     show_bookmarks = False
-    list_filter = ['family__fam_name', 'family__fam_cellphone', 'family__fam_class__class_name',
-                   'family__fam_teacher_level', 'family__familytuition__fee_date',
-                   'family__familywechat__wechat_number', 'family__result__result',
-                   'family__familycertification__cert_id']
+    list_filter = ['trainingclass__tra_name', 'trainingclass__tra_cellphone', 'trainingclass__tra_class__class_name',
+                   'trainingclass__tra_teacher_level', 'trainingclass__traintuition__fee_date',
+                   'trainingclass__trainwechat__wechat_number', 'trainingclass__result__result',
+                   'trainingclass__traincertification__cert_id']

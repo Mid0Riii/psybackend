@@ -18,21 +18,20 @@ from .layouts.detailLayouts import BasicLayout, TuitionLayout
 
 
 class FamilyBasicResources(resources.ModelResource):
-    def __init__(self):
-        super(FamilyBasicResources, self).__init__()
-        field_list = apps.get_model('family', 'FamilyBasic')._meta.fields
-        # 应用名与模型名
-        self.verbose_name_dict = {}
-        # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
-        for i in field_list:
-            self.verbose_name_dict[i.name] = i.verbose_name
-        fields = self.get_fields()
-        # 默认导入导出field的column_name为字段的名称
-        # 这里修改为字段的verbose_name
-        for field in fields:
-            field_name = self.get_field_name(field)
-            if field_name in self.verbose_name_dict.keys():
-                field.column_name = self.verbose_name_dict[field_name]
+    # import—export中文列名的最终解决方案
+    @classmethod
+    def field_from_django_field(cls, field_name, django_field, readonly):
+        FieldWidget = cls.widget_from_django_field(django_field)
+        widget_kwargs = cls.widget_kwargs_for_field(field_name)
+        field = cls.DEFAULT_RESOURCE_FIELD(
+            attribute=field_name,
+            # 重写column_name
+            column_name=django_field.verbose_name,
+            widget=FieldWidget(**widget_kwargs),
+            readonly=readonly,
+            default=django_field.default,
+        )
+        return field
 
     class ClassForeignWidget(ForeignKeyWidget):
         def get_queryset(self, value, row, *args, **kwargs):
@@ -108,21 +107,20 @@ class BasicAdmin(object):
 
 
 class ClassResources(resources.ModelResource):
-    def __init__(self):
-        super(ClassResources, self).__init__()
-        field_list = apps.get_model('family', 'FamilyClass')._meta.fields
-        # 应用名与模型名
-        self.verbose_name_dict = {}
-        # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
-        for i in field_list:
-            self.verbose_name_dict[i.name] = i.verbose_name
-        fields = self.get_fields()
-        # 默认导入导出field的column_name为字段的名称
-        # 这里修改为字段的verbose_name
-        for field in fields:
-            field_name = self.get_field_name(field)
-            if field_name in self.verbose_name_dict.keys():
-                field.column_name = self.verbose_name_dict[field_name]
+    # import—export中文列名的最终解决方案
+    @classmethod
+    def field_from_django_field(cls, field_name, django_field, readonly):
+        FieldWidget = cls.widget_from_django_field(django_field)
+        widget_kwargs = cls.widget_kwargs_for_field(field_name)
+        field = cls.DEFAULT_RESOURCE_FIELD(
+            attribute=field_name,
+            # 重写column_name
+            column_name=django_field.verbose_name,
+            widget=FieldWidget(**widget_kwargs),
+            readonly=readonly,
+            default=django_field.default,
+        )
+        return field
 
     class Meta:
         model = FamilyClass
@@ -152,21 +150,20 @@ class ClassAdmin(object):
 
 
 class TuitionResources(resources.ModelResource):
-    def __init__(self):
-        super(TuitionResources, self).__init__()
-        field_list = apps.get_model('family', 'FamilyTuition')._meta.fields
-        # 应用名与模型名
-        self.verbose_name_dict = {}
-        # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
-        for i in field_list:
-            self.verbose_name_dict[i.name] = i.verbose_name
-        fields = self.get_fields()
-        # 默认导入导出field的column_name为字段的名称
-        # 这里修改为字段的verbose_name
-        for field in fields:
-            field_name = self.get_field_name(field)
-            if field_name in self.verbose_name_dict.keys():
-                field.column_name = self.verbose_name_dict[field_name]
+    # import—export中文列名的最终解决方案
+    @classmethod
+    def field_from_django_field(cls, field_name, django_field, readonly):
+        FieldWidget = cls.widget_from_django_field(django_field)
+        widget_kwargs = cls.widget_kwargs_for_field(field_name)
+        field = cls.DEFAULT_RESOURCE_FIELD(
+            attribute=field_name,
+            # 重写column_name
+            column_name=django_field.verbose_name,
+            widget=FieldWidget(**widget_kwargs),
+            readonly=readonly,
+            default=django_field.default,
+        )
+        return field
 
     class TuitionForeignWidget(ForeignKeyWidget):
         def get_queryset(self, value, row, *args, **kwargs):
@@ -221,21 +218,20 @@ class TuitionAdmin(object):
 
 
 class TextbookResources(resources.ModelResource):
-    def __init__(self):
-        super(TextbookResources, self).__init__()
-        field_list = apps.get_model('family', 'FamilyTuition')._meta.fields
-        # 应用名与模型名
-        self.verbose_name_dict = {}
-        # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
-        for i in field_list:
-            self.verbose_name_dict[i.name] = i.verbose_name
-        fields = self.get_fields()
-        # 默认导入导出field的column_name为字段的名称
-        # 这里修改为字段的verbose_name
-        for field in fields:
-            field_name = self.get_field_name(field)
-            if field_name in self.verbose_name_dict.keys():
-                field.column_name = self.verbose_name_dict[field_name]
+    # import—export中文列名的最终解决方案
+    @classmethod
+    def field_from_django_field(cls, field_name, django_field, readonly):
+        FieldWidget = cls.widget_from_django_field(django_field)
+        widget_kwargs = cls.widget_kwargs_for_field(field_name)
+        field = cls.DEFAULT_RESOURCE_FIELD(
+            attribute=field_name,
+            # 重写column_name
+            column_name=django_field.verbose_name,
+            widget=FieldWidget(**widget_kwargs),
+            readonly=readonly,
+            default=django_field.default,
+        )
+        return field
 
     class TextbookForeignWidget(ForeignKeyWidget):
         def get_queryset(self, value, row, *args, **kwargs):
@@ -275,21 +271,20 @@ class TextbookAdmin(object):
     show_bookmarks = False
 
 class WechatResources(resources.ModelResource):
-    def __init__(self):
-        super(WechatResources, self).__init__()
-        field_list = apps.get_model('family', 'FamilyTuition')._meta.fields
-        # 应用名与模型名
-        self.verbose_name_dict = {}
-        # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
-        for i in field_list:
-            self.verbose_name_dict[i.name] = i.verbose_name
-        fields = self.get_fields()
-        # 默认导入导出field的column_name为字段的名称
-        # 这里修改为字段的verbose_name
-        for field in fields:
-            field_name = self.get_field_name(field)
-            if field_name in self.verbose_name_dict.keys():
-                field.column_name = self.verbose_name_dict[field_name]
+    # import—export中文列名的最终解决方案
+    @classmethod
+    def field_from_django_field(cls, field_name, django_field, readonly):
+        FieldWidget = cls.widget_from_django_field(django_field)
+        widget_kwargs = cls.widget_kwargs_for_field(field_name)
+        field = cls.DEFAULT_RESOURCE_FIELD(
+            attribute=field_name,
+            # 重写column_name
+            column_name=django_field.verbose_name,
+            widget=FieldWidget(**widget_kwargs),
+            readonly=readonly,
+            default=django_field.default,
+        )
+        return field
 
     class WechatForeignWidget(ForeignKeyWidget):
         def get_queryset(self, value, row, *args, **kwargs):
@@ -329,21 +324,20 @@ class WechatAdmin(object):
 
 
 class ExamResources(resources.ModelResource):
-    def __init__(self):
-        super(ExamResources, self).__init__()
-        field_list = apps.get_model('family', 'FamilyTuition')._meta.fields
-        # 应用名与模型名
-        self.verbose_name_dict = {}
-        # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
-        for i in field_list:
-            self.verbose_name_dict[i.name] = i.verbose_name
-        fields = self.get_fields()
-        # 默认导入导出field的column_name为字段的名称
-        # 这里修改为字段的verbose_name
-        for field in fields:
-            field_name = self.get_field_name(field)
-            if field_name in self.verbose_name_dict.keys():
-                field.column_name = self.verbose_name_dict[field_name]
+    # import—export中文列名的最终解决方案
+    @classmethod
+    def field_from_django_field(cls, field_name, django_field, readonly):
+        FieldWidget = cls.widget_from_django_field(django_field)
+        widget_kwargs = cls.widget_kwargs_for_field(field_name)
+        field = cls.DEFAULT_RESOURCE_FIELD(
+            attribute=field_name,
+            # 重写column_name
+            column_name=django_field.verbose_name,
+            widget=FieldWidget(**widget_kwargs),
+            readonly=readonly,
+            default=django_field.default,
+        )
+        return field
     class ExamForeignWidget(ForeignKeyWidget):
         def get_queryset(self, value, row, *args, **kwargs):
             return FamilyBasic.objects.filter(
@@ -352,7 +346,7 @@ class ExamResources(resources.ModelResource):
 
     relate_family = fields.Field(
         attribute='relate_family',
-        column_name='relate_family',
+        column_name='学号',
         widget=ExamForeignWidget(FamilyBasic, 'fam_number')
     )
 
@@ -363,8 +357,7 @@ class ExamResources(resources.ModelResource):
         skip_unchanged = True
         # 在导入预览页面中显示跳过的记录
         report_skipped = True
-        fields = (
-            'relate_family', 'date', 'total', 'nation_result', 'pre', 'speech', 'other')
+        fields = ('relate_family', 'date', 'total', 'nation_result', 'pre', 'speech', 'other')
 
 @xadmin.sites.register(Result)
 class ExamAdmin(object):

@@ -338,16 +338,12 @@ class ExamResources(resources.ModelResource):
             default=django_field.default,
         )
         return field
-    class ExamForeignWidget(ForeignKeyWidget):
-        def get_queryset(self, value, row, *args, **kwargs):
-            return FamilyBasic.objects.filter(
-                fam_number__iexact=row["relate_family"]
-            )
+
 
     relate_family = fields.Field(
         attribute='relate_family',
         column_name='学号',
-        widget=ExamForeignWidget(FamilyBasic, 'fam_number')
+        widget=ForeignKeyWidget(FamilyBasic, 'fam_number')
     )
 
     class Meta:

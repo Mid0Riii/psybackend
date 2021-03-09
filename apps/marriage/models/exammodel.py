@@ -42,5 +42,11 @@ class MarriageExam(models.Model):
     get_mar_class.short_description = u'班级'
     get_mar_class.allow_tags = get_mar_name.is_column = True
 
+    def get_mar_id_number(self):
+        return self.relate_marriage.mar_id_number
+
+    get_mar_id_number.short_description = u'身份证号'
+    get_mar_id_number.allow_tags = get_mar_id_number.is_column = True
+
     def __str__(self):
         return str(self.relate_marriage.mar_name)

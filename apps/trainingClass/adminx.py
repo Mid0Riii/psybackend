@@ -363,7 +363,7 @@ class ExamAdmin(object):
     考试信息
     """
     import_export_args = {'import_resource_class': ExamResources, }
-    list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_class', 'date',
+    list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_id_number', 'get_tra_class', 'date',
                     'total', 'nation_result', 'pre', 'speech', 'other']
     list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name',
                    'date', 'homework_two_result', 'homework_three_result', 'result', 'total', 'nation_result', 'pre',
@@ -405,7 +405,7 @@ class CertificationAdmin(object):
     证书信息
     """
     import_export_args = {'import_resource_class': CertificationResources, }
-    list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_class', 'cert_id', 'cert_date', 'cert_draw_people',
+    list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_id_number', 'get_tra_class', 'cert_id', 'cert_date', 'cert_draw_people',
                     'cert_draw_date', 'cert_nation_id', 'cert_nation_people', 'cert_other', ]
     list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'cert_id', 'cert_date', 'cert_draw_people',
                    'cert_draw_date', 'relate_trainingclass__tra_class__class_name', 'cert_nation_id', 'cert_nation_people',

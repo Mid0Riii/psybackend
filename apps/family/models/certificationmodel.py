@@ -42,5 +42,11 @@ class FamilyCertification(models.Model):
     get_fam_class.short_description = u'班级'
     get_fam_class.allow_tags = get_fam_name.is_column = True
 
+    def get_fam_id_number(self):
+        return self.relate_family.fam_id_number
+
+    get_fam_id_number.short_description = u'身份证号'
+    get_fam_id_number.allow_tags = get_fam_id_number.is_column = True
+
     def __str__(self):
         return str(self.relate_family.fam_name)

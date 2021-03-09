@@ -45,13 +45,19 @@ class StudentExam(models.Model):
         return self.relate_student.stu_number
 
     get_stu_num.short_description = '学号'
-    get_stu_num.allow_tags = get_stu_num.is_colume = True
+    get_stu_num.allow_tags = get_stu_num.is_column = True
 
     def get_stu_class(self):
         return self.relate_student.stu_class.class_name
 
     get_stu_class.short_description = u'班级'
-    get_stu_class.allow_tags = get_stu_name.is_column = True
+    get_stu_class.allow_tags = get_stu_class.is_column = True
+
+    def get_stu_id_number(self):
+        return self.relate_student.stu_id_number
+
+    get_stu_id_number.short_description = u'身份证号'
+    get_stu_id_number.allow_tags = get_stu_id_number.is_column = True
 
     def __str__(self):
         return str(self.relate_student.stu_name)

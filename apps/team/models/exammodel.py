@@ -42,5 +42,11 @@ class TeamExam(models.Model):
     get_tea_class.short_description = u'班级'
     get_tea_class.allow_tags = get_tea_name.is_column = True
 
+    def get_tea_id_number(self):
+        return self.relate_team.tea_id_number
+
+    get_tea_id_number.short_description = u'身份证号'
+    get_tea_id_number.allow_tags = get_tea_id_number.is_column = True
+
     def __str__(self):
         return str(self.relate_team.tea_name)

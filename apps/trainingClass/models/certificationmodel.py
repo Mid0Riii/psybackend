@@ -38,13 +38,19 @@ class TrainCertification(models.Model):
         return self.relate_trainingclass.tra_number
 
     get_tra_num.short_description = '学号'
-    get_tra_num.allow_tags = get_tra_num.is_colume = True
+    get_tra_num.allow_tags = get_tra_num.is_column = True
 
     def get_tra_class(self):
         return self.relate_trainingclass.tra_class.class_name
 
     get_tra_class.short_description = u'班级'
-    get_tra_class.allow_tags = get_tra_name.is_column = True
+    get_tra_class.allow_tags = get_tra_class.is_column = True
+
+    def get_tra_id_number(self):
+        return self.relate_trainingclass.tra_id_number
+
+    get_tra_id_number.short_description = u'身份证号'
+    get_tra_id_number.allow_tags = get_tra_id_number.is_column = True
 
     def __str__(self):
         return str(self.relate_trainingclass.tra_name)

@@ -301,7 +301,7 @@ class ExamAdmin(object):
                       'exam_practise_result2','exam_pre','exam_speech','exam_thr_theory','exam_thr_skill','exam_sec_theory','exam_sec_skill','exam_thesis','exam_CAS',)
 
     import_export_args = {'import_resource_class': ExamResources, }
-    list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'exam_date',
+    list_display = ['relate_student', 'get_stu_name', 'get_stu_id_number', 'get_stu_class', 'exam_date',
                      'exam_theory_result',
                     'exam_practise_result',
                     'exam_practise_result2','exam_pre','exam_speech','exam_thr_theory','exam_thr_skill','exam_sec_theory','exam_sec_skill','exam_thesis','exam_CAS',
@@ -399,7 +399,7 @@ class CertificationAdmin(object):
             fields = ('relate_student', 'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date','cert_nation_id','cert_nation_people','cert_CAS_id','cert_CAS_people','cert_other')
 
     import_export_args = {'import_resource_class': CertificationResources, }
-    list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'cert_id', 'cert_date', 'cert_draw_people',
+    list_display = ['relate_student', 'get_stu_name', 'get_stu_id_number', 'get_stu_class', 'cert_id', 'cert_date', 'cert_draw_people',
                     'cert_draw_date','cert_nation_id','cert_nation_people','cert_CAS_id','cert_CAS_people','cert_other']
     list_filter = ['relate_student__stu_name', 'relate_student__stu_number', 'cert_id', 'cert_date', 'cert_draw_people',
                    'cert_draw_date', 'relate_student__stu_class__class_name','cert_nation_id','cert_nation_people','cert_CAS_id','cert_CAS_people','cert_other']

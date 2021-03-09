@@ -195,10 +195,9 @@ class TuitionAdmin(object):
     交费信息
     """
 
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'fee_train', 'fee_material', 'fee_date',
-                    'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
-                    'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc'
-                    ]
+    list_display = ['relate_family', 'get_fam_name', 'get_fam_class', 'fee_train', 'fee_material', 'fee_exam',
+                    'fee_total', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
+                    'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc']
     # TODO CODEVIEW filter中外键的处理
     list_filter = ['relate_family__fam_name', 'relate_family__fam_class__class_name', 'fee_tax', 'fee_train',
                    'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',

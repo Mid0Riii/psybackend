@@ -189,21 +189,25 @@ class TuitionAdmin(object):
     交费信息
     """
 
-    list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_class', 'fee_train', 'fee_material', 'fee_date',
+    list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_class', 'fee_train', 'fee_material', 'fee_exam',
+                    'fee_total', 'fee_date',
                     'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                     'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc'
                     ]
     # TODO CODEVIEW filter中外键的处理
-    list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_class__class_name', 'fee_tax', 'fee_train',
+    list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_class__class_name', 'fee_tax',
+                   'fee_train',
                    'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                    'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc']
     show_bookmarks = False
     import_export_args = {'import_resource_class': TuitionResources,
                           }
-    search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_number',
+    search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number',
+                     'relate_trainingclass__tra_number',
                      'relate_trainingclass__tra_class__class_name']
     list_editable = ['fee_train', 'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                      'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc']
+
     # readonly_fields = ['relate_trainingclass']
 
     def get_form_layout(self):
@@ -260,10 +264,12 @@ class TextbookAdmin(object):
                     'text_manual', 'text_other']
     list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'text_basic', 'text_other',
                    'relate_trainingclass__tra_class__class_name', 'text_basic2', 'text_guide', ]
-    search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name']
+    search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number',
+                     'relate_trainingclass__tra_class__class_name']
     # readonly_fields = ['relate_trainingclass']
     list_editable = ['text_basic', 'text_manual', 'text_other', 'text_basic2', 'text_guide', ]
     show_bookmarks = False
+
 
 class WechatResources(resources.ModelResource):
     def __init__(self):
@@ -303,6 +309,7 @@ class WechatResources(resources.ModelResource):
         report_skipped = True
         fields = ('relate_trainingclass', 'wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other')
 
+
 @xadmin.sites.register(TrainWechat)
 class WechatAdmin(object):
     """
@@ -311,9 +318,11 @@ class WechatAdmin(object):
     import_export_args = {'import_resource_class': WechatResources, }
     list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_class', 'wechat_number', 'wechat_nickname',
                     'wechat_date', 'wechat_other', ]
-    list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'wechat_number', 'wechat_nickname',
+    list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'wechat_number',
+                   'wechat_nickname',
                    'wechat_date', 'relate_trainingclass__tra_class__class_name']
-    search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name']
+    search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number',
+                     'relate_trainingclass__tra_class__class_name']
     # readonly_fields = ['relate_trainingclass']
     list_editable = ['wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other']
     show_bookmarks = False
@@ -335,6 +344,7 @@ class ExamResources(resources.ModelResource):
             field_name = self.get_field_name(field)
             if field_name in self.verbose_name_dict.keys():
                 field.column_name = self.verbose_name_dict[field_name]
+
     class ExamForeignWidget(ForeignKeyWidget):
         def get_queryset(self, value, row, *args, **kwargs):
             return TrainBasic.objects.filter(
@@ -357,6 +367,7 @@ class ExamResources(resources.ModelResource):
         fields = (
             'relate_trainingclass', 'date', 'total', 'nation_result', 'pre', 'speech', 'other')
 
+
 @xadmin.sites.register(Result)
 class ExamAdmin(object):
     """
@@ -365,14 +376,17 @@ class ExamAdmin(object):
     import_export_args = {'import_resource_class': ExamResources, }
     list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_id_number', 'get_tra_class', 'date',
                     'total', 'nation_result', 'pre', 'speech', 'other']
-    list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name',
+    list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number',
+                   'relate_trainingclass__tra_class__class_name',
                    'date', 'homework_two_result', 'homework_three_result', 'result', 'total', 'nation_result', 'pre',
                    'speech', 'other']
     list_editable = ['date', 'total', 'nation_result', 'pre', 'speech', 'other']
     show_bookmarks = False
     exclude = ['homework_one_result', 'homework_two_result', 'result']
-    search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name']
+    search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number',
+                     'relate_trainingclass__tra_class__class_name']
     # readonly_fields = ['relate_trainingclass']
+
 
 class CertificationResources(resources.ModelResource):
     class CertificationForeignWidget(ForeignKeyWidget):
@@ -394,9 +408,9 @@ class CertificationResources(resources.ModelResource):
         skip_unchanged = True
         # 在导入预览页面中显示跳过的记录
         report_skipped = True
-        fields = ('relate_trainingclass', 'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date', 'cert_nation_id',
-                  'cert_nation_people', 'cert_other',)
-
+        fields = (
+        'relate_trainingclass', 'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date', 'cert_nation_id',
+        'cert_nation_people', 'cert_other',)
 
 
 @xadmin.sites.register(TrainCertification)
@@ -405,15 +419,19 @@ class CertificationAdmin(object):
     证书信息
     """
     import_export_args = {'import_resource_class': CertificationResources, }
-    list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_id_number', 'get_tra_class', 'cert_id', 'cert_date', 'cert_draw_people',
+    list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_id_number', 'get_tra_class', 'cert_id',
+                    'cert_date', 'cert_draw_people',
                     'cert_draw_date', 'cert_nation_id', 'cert_nation_people', 'cert_other', ]
-    list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'cert_id', 'cert_date', 'cert_draw_people',
-                   'cert_draw_date', 'relate_trainingclass__tra_class__class_name', 'cert_nation_id', 'cert_nation_people',
+    list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'cert_id', 'cert_date',
+                   'cert_draw_people',
+                   'cert_draw_date', 'relate_trainingclass__tra_class__class_name', 'cert_nation_id',
+                   'cert_nation_people',
                    'cert_other', ]
     list_editable = ['cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date', 'cert_nation_id',
                      'cert_nation_people', 'cert_other', ]
     show_bookmarks = False
-    search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name']
+    search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number',
+                     'relate_trainingclass__tra_class__class_name']
     # readonly_fields = ['relate_trainingclass']
 
 
@@ -447,7 +465,8 @@ class TrainOndutyAdmin(object):
 
     import_export_args = {'import_resource_class': OndutyResources}
     list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_class', 'onduty', 'homework', 'other']
-    list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number', 'relate_trainingclass__tra_class__class_name']
+    list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number',
+                   'relate_trainingclass__tra_class__class_name']
     list_editable = ['onduty', 'homwwork', 'homework', 'other']
     show_bookmarks = False
     search_fields = list_filter

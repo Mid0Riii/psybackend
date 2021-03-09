@@ -176,7 +176,7 @@ class TuitionAdmin(object):
                       'fee_invoice_id', 'fee_invoice_date', 'fee_other')
 
     list_display = ['relate_marriage', 'get_mar_name', 'get_mar_class', 
-                    'fee_train', 'fee_material', 'fee_exam', 'fee_total', 
+                    'fee_train', 'fee_material', 'fee_exam', 'fee_total',
                     'fee_date', 'fee_method', 'fee_tax',
                     'fee_invoice_header',
                     'fee_invoice_id', 'fee_invoice_date', 'fee_other'

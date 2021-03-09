@@ -50,14 +50,16 @@ class BasicAdmin(object):
                 'tea_status', 'tea_origin', 'tea_cellphone', 'tea_wechat', 'tea_email',
                 'tea_signup_date', 'tea_signup_people', 'tea_other', 'tea_class')
 
-    list_display = ['tea_number', 'tuition_state', 'tea_gender', 'tea_class', 'tea_class_num', 'tea_type', 'tea_group', 'tea_id_number',
+    list_display = ['tea_number', 'tuition_state', 'tea_gender', 'tea_class', 'tea_class_num', 'tea_type', 'tea_group',
+                    'tea_id_number',
                     'tea_loc', 'tea_deg',
                     'tea_major',
                     'tea_company', 'tea_duty',
                     'tea_status', 'tea_origin', 'tea_cellphone', 'tea_wechat', 'tea_email',
                     'tea_signup_date', 'tea_signup_people', 'tea_other']
     import_export_args = {'import_resource_class': TeamBasicResources}
-    list_filter = ['tea_number', 'tea_name', 'tea_type', 'tea_group', 'tea_gender', 'tea_class', 'tea_class_num', 'tea_id_number',
+    list_filter = ['tea_number', 'tea_name', 'tea_type', 'tea_group', 'tea_gender', 'tea_class', 'tea_class_num',
+                   'tea_id_number',
                    'tea_loc', 'tea_deg',
                    'tea_major',
                    'tea_company', 'tea_duty',
@@ -65,7 +67,7 @@ class BasicAdmin(object):
                    'tea_signup_date', 'tea_signup_people', 'tea_other', 'tea_class__class_name', ]
     list_editable = list_display
     search_fields = ['tea_number', 'tea_name', 'tea_class__class_name']
-    show_bookteaks = False  
+    show_bookteaks = False
 
     def tuition_state(self, obj):
         info = obj.tea_name
@@ -172,25 +174,28 @@ class TuitionAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_team', 'fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method', 'fee_tax', 'fee_invoice_header',
-                      'fee_invoice_id', 'fee_invoice_date', 'fee_other')
+            fields = (
+            'relate_team', 'fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method', 'fee_tax',
+            'fee_invoice_header',
+            'fee_invoice_id', 'fee_invoice_date', 'fee_other')
 
-    list_display = ['relate_team', 'get_tea_name', 'get_tea_class', 
-                    'fee_train', 'fee_material', 'fee_exam', 'fee_total', 
-                    'fee_date', 'fee_method', 'fee_tax',
-                    'fee_invoice_header',
-                    'fee_invoice_id', 'fee_invoice_date', 'fee_other'
-                    ]
-    # TODO CODEVIEW filter中外键的处理
-    list_filter = ['relate_team__tea_name','fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method',
-                    'relate_team__tea_class__class_name', 'fee_tax', 'fee_invoice_header',
+    list_display = ['relate_team', 'get_tea_name', 'get_tea_class', 'fee_train', 'fee_material', 'fee_exam',
+                    'fee_total', 'fee_date', 'fee_method', 'fee_tax', 'fee_invoice_header',
                     'fee_invoice_id', 'fee_invoice_date', 'fee_other']
+    # TODO CODEVIEW filter中外键的处理
+    list_filter = ['relate_team__tea_name', 'fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date',
+                   'fee_method',
+                   'relate_team__tea_class__class_name', 'fee_tax', 'fee_invoice_header',
+                   'fee_invoice_id', 'fee_invoice_date', 'fee_other']
     show_bookteaks = False
     import_export_args = {'import_resource_class': TuitionResources,
                           }
-    search_fields = ['relate_team__tea_name', 'relate_team__tea_number', 'relate_team__tea_number', 'relate_team__tea_class__class_name']
-    list_editable = ['fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
+    search_fields = ['relate_team__tea_name', 'relate_team__tea_number', 'relate_team__tea_number',
+                     'relate_team__tea_class__class_name']
+    list_editable = ['fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method', 'fee_id',
+                     'fee_tax', 'fee_invoice_header',
                      'fee_invoice_id', 'fee_invoice_date', 'fee_other']
+
     # readonly_fields = ['relate_team']
 
     def get_form_layout(self):
@@ -227,8 +232,10 @@ class TextbookAdmin(object):
             fields = ('relate_team', 'text_team', 'text_two', 'text_train', 'text_manual', 'text_other')
 
     import_export_args = {'import_resource_class': TextbookResources, }
-    list_display = ['relate_team', 'get_tea_name', 'get_tea_class', 'text_team', 'text_two', 'text_train', 'text_manual', 'text_other']
-    list_filter = ['relate_team__tea_name', 'relate_team__tea_number','text_team', 'text_two', 'text_train', 'text_other', 'relate_team__tea_class__class_name']
+    list_display = ['relate_team', 'get_tea_name', 'get_tea_class', 'text_team', 'text_two', 'text_train',
+                    'text_manual', 'text_other']
+    list_filter = ['relate_team__tea_name', 'relate_team__tea_number', 'text_team', 'text_two', 'text_train',
+                   'text_other', 'relate_team__tea_class__class_name']
     search_fields = ['relate_team__tea_name', 'relate_team__tea_number', 'relate_team__tea_class__class_name']
     # readonly_fields = ['relate_team']
     list_editable = ['text_team', 'text_two', 'text_train', 'text_manual', 'text_other']
@@ -266,7 +273,8 @@ class WechatAdmin(object):
     import_export_args = {'import_resource_class': WechatResources, }
     list_display = ['relate_team', 'get_tea_name', 'get_tea_class', 'wechat_number', 'wechat_nickname',
                     'wechat_date', 'wechat_other']
-    list_filter = ['relate_team__tea_name', 'relate_team__tea_number','wechat_number', 'wechat_nickname', 'wechat_date', 'relate_team__tea_class__class_name', 'wechat_other']
+    list_filter = ['relate_team__tea_name', 'relate_team__tea_number', 'wechat_number', 'wechat_nickname',
+                   'wechat_date', 'relate_team__tea_class__class_name', 'wechat_other']
     search_fields = ['relate_team__tea_name', 'relate_team__tea_number', 'relate_team__tea_class__class_name']
     # readonly_fields = ['relate_team']
     list_editable = ['wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other']
@@ -300,7 +308,7 @@ class ExamAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = (
-            'relate_team', 'batch', 'exam_total', 'exam_nation', 'exam_practice', 'other')
+                'relate_team', 'batch', 'exam_total', 'exam_nation', 'exam_practice', 'other')
 
     import_export_args = {'import_resource_class': ExamResources, }
     list_display = ['relate_team', 'get_tea_name', 'get_tea_id_number', 'get_tea_class', 'batch',
@@ -340,15 +348,18 @@ class CertificationAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = ('relate_team', "ass_cert_id", "ass_cert_date", "ass_cert_draw_people", "ass_cert_draw_date",
-                "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other" )
+                      "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other")
 
     import_export_args = {'import_resource_class': CertificationResources, }
-    list_display = ['relate_team', 'get_tea_name', 'get_tea_id_number', 'get_tea_class', "ass_cert_id", "ass_cert_date", "ass_cert_draw_people", "ass_cert_draw_date",
-                    "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other" ]
-    list_filter = ['relate_team__tea_name', 'relate_team__tea_number', "ass_cert_id", "ass_cert_date", "ass_cert_draw_people", "ass_cert_draw_date",
-                    "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other", 'relate_team__tea_class__class_name']
+    list_display = ['relate_team', 'get_tea_name', 'get_tea_id_number', 'get_tea_class', "ass_cert_id", "ass_cert_date",
+                    "ass_cert_draw_people", "ass_cert_draw_date",
+                    "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other"]
+    list_filter = ['relate_team__tea_name', 'relate_team__tea_number', "ass_cert_id", "ass_cert_date",
+                   "ass_cert_draw_people", "ass_cert_draw_date",
+                   "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other",
+                   'relate_team__tea_class__class_name']
     list_editable = ["ass_cert_id", "ass_cert_date", "ass_cert_draw_people", "ass_cert_draw_date",
-                    "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other" ]
+                     "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other"]
     show_bookteaks = False
     search_fields = ['relate_team__tea_name', 'relate_team__tea_number', 'relate_team__tea_class__class_name']
     # readonly_fields = ['relate_team']
@@ -419,4 +430,3 @@ class TotalAdmin(object):
                    'team__teamwechat__wechat_number',
                    'team__teamcertification__ass_cert_id',
                    'team__teamcertification__nation_cert_id']
-

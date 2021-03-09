@@ -375,12 +375,12 @@ class ExamAdmin(object):
     """
     import_export_args = {'import_resource_class': ExamResources, }
     list_display = ['relate_trainingclass', 'get_tra_name', 'get_tra_id_number', 'get_tra_class', 'date',
-                    'total', 'nation_result', 'pre', 'speech', 'other']
+                    'total', 'nation_result', 'pre', 'speech', 'result', 'other']
     list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number',
                    'relate_trainingclass__tra_class__class_name',
                    'date', 'homework_two_result', 'homework_three_result', 'result', 'total', 'nation_result', 'pre',
-                   'speech', 'other']
-    list_editable = ['date', 'total', 'nation_result', 'pre', 'speech', 'other']
+                   'speech', 'result', 'other']
+    list_editable = ['date', 'total', 'nation_result', 'pre', 'speech', 'result', 'other']
     show_bookmarks = False
     exclude = ['homework_one_result', 'homework_two_result', 'result']
     search_fields = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_number',

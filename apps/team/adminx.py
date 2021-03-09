@@ -312,11 +312,11 @@ class ExamAdmin(object):
 
     import_export_args = {'import_resource_class': ExamResources, }
     list_display = ['relate_team', 'get_tea_name', 'get_tea_id_number', 'get_tea_class', 'batch',
-                    'exam_total', 'exam_nation', 'exam_practice', 'other']
+                    'exam_total', 'exam_nation', 'exam_practice', 'result', 'other']
     list_filter = ['relate_team__tea_name', 'relate_team__tea_number', 'relate_team__tea_class__class_name',
-                   'batch', 'exam_total', 'exam_nation', 'exam_practice', 'other']
-    list_editable = ['batch', 'exam_total', 'exam_nation', 'exam_practice', 'other']
-    show_bookteaks = False
+                   'batch', 'exam_total', 'exam_nation', 'exam_practice', 'result', 'other']
+    list_editable = ['batch', 'exam_total', 'exam_nation', 'exam_practice', 'result', 'other']
+    show_bookmarks = False
     search_fields = ['relate_team__tea_name', 'relate_team__tea_number', 'relate_team__tea_class__class_name']
     # readonly_fields = ['relate_team']
 

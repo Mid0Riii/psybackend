@@ -304,11 +304,11 @@ class ExamAdmin(object):
 
     import_export_args = {'import_resource_class': ExamResources, }
     list_display = ['relate_sandbox', 'get_san_name', 'get_san_id_number', 'get_san_class', 'batch',
-                    'exam_total', 'exam_nation', 'exam_practice', 'other']
+                    'exam_total', 'exam_nation', 'exam_practice', 'result', 'other']
     list_filter = ['relate_sandbox__san_name', 'relate_sandbox__san_number', 'relate_sandbox__san_class__class_name',
-                   'batch', 'exam_total', 'exam_nation', 'exam_practice', 'other']
-    list_editable = ['batch', 'exam_total', 'exam_nation', 'exam_practice', 'other']
-    show_booksanks = False
+                   'batch', 'exam_total', 'exam_nation', 'exam_practice', 'result', 'other']
+    list_editable = ['batch', 'exam_total', 'exam_nation', 'exam_practice', 'result', 'other']
+    show_bookmarks = False
     search_fields = ['relate_sandbox__san_name', 'relate_sandbox__san_number', 'relate_sandbox__san_class__class_name']
     # readonly_fields = ['relate_sandbox']
 

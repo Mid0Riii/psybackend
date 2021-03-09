@@ -361,11 +361,11 @@ class ExamAdmin(object):
     """
     import_export_args = {'import_resource_class': ExamResources, }
     list_display = ['relate_family', 'get_fam_name', 'get_fam_id_number', 'get_fam_class', 'date',
-                    'total', 'nation_result', 'pre', 'speech', 'other']
+                    'total', 'nation_result', 'pre', 'speech', 'result', 'other']
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name',
                    'date', 'homework_two_result', 'homework_three_result', 'result', 'total', 'nation_result', 'pre',
-                   'speech', 'other']
-    list_editable = ['date', 'total', 'nation_result', 'pre', 'speech', 'other']
+                   'speech', 'result', 'other']
+    list_editable = ['date', 'total', 'nation_result', 'pre', 'speech', 'result', 'other']
     show_bookmarks = False
     exclude = ['homework_one_result', 'homework_two_result', 'result']
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']

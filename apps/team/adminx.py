@@ -67,7 +67,7 @@ class BasicAdmin(object):
                    'tea_signup_date', 'tea_signup_people', 'tea_other', 'tea_class__class_name', ]
     list_editable = list_display
     search_fields = ['tea_number', 'tea_name', 'tea_class__class_name']
-    show_bookteaks = False
+    show_bookmarks = False
 
     def tuition_state(self, obj):
         info = obj.tea_name
@@ -144,7 +144,7 @@ class ClassAdmin(object):
                     'class_date']
     list_filter = list_display
     search_fields = list_display
-    show_bookteaks = False
+    show_bookmarks = False
     ordering = ['-class_index']
 
 
@@ -239,7 +239,7 @@ class TextbookAdmin(object):
     search_fields = ['relate_team__tea_name', 'relate_team__tea_number', 'relate_team__tea_class__class_name']
     # readonly_fields = ['relate_team']
     list_editable = ['text_team', 'text_two', 'text_train', 'text_manual', 'text_other']
-    show_bookteaks = False
+    show_bookmarks = False
 
 
 @xadmin.sites.register(TeamWechat)
@@ -278,7 +278,7 @@ class WechatAdmin(object):
     search_fields = ['relate_team__tea_name', 'relate_team__tea_number', 'relate_team__tea_class__class_name']
     # readonly_fields = ['relate_team']
     list_editable = ['wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other']
-    show_bookteaks = False
+    show_bookmarks = False
 
 
 @xadmin.sites.register(TeamExam)
@@ -308,7 +308,7 @@ class ExamAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = (
-                'relate_team', 'batch', 'exam_total', 'exam_nation', 'exam_practice', 'other')
+                'relate_team', 'batch', 'exam_total', 'exam_nation', 'exam_practice', 'result', 'other')
 
     import_export_args = {'import_resource_class': ExamResources, }
     list_display = ['relate_team', 'get_tea_name', 'get_tea_id_number', 'get_tea_class', 'batch',
@@ -360,7 +360,7 @@ class CertificationAdmin(object):
                    'relate_team__tea_class__class_name']
     list_editable = ["ass_cert_id", "ass_cert_date", "ass_cert_draw_people", "ass_cert_draw_date",
                      "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other"]
-    show_bookteaks = False
+    show_bookmarks = False
     search_fields = ['relate_team__tea_name', 'relate_team__tea_number', 'relate_team__tea_class__class_name']
     # readonly_fields = ['relate_team']
 

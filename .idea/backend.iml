@@ -25,6 +25,7 @@
       <sourceFolder url="file://$MODULE_DIR$/apps/teacher" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/apps/team" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/apps/trainingClass" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/apps/social" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
     <orderEntry type="inheritedJdk" />

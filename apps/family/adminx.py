@@ -200,7 +200,8 @@ class TuitionAdmin(object):
                     'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc']
     # TODO CODEVIEW filter中外键的处理
     list_filter = ['relate_family__fam_name', 'relate_family__fam_class__class_name', 'fee_tax', 'fee_train',
-                   'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
+                   'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method', 'fee_id', 'fee_tax',
+                   'fee_invoice_header',
                    'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc']
     show_bookmarks = False
     import_export_args = {'import_resource_class': TuitionResources,
@@ -209,6 +210,7 @@ class TuitionAdmin(object):
                      'relate_family__fam_class__class_name']
     list_editable = ['fee_train', 'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                      'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc']
+
     # readonly_fields = ['relate_family']
 
     def get_form_layout(self):
@@ -269,6 +271,7 @@ class TextbookAdmin(object):
     list_editable = ['text_basic', 'text_manual', 'text_other', 'text_basic2', 'text_guide', ]
     show_bookmarks = False
 
+
 class WechatResources(resources.ModelResource):
     # import—export中文列名的最终解决方案
     @classmethod
@@ -306,6 +309,7 @@ class WechatResources(resources.ModelResource):
         report_skipped = True
         fields = ('relate_family', 'wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other')
 
+
 @xadmin.sites.register(FamilyWechat)
 class WechatAdmin(object):
     """
@@ -338,7 +342,6 @@ class ExamResources(resources.ModelResource):
         )
         return field
 
-
     relate_family = fields.Field(
         attribute='relate_family',
         column_name='学号',
@@ -352,7 +355,8 @@ class ExamResources(resources.ModelResource):
         skip_unchanged = True
         # 在导入预览页面中显示跳过的记录
         report_skipped = True
-        fields = ('relate_family', 'date', 'total', 'nation_result', 'pre', 'speech', 'other')
+        fields = ('relate_family', 'date', 'total', 'nation_result', 'pre', 'speech', 'result', 'other')
+
 
 @xadmin.sites.register(Result)
 class ExamAdmin(object):
@@ -370,6 +374,7 @@ class ExamAdmin(object):
     exclude = ['homework_one_result', 'homework_two_result', 'result']
     search_fields = ['relate_family__fam_name', 'relate_family__fam_number', 'relate_family__fam_class__class_name']
     # readonly_fields = ['relate_family']
+
 
 class CertificationResources(resources.ModelResource):
     class CertificationForeignWidget(ForeignKeyWidget):
@@ -395,14 +400,14 @@ class CertificationResources(resources.ModelResource):
                   'cert_nation_people', 'cert_other',)
 
 
-
 @xadmin.sites.register(FamilyCertification)
 class CertificationAdmin(object):
     """
     证书信息
     """
     import_export_args = {'import_resource_class': CertificationResources, }
-    list_display = ['relate_family', 'get_fam_name', 'get_fam_id_number', 'get_fam_class', 'cert_id', 'cert_date', 'cert_draw_people',
+    list_display = ['relate_family', 'get_fam_name', 'get_fam_id_number', 'get_fam_class', 'cert_id', 'cert_date',
+                    'cert_draw_people',
                     'cert_draw_date', 'cert_nation_id', 'cert_nation_people', 'cert_other', ]
     list_filter = ['relate_family__fam_name', 'relate_family__fam_number', 'cert_id', 'cert_date', 'cert_draw_people',
                    'cert_draw_date', 'relate_family__fam_class__class_name', 'cert_nation_id', 'cert_nation_people',

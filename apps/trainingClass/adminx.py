@@ -11,7 +11,7 @@ from .layouts.detailLayouts import BasicLayout, TuitionLayout
 class TrainBasicResources(resources.ModelResource):
     def __init__(self):
         super(TrainBasicResources, self).__init__()
-        field_list = apps.get_model('trainClass', 'TrainBasic')._meta.fields
+        field_list = apps.get_model('trainingClass', 'TrainBasic')._meta.fields
         # 应用名与模型名
         self.verbose_name_dict = {}
         # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
@@ -101,7 +101,7 @@ class BasicAdmin(object):
 class ClassResources(resources.ModelResource):
     def __init__(self):
         super(ClassResources, self).__init__()
-        field_list = apps.get_model('trainClass', 'TrainClass')._meta.fields
+        field_list = apps.get_model('trainingClass', 'TrainClass')._meta.fields
         # 应用名与模型名
         self.verbose_name_dict = {}
         # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
@@ -145,7 +145,7 @@ class ClassAdmin(object):
 class TuitionResources(resources.ModelResource):
     def __init__(self):
         super(TuitionResources, self).__init__()
-        field_list = apps.get_model('trainClass', 'TrainTuition')._meta.fields
+        field_list = apps.get_model('trainingClass', 'TrainTuition')._meta.fields
         # 应用名与模型名
         self.verbose_name_dict = {}
         # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
@@ -197,7 +197,7 @@ class TuitionAdmin(object):
     # TODO CODEVIEW filter中外键的处理
     list_filter = ['relate_trainingclass__tra_name', 'relate_trainingclass__tra_class__class_name', 'fee_tax',
                    'fee_train',
-                   'fee_material', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
+                   'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                    'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc']
     show_bookmarks = False
     import_export_args = {'import_resource_class': TuitionResources,
@@ -218,7 +218,7 @@ class TuitionAdmin(object):
 class TextbookResources(resources.ModelResource):
     def __init__(self):
         super(TextbookResources, self).__init__()
-        field_list = apps.get_model('trainClass', 'TrainTuition')._meta.fields
+        field_list = apps.get_model('trainingClass', 'TrainTuition')._meta.fields
         # 应用名与模型名
         self.verbose_name_dict = {}
         # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
@@ -274,7 +274,7 @@ class TextbookAdmin(object):
 class WechatResources(resources.ModelResource):
     def __init__(self):
         super(WechatResources, self).__init__()
-        field_list = apps.get_model('trainClass', 'TrainTuition')._meta.fields
+        field_list = apps.get_model('trainingClass', 'TrainTuition')._meta.fields
         # 应用名与模型名
         self.verbose_name_dict = {}
         # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
@@ -331,7 +331,7 @@ class WechatAdmin(object):
 class ExamResources(resources.ModelResource):
     def __init__(self):
         super(ExamResources, self).__init__()
-        field_list = apps.get_model('trainClass', 'TrainTuition')._meta.fields
+        field_list = apps.get_model('trainingClass', 'TrainTuition')._meta.fields
         # 应用名与模型名
         self.verbose_name_dict = {}
         # 获取所有字段的verbose_name并存放在verbose_name_dict字典里
@@ -365,7 +365,7 @@ class ExamResources(resources.ModelResource):
         # 在导入预览页面中显示跳过的记录
         report_skipped = True
         fields = (
-            'relate_trainingclass', 'date', 'total', 'nation_result', 'pre', 'speech', 'other')
+            'relate_trainingclass', 'date', 'total', 'nation_result', 'pre', 'speech', 'result', 'other')
 
 
 @xadmin.sites.register(Result)

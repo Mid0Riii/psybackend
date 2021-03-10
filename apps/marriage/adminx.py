@@ -179,7 +179,7 @@ class TuitionAdmin(object):
                     'fee_train', 'fee_material', 'fee_exam', 'fee_total',
                     'fee_date', 'fee_method', 'fee_tax',
                     'fee_invoice_header',
-                    'fee_invoice_id', 'fee_invoice_date', 'result', 'fee_other'
+                    'fee_invoice_id', 'fee_invoice_date', 'fee_other'
                     ]
     # TODO CODEVIEW filter中外键的处理
     list_filter = ['relate_marriage__mar_name','fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method',
@@ -299,7 +299,7 @@ class ExamAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_marriage', 'batch', 'exam_total', 'exam_nation', 'exam_practice', 'other')
+            fields = ('relate_marriage', 'batch', 'exam_total', 'exam_nation', 'exam_practice', 'result', 'other')
 
     import_export_args = {'import_resource_class': ExamResources, }
     list_display = ['relate_marriage', 'get_mar_name', 'get_mar_id_number', 'get_mar_class', 'batch',

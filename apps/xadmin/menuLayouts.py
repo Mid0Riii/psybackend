@@ -2,7 +2,8 @@ from hr.models import CurrentStaff, DismissStaff, AllStaff
 from student.models import StudentClass, StudentCertification, StudentBasic, StudentExamExtra, StudentExam, \
     StudentWechat, \
     StudentTextbook, Tuition, Onduty
-from teacher.models import Teacher, FamilyTeacher, MarriageTeacher, TeamTeacher, SandboxTeacher
+from teacher.models import Teacher, FamilyTeacher, MarriageTeacher, TeamTeacher, SandboxTeacher, TrainTeacher, \
+    SocialTeacher
 from filer.models import FakeModel
 from filer.models import Folder
 from family.models import FamilyClass, FamilyOnduty, FamilyTuition, FamilyBasic, FamilyCertification, FamilyTextbook, \
@@ -15,6 +16,9 @@ from team.models import TeamClass, TeamOnduty, TeamTuition, TeamBasic, TeamCerti
     TeamExam
 from trainingClass.models import TrainBasic, TrainOnduty, TrainTuition, TrainClass, TrainCertification, TrainTextbook, \
     TrainWechat, ResultExtra
+from social.models import SocialClass, SocialOnduty, SocialTuition, SocialBasic, SocialCertification, \
+    SocialTextbook, SocialWechat, SocialExam
+
 # from fileshare.models import FileShare
 from trainingClass.models import Total as TrainTotal
 from trainingClass.models import Result as TrainResult
@@ -24,6 +28,7 @@ from student.models import Total as StudentTotal
 from sandbox.models import Total as SandboxTotal
 from marriage.models import Total as MarriageTotal
 from team.models import Total as TeamTotal
+from social.models import Total as SocialTotal
 
 
 def set_menu(self):
@@ -407,6 +412,67 @@ def set_menu(self):
                 )
         },
         {
+            'title': '社会工作师信息管理',
+            'icon': 'fa fa-user-md',
+            'menus':
+                (
+                    {
+                        'title': '社会工作师信息总览',
+                        'perm': self.get_model_perm(SocialTotal, 'view'),
+                        'url': self.get_model_url(SocialTotal, 'changelist'),
+                        'icon': 'fa fa-address-book'
+                    },
+                    {
+                        'title': '基本信息',
+                        'perm': self.get_model_perm(SocialBasic, 'view'),
+                        'url': self.get_model_url(SocialBasic, 'changelist'),
+                        'icon': 'fa fa-address-book'
+                    },
+                    {
+                        'title': '班级信息',
+                        'perm': self.get_model_perm(SocialClass, 'view'),
+                        'url': self.get_model_url(SocialClass, 'changelist'),
+                        'icon': 'fa fa-users'
+                    },
+                    {
+                        'title': '交费信息',
+                        'perm': self.get_model_perm(SocialTuition, 'view'),
+                        'url': self.get_model_url(SocialTuition, 'changelist'),
+                        'icon': 'fa fa-money'
+                    },
+                    {
+                        'title': '教材信息',
+                        'perm': self.get_model_perm(SocialTextbook, 'view'),
+                        'url': self.get_model_url(SocialTextbook, 'changelist'),
+                        'icon': 'fa fa-book'
+                    },
+                    {
+                        'title': '365开通情况',
+                        'perm': self.get_model_perm(SocialWechat, 'view'),
+                        'url': self.get_model_url(SocialWechat, 'changelist'),
+                        'icon': 'fa fa-weixin'
+                    },
+                    {
+                        'title': '考勤信息',
+                        'perm': self.get_model_perm(SocialOnduty, 'view'),
+                        'url': self.get_model_url(SocialOnduty, 'changelist'),
+                        'icon': 'fa fa-check-square-o'
+                    },
+                    {
+                        'title': '考试信息',
+                        'perm': self.get_model_perm(SocialExam, 'view'),
+                        'url': self.get_model_url(SocialExam, 'changelist'),
+                        'icon': 'fa fa-star'
+                    },
+                    {
+                        'title': '证书信息',
+                        'perm': self.get_model_perm(SocialCertification, 'view'),
+                        'url': self.get_model_url(SocialCertification, 'changelist'),
+                        'icon': 'fa fa-id-card'
+                    }
+                )
+        },
+        {
             'title': '教师授课信息管理',
             'icon': 'fa fa-calendar',
             'menus':
@@ -440,7 +506,19 @@ def set_menu(self):
                         'perm': self.get_model_perm(TeamTeacher, 'view'),
                         'url': self.get_model_url(TeamTeacher, 'changelist'),
                         'icon': 'fa fa-group'
-                    }
+                    },
+                    {
+                        'title': '训练班教师授课信息管理',
+                        'perm': self.get_model_perm(TrainTeacher, 'view'),
+                        'url': self.get_model_url(TrainTeacher, 'changelist'),
+                        'icon': 'fa fa-user-plus'
+                    },
+                    {
+                        'title': '社会教师授课信息管理',
+                        'perm': self.get_model_perm(SocialTeacher, 'view'),
+                        'url': self.get_model_url(SocialTeacher, 'changelist'),
+                        'icon': 'fa fa-user-md'
+                    },
                 )
         },
         {

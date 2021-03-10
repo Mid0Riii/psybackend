@@ -278,6 +278,21 @@ class ExamAdmin(object):
     """
 
     class ExamResources(resources.ModelResource):
+        # import—export中文列名的最终解决方案
+        @classmethod
+        def field_from_django_field(cls, field_name, django_field, readonly):
+            FieldWidget = cls.widget_from_django_field(django_field)
+            widget_kwargs = cls.widget_kwargs_for_field(field_name)
+            field = cls.DEFAULT_RESOURCE_FIELD(
+                attribute=field_name,
+                # 重写column_name
+                column_name=django_field.verbose_name,
+                widget=FieldWidget(**widget_kwargs),
+                readonly=readonly,
+                default=django_field.default,
+            )
+            return field
+
         class ExamForeignWidget(ForeignKeyWidget):
             def get_queryset(self, value, row, *args, **kwargs):
                 return StudentBasic.objects.filter(
@@ -286,7 +301,7 @@ class ExamAdmin(object):
 
         relate_student = fields.Field(
             attribute='relate_student',
-            column_name='relate_student',
+            column_name='学号',
             widget=ExamForeignWidget(StudentBasic, 'stu_number')
         )
 

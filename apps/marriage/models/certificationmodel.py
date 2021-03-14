@@ -30,20 +30,23 @@ class MarriageCertification(models.Model):
     get_mar_name.short_description = u'姓名'
     get_mar_name.allow_tags = get_mar_name.is_column = True
 
-    get_mar_name.short_description = u'姓名'
-    get_mar_name.allow_tags = get_mar_name.is_column = True
-
     def get_mar_num(self):
         return self.relate_marriage.mar_number
 
     get_mar_num.short_description = '学号'
-    get_mar_num.allow_tags = get_mar_num.is_colume = True
+    get_mar_num.allow_tags = get_mar_num.is_column = True
 
     def get_mar_class(self):
         return self.relate_marriage.mar_class.class_name
 
     get_mar_class.short_description = u'班级'
     get_mar_class.allow_tags = get_mar_name.is_column = True
+
+    def get_mar_id_number(self):
+        return self.relate_marriage.mar_id_number
+
+    get_mar_id_number.short_description = u'身份证号'
+    get_mar_id_number.allow_tags = get_mar_id_number.is_column = True
 
     def __str__(self):
         return str(self.relate_marriage.mar_name)

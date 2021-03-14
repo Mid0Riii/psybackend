@@ -13,7 +13,7 @@ class MarriageExam(models.Model):
     exam_total = models.CharField(max_length=128,verbose_name='总分',blank=True,null=True,default='空')
     exam_nation = models.CharField(max_length=128,verbose_name='国考笔试成绩',blank=True,null=True,default='空')
     exam_practice = models.CharField(max_length=128,verbose_name='国考技能分',blank=True,null=True,default='空')
-    # result = models.CharField(max_length=64,verbose_name='合格情况',choices=(('合格','合格'),('不合格','不合格')),blank=True,null=True,default='空')
+    result = models.CharField(max_length=64,verbose_name='合格情况',choices=(('合格','合格'),('不合格','不合格')),blank=True,null=True,default='空')
     other = models.TextField(verbose_name='备注',blank=True,null=True,default='空')
 
     def get_mar_name(self):
@@ -41,6 +41,12 @@ class MarriageExam(models.Model):
 
     get_mar_class.short_description = u'班级'
     get_mar_class.allow_tags = get_mar_name.is_column = True
+
+    def get_mar_id_number(self):
+        return self.relate_marriage.mar_id_number
+
+    get_mar_id_number.short_description = u'身份证号'
+    get_mar_id_number.allow_tags = get_mar_id_number.is_column = True
 
     def __str__(self):
         return str(self.relate_marriage.mar_name)

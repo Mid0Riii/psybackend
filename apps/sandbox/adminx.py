@@ -50,14 +50,16 @@ class BasicAdmin(object):
                 'san_status', 'san_origin', 'san_cellphone', 'san_wechat', 'san_email',
                 'san_signup_date', 'san_signup_people', 'san_other', 'san_class')
 
-    list_display = ['san_number', 'tuition_state', 'san_gender', 'san_class', 'san_class_num', 'san_type', 'san_group', 'san_id_number',
+    list_display = ['san_number', 'tuition_state', 'san_gender', 'san_class', 'san_class_num', 'san_type', 'san_group',
+                    'san_id_number',
                     'san_loc', 'san_deg',
                     'san_major',
                     'san_company', 'san_duty',
                     'san_status', 'san_origin', 'san_cellphone', 'san_wechat', 'san_email',
                     'san_signup_date', 'san_signup_people', 'san_other']
     import_export_args = {'import_resource_class': SandboxBasicResources}
-    list_filter = ['san_number', 'san_name', 'san_type', 'san_group', 'san_gender', 'san_class', 'san_class_num', 'san_id_number',
+    list_filter = ['san_number', 'san_name', 'san_type', 'san_group', 'san_gender', 'san_class', 'san_class_num',
+                   'san_id_number',
                    'san_loc', 'san_deg',
                    'san_major',
                    'san_company', 'san_duty',
@@ -65,7 +67,7 @@ class BasicAdmin(object):
                    'san_signup_date', 'san_signup_people', 'san_other', 'san_class__class_name', ]
     list_editable = list_display
     search_fields = ['san_number', 'san_name', 'san_class__class_name']
-    show_booksanks = False  
+    show_booksanks = False
 
     def tuition_state(self, obj):
         info = obj.san_name
@@ -172,25 +174,31 @@ class TuitionAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_sandbox', 'fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method', 'fee_tax', 'fee_invoice_header',
-                      'fee_invoice_id', 'fee_invoice_date', 'fee_other')
+            fields = (
+                'relate_sandbox', 'fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method',
+                'fee_tax',
+                'fee_invoice_header',
+                'fee_invoice_id', 'fee_invoice_date', 'fee_other')
 
-    list_display = ['relate_sandbox', 'get_san_name', 'get_san_class', 
-                    'fee_train', 'fee_material', 'fee_exam', 'fee_total', 
+    list_display = ['relate_sandbox', 'get_san_name', 'get_san_class',
+                    'fee_train', 'fee_material', 'fee_exam', 'fee_total',
                     'fee_date', 'fee_method', 'fee_tax',
                     'fee_invoice_header',
                     'fee_invoice_id', 'fee_invoice_date', 'fee_other'
                     ]
     # TODO CODEVIEW filter中外键的处理
-    list_filter = ['relate_sandbox__san_name','fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method',
-                    'relate_sandbox__san_class__class_name', 'fee_tax', 'fee_invoice_header',
-                    'fee_invoice_id', 'fee_invoice_date', 'fee_other']
-    show_booksanks = False
+    list_filter = ['relate_sandbox__san_name', 'fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_exam',
+                   'fee_total', 'fee_date', 'fee_method', 'relate_sandbox__san_class__class_name', 'fee_tax',
+                   'fee_invoice_header', 'fee_invoice_id', 'fee_invoice_date', 'fee_other']
+    show_bookmarks = False
     import_export_args = {'import_resource_class': TuitionResources,
                           }
-    search_fields = ['relate_sandbox__san_name', 'relate_sandbox__san_number', 'relate_sandbox__san_number', 'relate_sandbox__san_class__class_name']
-    list_editable = ['fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
+    search_fields = ['relate_sandbox__san_name', 'relate_sandbox__san_number', 'relate_sandbox__san_number',
+                     'relate_sandbox__san_class__class_name']
+    list_editable = ['fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method', 'fee_id',
+                     'fee_tax', 'fee_invoice_header',
                      'fee_invoice_id', 'fee_invoice_date', 'fee_other']
+
     # readonly_fields = ['relate_sandbox']
 
     def get_form_layout(self):
@@ -224,11 +232,14 @@ class TextbookAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_sandbox', 'text_sandbox', 'text_two', 'text_three', 'text_train', 'text_manual', 'text_other')
+            fields = (
+                'relate_sandbox', 'text_sandbox', 'text_two', 'text_three', 'text_train', 'text_manual', 'text_other')
 
     import_export_args = {'import_resource_class': TextbookResources, }
-    list_display = ['relate_sandbox', 'get_san_name', 'get_san_class', 'text_sandbox', 'text_two', 'text_three', 'text_train', 'text_manual', 'text_other']
-    list_filter = ['relate_sandbox__san_name', 'relate_sandbox__san_number','text_sandbox', 'text_two', 'text_three', 'text_train', 'text_other', 'relate_sandbox__san_class__class_name']
+    list_display = ['relate_sandbox', 'get_san_name', 'get_san_class', 'text_sandbox', 'text_two', 'text_three',
+                    'text_train', 'text_manual', 'text_other']
+    list_filter = ['relate_sandbox__san_name', 'relate_sandbox__san_number', 'text_sandbox', 'text_two', 'text_three',
+                   'text_train', 'text_other', 'relate_sandbox__san_class__class_name']
     search_fields = ['relate_sandbox__san_name', 'relate_sandbox__san_number', 'relate_sandbox__san_class__class_name']
     # readonly_fields = ['relate_sandbox']
     list_editable = ['text_sandbox', 'text_two', 'text_three', 'text_train', 'text_manual', 'text_other']
@@ -266,7 +277,8 @@ class WechatAdmin(object):
     import_export_args = {'import_resource_class': WechatResources, }
     list_display = ['relate_sandbox', 'get_san_name', 'get_san_class', 'wechat_number', 'wechat_nickname',
                     'wechat_date', 'wechat_other']
-    list_filter = ['relate_sandbox__san_name', 'relate_sandbox__san_number','wechat_number', 'wechat_nickname', 'wechat_date', 'relate_sandbox__san_class__class_name', 'wechat_other']
+    list_filter = ['relate_sandbox__san_name', 'relate_sandbox__san_number', 'wechat_number', 'wechat_nickname',
+                   'wechat_date', 'relate_sandbox__san_class__class_name', 'wechat_other']
     search_fields = ['relate_sandbox__san_name', 'relate_sandbox__san_number', 'relate_sandbox__san_class__class_name']
     # readonly_fields = ['relate_sandbox']
     list_editable = ['wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_other']
@@ -300,15 +312,15 @@ class ExamAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = (
-            'relate_sandbox', 'batch', 'exam_total', 'exam_nation', 'exam_practice', 'other')
+                'relate_sandbox', 'batch', 'exam_total', 'exam_nation', 'exam_practice', 'result', 'other')
 
     import_export_args = {'import_resource_class': ExamResources, }
-    list_display = ['relate_sandbox', 'get_san_name', 'get_san_class', 'batch', 
-                    'exam_total', 'exam_nation', 'exam_practice', 'other']
+    list_display = ['relate_sandbox', 'get_san_name', 'get_san_id_number', 'get_san_class', 'batch',
+                    'exam_total', 'exam_nation', 'exam_practice', 'result', 'other']
     list_filter = ['relate_sandbox__san_name', 'relate_sandbox__san_number', 'relate_sandbox__san_class__class_name',
-                   'batch', 'exam_total', 'exam_nation', 'exam_practice', 'other']
-    list_editable = ['batch', 'exam_total', 'exam_nation', 'exam_practice', 'other']
-    show_booksanks = False
+                   'batch', 'exam_total', 'exam_nation', 'exam_practice', 'result', 'other']
+    list_editable = ['batch', 'exam_total', 'exam_nation', 'exam_practice', 'result', 'other']
+    show_bookmarks = False
     search_fields = ['relate_sandbox__san_name', 'relate_sandbox__san_number', 'relate_sandbox__san_class__class_name']
     # readonly_fields = ['relate_sandbox']
 
@@ -340,15 +352,18 @@ class CertificationAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = ('relate_sandbox', "ass_cert_id", "ass_cert_date", "ass_cert_draw_people", "ass_cert_draw_date",
-                "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other" )
+                      "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other")
 
     import_export_args = {'import_resource_class': CertificationResources, }
-    list_display = ['relate_sandbox', 'get_san_name', 'get_san_class', "ass_cert_id", "ass_cert_date", "ass_cert_draw_people", "ass_cert_draw_date",
-                    "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other" ]
-    list_filter = ['relate_sandbox__san_name', 'relate_sandbox__san_number', "ass_cert_id", "ass_cert_date", "ass_cert_draw_people", "ass_cert_draw_date",
-                    "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other", 'relate_sandbox__san_class__class_name']
+    list_display = ['relate_sandbox', 'get_san_name', 'get_san_id_number', 'get_san_class', "ass_cert_id",
+                    "ass_cert_date", "ass_cert_draw_people", "ass_cert_draw_date",
+                    "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other"]
+    list_filter = ['relate_sandbox__san_name', 'relate_sandbox__san_number', "ass_cert_id", "ass_cert_date",
+                   "ass_cert_draw_people", "ass_cert_draw_date",
+                   "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other",
+                   'relate_sandbox__san_class__class_name']
     list_editable = ["ass_cert_id", "ass_cert_date", "ass_cert_draw_people", "ass_cert_draw_date",
-                    "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other" ]
+                     "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other"]
     show_booksanks = False
     search_fields = ['relate_sandbox__san_name', 'relate_sandbox__san_number', 'relate_sandbox__san_class__class_name']
     # readonly_fields = ['relate_sandbox']
@@ -419,4 +434,3 @@ class TotalAdmin(object):
                    'sandbox__sandboxwechat__wechat_number',
                    'sandbox__sandboxcertification__ass_cert_id',
                    'sandbox__sandboxcertification__nation_cert_id']
-

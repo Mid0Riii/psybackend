@@ -156,12 +156,12 @@ class TuitionAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = ('relate_student', 'fee_train', 'fee_material', 'fee_exam', 'fee_total',
-                    'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
+                      'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                       'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc', 'fee_info')
 
     list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'fee_train', 'fee_material', 'fee_exam',
                     'fee_total',
-                     'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
+                    'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                     'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc', 'fee_info']
     # TODO CODEVIEW filter中外键的处理
     list_filter = ['relate_student__stu_name', 'relate_student__stu_number', 'fee_train', 'fee_material', 'fee_exam',
@@ -173,7 +173,8 @@ class TuitionAdmin(object):
     list_editable = ['fee_train', 'fee_material', 'fee_exam', 'fee_total',
                      'fee_exam_extra', 'fee_date', 'fee_method', 'fee_id', 'fee_tax', 'fee_invoice_header',
                      'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc', 'fee_info']
-    exclude = ['relate_class','fee_exam_extra']
+    exclude = ['relate_class', 'fee_exam_extra']
+
     # readonly_fields = ['relate_student']
 
     def get_form_layout(self):
@@ -208,9 +209,9 @@ class TextbookAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = (
-            'relate_student', 'text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure', 'text_thr_measure',
-            'text_thr',
-            'text_thr_exer', 'text_manual', 'text_exam', 'text_CAS', 'text_guide', 'text_other')
+                'relate_student', 'text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure', 'text_thr_measure',
+                'text_thr',
+                'text_thr_exer', 'text_manual', 'text_exam', 'text_CAS', 'text_guide', 'text_other')
 
     import_export_args = {'import_resource_class': TextbookResources, }
     list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'text_basic', 'text_sec', 'text_sec_exer',
@@ -257,7 +258,7 @@ class WechatAdmin(object):
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
             fields = (
-            'relate_student', 'wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_test', 'wechat_date2')
+                'relate_student', 'wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_test', 'wechat_date2')
 
     import_export_args = {'import_resource_class': WechatResources, }
     list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'wechat_number', 'wechat_nickname',
@@ -277,6 +278,21 @@ class ExamAdmin(object):
     """
 
     class ExamResources(resources.ModelResource):
+        # import—export中文列名的最终解决方案
+        @classmethod
+        def field_from_django_field(cls, field_name, django_field, readonly):
+            FieldWidget = cls.widget_from_django_field(django_field)
+            widget_kwargs = cls.widget_kwargs_for_field(field_name)
+            field = cls.DEFAULT_RESOURCE_FIELD(
+                attribute=field_name,
+                # 重写column_name
+                column_name=django_field.verbose_name,
+                widget=FieldWidget(**widget_kwargs),
+                readonly=readonly,
+                default=django_field.default,
+            )
+            return field
+
         class ExamForeignWidget(ForeignKeyWidget):
             def get_queryset(self, value, row, *args, **kwargs):
                 return StudentBasic.objects.filter(
@@ -285,7 +301,7 @@ class ExamAdmin(object):
 
         relate_student = fields.Field(
             attribute='relate_student',
-            column_name='relate_student',
+            column_name='学号',
             widget=ExamForeignWidget(StudentBasic, 'stu_number')
         )
 
@@ -296,25 +312,31 @@ class ExamAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_student', 'exam_date',  'exam_theory_result',
+            fields = ('relate_student', 'exam_date', 'exam_theory_result',
                       'exam_practise_result', 'exam_total', 'exam_total_result', 'exam_status',
-                      'exam_practise_result2','exam_pre','exam_speech','exam_thr_theory','exam_thr_skill','exam_sec_theory','exam_sec_skill','exam_thesis','exam_CAS',)
+                      'exam_practise_result2', 'exam_pre', 'exam_speech', 'exam_thr_theory', 'exam_thr_skill',
+                      'exam_sec_theory', 'exam_sec_skill', 'exam_thesis', 'exam_CAS',)
 
     import_export_args = {'import_resource_class': ExamResources, }
-    list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'exam_date',
-                     'exam_theory_result',
+    list_display = ['relate_student', 'get_stu_name', 'get_stu_id_number', 'get_stu_class', 'exam_date',
+                    'exam_theory_result',
                     'exam_practise_result',
-                    'exam_practise_result2','exam_pre','exam_speech','exam_thr_theory','exam_thr_skill','exam_sec_theory','exam_sec_skill','exam_thesis','exam_CAS',
+                    'exam_practise_result2', 'exam_pre', 'exam_speech', 'exam_thr_theory', 'exam_thr_skill',
+                    'exam_sec_theory', 'exam_sec_skill', 'exam_thesis', 'exam_CAS',
                     'exam_total', 'exam_total_result', 'exam_status']
     list_filter = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name',
                    'exam_date', 'exam_theory', 'exam_theory_result', 'exam_practise', 'exam_practise_result',
-                   'exam_total', 'exam_total_result', 'exam_status', 'exam_practise_result2','exam_pre','exam_speech','exam_thr_theory','exam_thr_skill','exam_sec_theory','exam_sec_skill','exam_thesis','exam_CAS',]
+                   'exam_total', 'exam_total_result', 'exam_status', 'exam_practise_result2', 'exam_pre', 'exam_speech',
+                   'exam_thr_theory', 'exam_thr_skill', 'exam_sec_theory', 'exam_sec_skill', 'exam_thesis',
+                   'exam_CAS', ]
     list_editable = ['exam_date', 'exam_theory', 'exam_theory_result', 'exam_practise',
-                     'exam_practise_result', 'exam_total', 'exam_total_result', 'exam_status','exam_practise_result2','exam_pre','exam_speech','exam_thr_theory','exam_thr_skill','exam_sec_theory','exam_sec_skill','exam_thesis','exam_CAS',]
+                     'exam_practise_result', 'exam_total', 'exam_total_result', 'exam_status', 'exam_practise_result2',
+                     'exam_pre', 'exam_speech', 'exam_thr_theory', 'exam_thr_skill', 'exam_sec_theory',
+                     'exam_sec_skill', 'exam_thesis', 'exam_CAS', ]
     show_bookmarks = False
     search_fields = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name']
     # readonly_fields = ['relate_student']
-    exclude=['exam_theory','exam_practise']
+    exclude = ['exam_theory', 'exam_practise']
 
     def get_form_layout(self):
         self.form_layout = ExamLayout
@@ -396,14 +418,19 @@ class CertificationAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = ('relate_student', 'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date','cert_nation_id','cert_nation_people','cert_CAS_id','cert_CAS_people','cert_other')
+            fields = ('relate_student', 'cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date', 'cert_nation_id',
+                      'cert_nation_people', 'cert_CAS_id', 'cert_CAS_people', 'cert_other')
 
     import_export_args = {'import_resource_class': CertificationResources, }
-    list_display = ['relate_student', 'get_stu_name', 'get_stu_class', 'cert_id', 'cert_date', 'cert_draw_people',
-                    'cert_draw_date','cert_nation_id','cert_nation_people','cert_CAS_id','cert_CAS_people','cert_other']
+    list_display = ['relate_student', 'get_stu_name', 'get_stu_id_number', 'get_stu_class', 'cert_id', 'cert_date',
+                    'cert_draw_people',
+                    'cert_draw_date', 'cert_nation_id', 'cert_nation_people', 'cert_CAS_id', 'cert_CAS_people',
+                    'cert_other']
     list_filter = ['relate_student__stu_name', 'relate_student__stu_number', 'cert_id', 'cert_date', 'cert_draw_people',
-                   'cert_draw_date', 'relate_student__stu_class__class_name','cert_nation_id','cert_nation_people','cert_CAS_id','cert_CAS_people','cert_other']
-    list_editable = ['cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date','cert_nation_id','cert_nation_people','cert_CAS_id','cert_CAS_people','cert_other']
+                   'cert_draw_date', 'relate_student__stu_class__class_name', 'cert_nation_id', 'cert_nation_people',
+                   'cert_CAS_id', 'cert_CAS_people', 'cert_other']
+    list_editable = ['cert_id', 'cert_date', 'cert_draw_people', 'cert_draw_date', 'cert_nation_id',
+                     'cert_nation_people', 'cert_CAS_id', 'cert_CAS_people', 'cert_other']
     show_bookmarks = False
     search_fields = ['relate_student__stu_name', 'relate_student__stu_number', 'relate_student__stu_class__class_name']
     # readonly_fields = ['relate_student']
@@ -456,20 +483,24 @@ class TotalAdmin(object):
     """
     Change_total_link_allow = True
     list_display_links = None
-    list_display = ['stu_type','stu_number','stu_group', 'stu_name', 'stu_gender', 'stu_class', 'stu_class_num', 'stu_level', 'stu_id_number',
+    list_display = ['stu_type', 'stu_number', 'stu_group', 'stu_name', 'stu_gender', 'stu_class', 'stu_class_num',
+                    'stu_level', 'stu_id_number',
                     'stu_loc', 'stu_deg', 'stu_major', 'stu_company', 'stu_duty', 'stu_status', 'stu_origin',
                     'stu_cellphone', 'stu_wechat', 'stu_qq', 'stu_signup_date', 'stu_signup_people', 'stu_other',
-                    'fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method','fee_id', 'fee_tax', 'fee_invoice_header',
-                    'fee_invoice_id', 'fee_invoice_date','fee_invoice_inc','fee_info',
-                    'text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure','text_thr',
-                    'text_thr_exer','text_thr_measure','text_manual', 'text_exam','text_CAS','text_guide','text_other',
-                    'wechat_number', 'wechat_nickname','wechat_date','wechat_test','wechat_date2',
+                    'fee_train', 'fee_material', 'fee_exam', 'fee_total', 'fee_date', 'fee_method', 'fee_id', 'fee_tax',
+                    'fee_invoice_header',
+                    'fee_invoice_id', 'fee_invoice_date', 'fee_invoice_inc', 'fee_info',
+                    'text_basic', 'text_sec', 'text_sec_exer', 'text_sec_measure', 'text_thr',
+                    'text_thr_exer', 'text_thr_measure', 'text_manual', 'text_exam', 'text_CAS', 'text_guide',
+                    'text_other',
+                    'wechat_number', 'wechat_nickname', 'wechat_date', 'wechat_test', 'wechat_date2',
                     'onduty', 'homework', 'other',
                     'exam_date', 'exam_theory_result',
-                    'exam_practise_result','exam_practise_result2','exam_pre','exam_speech','exam_thr_theory','exam_thr_skill',
-                    'exam_sec_theory','exam_sec_skill','exam_thesis','exam_CAS','exam_other',
-                    'cert_id','cert_draw_people','cert_draw_date','cert_nation_id','cert_nation_people',
-                    'cert_CAS_id','cert_CAS_people','cert_other'
+                    'exam_practise_result', 'exam_practise_result2', 'exam_pre', 'exam_speech', 'exam_thr_theory',
+                    'exam_thr_skill',
+                    'exam_sec_theory', 'exam_sec_skill', 'exam_thesis', 'exam_CAS', 'exam_other',
+                    'cert_id', 'cert_draw_people', 'cert_draw_date', 'cert_nation_id', 'cert_nation_people',
+                    'cert_CAS_id', 'cert_CAS_people', 'cert_other'
                     ]
     show_bookmarks = False
     list_filter = ['student__stu_name', 'student__stu_cellphone', 'student__stu_class__class_name',

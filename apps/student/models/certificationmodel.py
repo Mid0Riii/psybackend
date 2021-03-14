@@ -20,6 +20,7 @@ class StudentCertification(models.Model):
     cert_CAS_id = models.CharField(max_length=128, verbose_name='中科院证书编号', blank=True, null=True, default='空')
     cert_CAS_people = models.CharField(max_length=128, verbose_name='中科院证书领取人与领取日期', blank=True, null=True, default='空')
     cert_other = models.CharField(max_length=128, verbose_name='备注', blank=True, null=True, default='空')
+
     def get_stu_name(self):
         info = self.relate_student.stu_name
         if self.relate_student.tuition.fee_date == '空':
@@ -42,6 +43,12 @@ class StudentCertification(models.Model):
 
     get_stu_class.short_description = u'班级'
     get_stu_class.allow_tags = get_stu_name.is_column = True
+
+    def get_stu_id_number(self):
+        return self.relate_student.stu_id_number
+
+    get_stu_id_number.short_description = u'身份证号'
+    get_stu_id_number.allow_tags = get_stu_id_number.is_column = True
 
     def __str__(self):
         return str(self.relate_student.stu_name)

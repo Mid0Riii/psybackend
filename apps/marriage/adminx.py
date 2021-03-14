@@ -176,7 +176,7 @@ class TuitionAdmin(object):
                       'fee_invoice_id', 'fee_invoice_date', 'fee_other')
 
     list_display = ['relate_marriage', 'get_mar_name', 'get_mar_class', 
-                    'fee_train', 'fee_material', 'fee_exam', 'fee_total', 
+                    'fee_train', 'fee_material', 'fee_exam', 'fee_total',
                     'fee_date', 'fee_method', 'fee_tax',
                     'fee_invoice_header',
                     'fee_invoice_id', 'fee_invoice_date', 'fee_other'
@@ -299,15 +299,14 @@ class ExamAdmin(object):
             skip_unchanged = True
             # 在导入预览页面中显示跳过的记录
             report_skipped = True
-            fields = (
-            'relate_marriage', 'batch', 'exam_total', 'exam_nation', 'exam_practice', 'other')
+            fields = ('relate_marriage', 'batch', 'exam_total', 'exam_nation', 'exam_practice', 'result', 'other')
 
     import_export_args = {'import_resource_class': ExamResources, }
-    list_display = ['relate_marriage', 'get_mar_name', 'get_mar_class', 'batch', 
-                    'exam_total', 'exam_nation', 'exam_practice', 'other']
+    list_display = ['relate_marriage', 'get_mar_name', 'get_mar_id_number', 'get_mar_class', 'batch',
+                    'exam_total', 'exam_nation', 'exam_practice', 'result', 'other']
     list_filter = ['relate_marriage__mar_name', 'relate_marriage__mar_number', 'relate_marriage__mar_class__class_name',
-                   'batch', 'exam_total', 'exam_nation', 'exam_practice', 'other']
-    list_editable = ['batch', 'exam_total', 'exam_nation', 'exam_practice', 'other']
+                   'batch', 'exam_total', 'exam_nation', 'exam_practice', 'result', 'other']
+    list_editable = ['batch', 'exam_total', 'exam_nation', 'exam_practice', 'result', 'other']
     show_bookmarks = False
     search_fields = ['relate_marriage__mar_name', 'relate_marriage__mar_number', 'relate_marriage__mar_class__class_name']
     # readonly_fields = ['relate_marriage']
@@ -343,7 +342,7 @@ class CertificationAdmin(object):
                 "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other" )
 
     import_export_args = {'import_resource_class': CertificationResources, }
-    list_display = ['relate_marriage', 'get_mar_name', 'get_mar_class', "ass_cert_id", "ass_cert_date", "ass_cert_draw_people", "ass_cert_draw_date",
+    list_display = ['relate_marriage', 'get_mar_name', 'get_mar_id_number', 'get_mar_class', "ass_cert_id", "ass_cert_date", "ass_cert_draw_people", "ass_cert_draw_date",
                     "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other" ]
     list_filter = ['relate_marriage__mar_name', 'relate_marriage__mar_number', "ass_cert_id", "ass_cert_date", "ass_cert_draw_people", "ass_cert_draw_date",
                     "nation_cert_id", "nation_cert_date", "nation_cert_draw_people", "nation_cert_draw_date", "other", 'relate_marriage__mar_class__class_name']
